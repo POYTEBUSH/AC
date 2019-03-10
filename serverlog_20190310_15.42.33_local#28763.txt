@@ -1,0 +1,129 @@
+logging local AssaultCube server (version 1202, protocol 1201/104) now..
+read 93 map rotation entries from 'config\maprot.cfg'
+read 0 admin passwords from 'config\serverpwd.cfg'
+read 0 (0) blacklist entries from 'config\serverblacklist.cfg', 0 errors
+read 0 + 0 entries from nickname blacklist file 'config\nicknameblacklist.cfg', 0 errors
+could not read config file 'config\serverkillmessages.cfg'
+anticheat: enabled
+dedicated server started, waiting for clients...
+Ctrl-C to exit
+could not read config file 'config\serverkillmessages.cfg'
+[100.81.209.10] client connected
+[100.81.209.10] unarmed logged in (default), AC: 1202|1e48
+Map height density information for ac_scaffold: H = 16.06 V = 158291, A = 9858 and MA = 665
+
+Game start: deathmatch on ac_scaffold, 1 players, 8 minutes, mastermode 0, (map rev 2/9934, official, 'getmap' not prepared)
+Demo recording started.
+[100.81.209.10] unarmed changed name to Player1
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: deathmatch on ac_scaffold, 8 minutes remaining, open, 1 clients
+cn name              score frag death ping role    host
+ 0 Player1               0    0     0    3 normal  100.81.209.10
+
+Status at 10-03-2019 15:43:33: 1 remote clients, 0.1 send, 0.3 rec (K/sec); Ping: #1|19|2; CSL: #0|0|0 (bytes)
+[100.81.209.10] client Player1 called a vote: load map 'ac_depot' in mode 'ctf'
+Demo "03/10/19 15:44:08: deathmatch, ac_scaffold, 8.39kB, 7 mr" recorded.
+Map height density information for ac_depot: H = 10.00 V = 1550415, A = 154990 and MA = 2081
+
+Game start: ctf on ac_depot, 1 players, 15 minutes, mastermode 0, (map rev 3/15383, official, 'getmap' not prepared)
+Demo recording started.
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: ctf on ac_depot, 15 minutes remaining, open, 1 clients
+cn name             team flag  score frag death tk ping role    host
+ 0 Player1          RVSF    0      0    0     0  0    5 normal  100.81.209.10
+Team  CLA:  0 players,    0 frags,    0 flags
+Team RVSF:  1 players,    0 frags,    0 flags
+
+Status at 10-03-2019 15:44:33: 1 remote clients, 0.1 send, 0.6 rec (K/sec); Ping: #1|27|2; CSL: #0|0|0 (bytes)
+[100.81.209.10] disconnected client Player1 cn 0, 109 seconds played, score saved
+Demo "03/10/19 15:44:49: ctf, ac_depot, 8.37kB, 15 mr" recorded.
+could not read config file 'config\serverkillmessages.cfg'
+Status at 10-03-2019 15:45:33: 0 remote clients, 0.2 send, 0.2 rec (K/sec); Ping: #0|0|0; CSL: #0|0|0 (bytes)
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+[100.81.209.10] client connected
+[100.81.209.10] Player1 logged in (default), AC: 1202|1e48
+Map height density information for ac_desert: H = 11.23 V = 266445, A = 23719 and MA = 2005
+
+Game start: deathmatch on ac_desert, 1 players, 8 minutes, mastermode 0, (map rev 2/12014, official, 'getmap' not prepared)
+Demo recording started.
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: deathmatch on ac_desert, 8 minutes remaining, open, 1 clients
+cn name              score frag death ping role    host
+ 0 Player1               0    0     0    0 normal  100.81.209.10
+
+Status at 10-03-2019 15:54:33: 1 remote clients, 0.0 send, 0.0 rec (K/sec); Ping: #26|494|52; CSL: #0|0|0 (bytes)
+[100.81.209.10] client connected
+[100.81.209.10] Player1 logged in (default), AC: 1202|1e48
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: deathmatch on ac_desert, 7 minutes remaining, open, 2 clients
+cn name              score frag death ping role    host
+ 0 Player1               0    0     0    5 normal  100.81.209.10
+ 1 Player1               0    0     0    5 normal  100.81.209.10
+
+Status at 10-03-2019 15:55:33: 2 remote clients, 0.7 send, 0.8 rec (K/sec); Ping: #2|56|4; CSL: #0|0|0 (bytes)
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: deathmatch on ac_desert, 6 minutes remaining, open, 2 clients
+cn name              score frag death ping role    host
+ 0 Player1               0    0     0    5 normal  100.81.209.10
+ 1 Player1               0    0     0    5 normal  100.81.209.10
+
+Status at 10-03-2019 15:56:33: 2 remote clients, 0.9 send, 0.9 rec (K/sec); Ping: #0|0|0; CSL: #0|0|0 (bytes)
+[100.81.209.10] client Player1 called a vote: load map 'ac_arctic' in mode 'team deathmatch'
+Demo "03/10/19 15:57:29: deathmatch, ac_desert, 17.32kB, 6 mr" recorded.
+Map height density information for ac_arctic: H = 13.49 V = 522123, A = 38700 and MA = 1221
+
+Game start: team deathmatch on ac_arctic, 2 players, 15 minutes, mastermode 0, (map rev 4/15071, official, 'getmap' not prepared)
+Demo recording started.
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: team deathmatch on ac_arctic, 15 minutes remaining, open, 2 clients
+cn name             team  score frag death tk ping role    host
+ 0 Player1          RVSF      0    0     0  0   25 normal  100.81.209.10
+ 1 Player1          SPEC      0    0     0  0    5 normal  100.81.209.10
+Team  CLA:  0 players,    0 frags
+Team RVSF:  1 players,    0 frags
+
+Status at 10-03-2019 15:57:33: 2 remote clients, 0.7 send, 0.7 rec (K/sec); Ping: #1|28|2; CSL: #0|0|0 (bytes)
+[100.81.209.10] disconnected client Player1 cn 1, 200 seconds played, score saved
+[100.81.209.10] disconnected client Player1 cn 0, 227 seconds played, score saved
+Demo "03/10/19 15:58:19: team deathmatch, ac_arctic, 8.49kB, 15 mr" recorded.
+could not read config file 'config\serverkillmessages.cfg'
+Status at 10-03-2019 15:58:33: 0 remote clients, 0.8 send, 0.6 rec (K/sec); Ping: #0|0|0; CSL: #0|0|0 (bytes)
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
+could not read config file 'config\serverkillmessages.cfg'
