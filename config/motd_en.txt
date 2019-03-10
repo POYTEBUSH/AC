@@ -18,3 +18,4 @@
 //     Coloring a motd is fun: \f0Green\f5 and another \fLgreen\f5 from the set.\n
 //     contact me at a@b.c
 
+Peter Bush's Advanced AI code\f0Green\f5 and another \fLgreen\f5 from the set.\n

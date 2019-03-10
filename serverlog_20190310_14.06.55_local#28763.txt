@@ -1,0 +1,2 @@
+logging local AssaultCube server (version 1202, protocol 1201/104) now..
+ERROR: AssaultCube fatal error: could not create server info socket

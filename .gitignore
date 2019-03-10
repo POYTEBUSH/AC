@@ -38,3 +38,4 @@ dumpmapconfig.txt
 packetlog.txt
 profile/*
 
+source/vcpp/.vs/

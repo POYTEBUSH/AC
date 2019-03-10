@@ -1,0 +1,12 @@
+logging local AssaultCube server (version 1202, protocol 1201/104) now..
+read 93 map rotation entries from 'config\maprot.cfg'
+read 0 admin passwords from 'config\serverpwd.cfg'
+read 0 (0) blacklist entries from 'config\serverblacklist.cfg', 0 errors
+read 0 + 0 entries from nickname blacklist file 'config\nicknameblacklist.cfg', 0 errors
+could not read config file 'config\serverkillmessages.cfg'
+anticheat: enabled
+dedicated server started, waiting for clients...
+Ctrl-C to exit
+looking up localhost:28760...
+WARNING: could not connect
+could not read config file 'config\serverkillmessages.cfg'

@@ -1,0 +1,65 @@
+logging local AssaultCube server (version 1202, protocol 1201/104) now..
+read 93 map rotation entries from 'config\maprot.cfg'
+read 0 admin passwords from 'config\serverpwd.cfg'
+read 0 (0) blacklist entries from 'config\serverblacklist.cfg', 0 errors
+read 0 + 0 entries from nickname blacklist file 'config\nicknameblacklist.cfg', 0 errors
+could not read config file 'config\serverkillmessages.cfg'
+anticheat: enabled
+dedicated server started, waiting for clients...
+Ctrl-C to exit
+could not read config file 'config\serverkillmessages.cfg'
+[100.81.209.10] client connected
+[100.81.209.10] unarmed logged in (default), AC: 1202|1e48
+Map height density information for ac_scaffold: H = 16.06 V = 158291, A = 9858 and MA = 665
+
+Game start: deathmatch on ac_scaffold, 1 players, 8 minutes, mastermode 0, (map rev 2/9934, official, 'getmap' not prepared)
+Demo recording started.
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: deathmatch on ac_scaffold, 8 minutes remaining, open, 1 clients
+cn name              score frag death ping role    host
+ 0 unarmed               0    0     0    5 normal  100.81.209.10
+
+Status at 10-03-2019 14:11:47: 1 remote clients, 0.0 send, 0.3 rec (K/sec); Ping: #1|19|2; CSL: #0|0|0 (bytes)
+[100.81.209.10] client connected
+[100.81.209.10] unarmed logged in (default), AC: 1202|1e48
+[100.81.209.10] unarmed shredded unarmed
+[100.81.209.10] unarmed shredded unarmed
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: deathmatch on ac_scaffold, 7 minutes remaining, open, 2 clients
+cn name              score frag death ping role    host
+ 0 unarmed               6    1     1    6 normal  100.81.209.10
+ 1 unarmed               6    1     1    5 normal  100.81.209.10
+
+Status at 10-03-2019 14:12:47: 2 remote clients, 0.9 send, 0.9 rec (K/sec); Ping: #11|330|22; CSL: #0|0|0 (bytes)
+[100.81.209.10] client unarmed called a vote: load map 'ac_power' in mode 'keep the flag'
+Demo "03/10/19 14:12:54: deathmatch, ac_scaffold, 13.46kB, 7 mr" recorded.
+Map height density information for ac_power: H = 15.90 V = 706430, A = 44436 and MA = 2889
+
+Game start: keep the flag on ac_power, 2 players, 10 minutes, mastermode 0, (map rev 4/14519, official, 'getmap' not prepared)
+Demo recording started.
+[100.81.209.10] unarmed stole the flag
+[100.81.209.10] unarmed scored, carrying for 15 seconds, new score 1
+[100.81.209.10] unarmed scored, carrying for 30 seconds, new score 2
+[100.81.209.10] unarmed shredded unarmed
+[100.81.209.10] unarmed lost the flag
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: keep the flag on ac_power, 10 minutes remaining, open, 2 clients
+cn name             flag  score frag death ping role    host
+ 0 unarmed             0     10    1     0    5 normal  100.81.209.10
+ 1 unarmed             2     24    0     1    5 normal  100.81.209.10
+
+Status at 10-03-2019 14:13:47: 2 remote clients, 1.1 send, 1.1 rec (K/sec); Ping: #3|84|6; CSL: #0|0|0 (bytes)
+could not read config file 'config\serverkillmessages.cfg'
+
+Game status: keep the flag on ac_power, 9 minutes remaining, open, 2 clients
+cn name             flag  score frag death ping role    host
+ 0 unarmed             0     10    1     0    6 normal  100.81.209.10
+ 1 unarmed             2     24    0     1    5 normal  100.81.209.10
+
+Status at 10-03-2019 14:14:47: 2 remote clients, 0.8 send, 0.7 rec (K/sec); Ping: #13|354|28; CSL: #0|0|0 (bytes)
+[100.81.209.10] disconnected client unarmed cn 0, 260 seconds played, score saved
+[100.81.209.10] disconnected client unarmed cn 1, 232 seconds played, score saved
+Demo "03/10/19 14:15:41: keep the flag, ac_power, 20.86kB, 8 mr" recorded.
