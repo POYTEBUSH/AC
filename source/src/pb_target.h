@@ -37,3 +37,31 @@ private:
 	float mTargetCompletionRange;
 };
 
+class pb_task
+{
+public:
+	pb_task() {};
+	pb_task() {};
+
+	virtual void PerformTask() = 0;
+
+protected:
+
+	pb_target* mTarget;
+};
+
+class pb_task_movement : public pb_task
+{
+public:
+
+	void SetTarget(pb_target* target)
+	{
+		mTarget = target;
+	};
+	void PerformTask()
+	{
+
+	}
+private:
+
+};
