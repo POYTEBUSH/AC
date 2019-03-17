@@ -415,6 +415,8 @@
     </CustomBuildStep>
     <ClInclude Include="..\src\model.h" />
     <ClInclude Include="..\src\modelcache.h" />
+    <ClInclude Include="..\src\pb_marpo.h" />
+    <ClInclude Include="..\src\pb_target.h" />
     <ClInclude Include="..\src\platform.h" />
     <ClInclude Include="..\src\protocol.h" />
     <ClInclude Include="..\src\protos.h" />
@@ -502,6 +504,8 @@
     <None Include="..\..\config\sounds.cfg" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\pb_marpo.cpp" />
+    <ClCompile Include="..\src\pb_target.cpp" />
     <ClCompile Include="..\src\rendercubes.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone|Win32'">true</ExcludedFromBuild>

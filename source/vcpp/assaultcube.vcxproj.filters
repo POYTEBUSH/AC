@@ -29,6 +29,9 @@
     <Filter Include="sound">
       <UniqueIdentifier>{f1b104ac-e944-435e-8b70-99868aa7c7e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bot\PeterBush-b013432f">
+      <UniqueIdentifier>{caa3b97e-040a-413a-9be3-f314b1e5804b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\command.h">
@@ -99,6 +102,12 @@
     </ClInclude>
     <ClInclude Include="..\src\world.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pb_marpo.h">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pb_target.h">
+      <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +397,12 @@
     </ClCompile>
     <ClCompile Include="..\src\soundscheduler.cpp">
       <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pb_marpo.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pb_target.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
