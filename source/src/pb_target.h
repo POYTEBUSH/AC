@@ -2,6 +2,9 @@
 #include "geom.h"
 #include "entity.h"
 
+//Forward Dec
+class CBot;
+
 enum ETargetType 
 {
 	TARGET_TYPE_ENTITY,
@@ -18,7 +21,6 @@ public:
 	void Set(const vec& position);
 	void Set(const entity* entity);
 	void Set(const playerent* entity);
-
 
 private:
 
@@ -40,14 +42,23 @@ private:
 class pb_task
 {
 public:
-	pb_task() {};
-	pb_task() {};
+	pb_task(CBot* performingEntity) : mTaskLevel(TASK_LEVEL_LONGTERM), mPerformingEntity(performingEntity) {};
+	pb_task(CBot* performingEntity, ETaskLevel taskLevel) : mTaskLevel(taskLevel), mPerformingEntity(performingEntity) {};
+	~pb_task() {};
 
-	virtual void PerformTask() = 0;
+	virtual void CalculateSubTasks();
+	virtual void PerformTask();
+	bool IsCompleted() const { return mIsCompleted; }
 
 protected:
 
+	//This tasks level, stored so we can add the sub-tasks to the same stack
+	ETaskLevel mTaskLevel;
 	pb_target* mTarget;
+
+	CBot* mPerformingEntity;
+
+	bool mIsCompleted;
 };
 
 class pb_task_movement : public pb_task
@@ -63,5 +74,17 @@ public:
 
 	}
 private:
+
+};
+
+class pb_task_wander : public pb_task
+{
+public:
+
+	void CalculateSubTasks() {};
+	void PerformTask() {};
+
+private:
+
 
 };
