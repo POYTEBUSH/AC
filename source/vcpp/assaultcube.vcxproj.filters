@@ -32,9 +32,6 @@
     <Filter Include="bot\PeterBush-b013432f">
       <UniqueIdentifier>{caa3b97e-040a-413a-9be3-f314b1e5804b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bot\PeterBush-b013432f\Target Types">
-      <UniqueIdentifier>{1fe1a1c6-57f5-4367-8137-e2304f546d45}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\command.h">
@@ -113,7 +110,7 @@
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
     <ClInclude Include="..\src\pb_target_wander.h">
-      <Filter>bot\PeterBush-b013432f\Target Types</Filter>
+      <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

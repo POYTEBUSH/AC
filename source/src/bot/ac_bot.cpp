@@ -65,8 +65,8 @@ void CACBot::Spawn()
 	 //Attach bot to its MARPO Manager
 	 mMARPO_Manager = new pb_marpo(this);
 
-	 pb_target_wander* defaultTarget = new pb_target_wander(TASK_LEVEL_LONGTERM);
-	 mMARPO_Manager->SetDefaultTarget(defaultTarget);
+	 //pb_target_wander* defaultTarget = new pb_target_wander(TASK_LEVEL_LONGTERM);
+	 //mMARPO_Manager->SetDefaultTarget(defaultTarget);
 
      ResetWaypointVars();
 }
