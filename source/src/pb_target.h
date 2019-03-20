@@ -2,8 +2,10 @@
 #include "geom.h"
 #include "entity.h"
 
-//Forward Dec
-class CBot;
+#include "bot/bot.h"
+
+#include <vector>
+#include <assert.h>
 
 enum ETargetType 
 {
@@ -30,11 +32,12 @@ public:
 	void Set(const entity* entity);
 	void Set(const playerent* entity);
 
-	virtual void CalculateSubTasks() = 0;
-	virtual void PerformTask() = 0;
+	//Return a collection of required sub-tasks
+	virtual std::vector<pb_target*> CalculateSubTasks(CBot* bot) = 0;
+	virtual void PerformTask(CBot* bot) = 0;
 	bool IsCompleted() const { return mIsCompleted; }
 
-private:
+protected:
 
 	//Position of target
 	vec mTargetVec;
@@ -56,4 +59,21 @@ private:
 
 	//Is the task completed or not
 	bool mIsCompleted;
+
+	int runtime = 0;
 };
+
+class pb_target_movement : public pb_target
+{
+public:
+
+	pb_target_movement(ETaskLevel taskLevel) : pb_target(taskLevel) {};
+	~pb_target_movement() {};
+
+	std::vector<pb_target*> CalculateSubTasks(CBot* bot);
+	void PerformTask(CBot* bot);
+
+private:
+
+};
+

@@ -46,6 +46,5 @@ void pb_marpo::PerformNextTask()
 		}
 	}
 	//We either need to perform the current task or a new one is given.
-
-	mCurrentTarget->PerformTask();
+	mCurrentTarget->PerformTask(mBot);
 }

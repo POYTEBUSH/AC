@@ -16,6 +16,8 @@
 //#define BOTDEBUG
 #define MAX_WEAPONS      10
 
+
+
 class CACBot: public CBot
 {
 public:

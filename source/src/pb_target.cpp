@@ -37,3 +37,25 @@ void pb_target::Set(const playerent * entity)
 
 	mTargetType = ETargetType::TARGET_TYPE_BOT;
 }
+
+std::vector<pb_target*> pb_target_movement::CalculateSubTasks(CBot* bot)
+{
+	//TODO Do I need to jump or duck
+	return std::vector<pb_target*>();
+}
+
+void pb_target_movement::PerformTask(CBot* bot)
+{
+	//If we don't have a target pos something is wrong
+	assert(mTargetVec != nullptr);
+	
+	if (bot->GetDistance(mTargetVec)) 
+	{
+		mIsCompleted;
+		return;
+	}
+
+	bot->m_pCurrentGoalWaypoint = bot->GetNearestWaypoint(mTargetVec, 9999.f);
+	bot->HeadToGoal();
+	runtime++;
+}

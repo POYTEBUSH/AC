@@ -46,6 +46,9 @@
 #include "bot_util.h"
 #include "bot_waypoint.h"
 
+#include "pb_marpo.h"
+#include "pb_target_wander.h"
+
 extern itemstat itemstats[];
 
 #ifdef RELEASE_BUILD
@@ -142,11 +145,16 @@ struct unreachable_ent_s
      unreachable_ent_s(entity *e, int t) : ent(e), time(t) { };
 };
 
+class  pb_marpo;
+
 class CBot
 {
 public:
      botent *m_pMyEnt;
      int m_iLastBotUpdate;
+
+	 //Additionals - b013432f
+	 pb_marpo * mMARPO_Manager;
 
      // Combat variabels
      playerent *m_pPrevEnemy;

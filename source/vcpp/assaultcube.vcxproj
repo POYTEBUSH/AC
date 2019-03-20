@@ -422,6 +422,7 @@
     <ClInclude Include="..\src\modelcache.h" />
     <ClInclude Include="..\src\pb_marpo.h" />
     <ClInclude Include="..\src\pb_target.h" />
+    <ClInclude Include="..\src\pb_target_wander.h" />
     <ClInclude Include="..\src\platform.h" />
     <ClInclude Include="..\src\protocol.h" />
     <ClInclude Include="..\src\protos.h" />

@@ -749,140 +749,195 @@ void CBot::MainAI()
     if(CheckCrouch()) m_pMyEnt->trycrouch = true;
     else m_pMyEnt->trycrouch = false;
 
-    if (!BotManager.BotsShoot() && m_pMyEnt->enemy)
-        m_pMyEnt->enemy = NULL; // Clear enemy when bots may not shoot
+	CheckReload();
+	if (m_eCurrentBotState != STATE_NORMAL)
+	{
+		m_vGoal = g_vecZero;
+		ResetWaypointVars();
+	}
 
-    if (m_bGoToDebugGoal) // For debugging the waypoint navigation
-    {
-        if (!HeadToGoal())
-        {
-            ResetWaypointVars();
-            m_vGoal = g_vecZero;
-        }
-        else
-            AddDebugText("Heading to debug goal...");
-    }
-    if (BotManager.BotsShoot() && FindEnemy()) // Combat
-    {
-        CheckReload();
-        CheckScope();
-        AddDebugText("has enemy");
-        // Use best weapon
-        ChoosePreferredWeapon();
-        // Shoot at enemy
-        ShootEnemy();
+	//Get the information for the next task to be performed
+	mMARPO_Manager->PerformNextTask();
 
-        if (m_eCurrentBotState != STATE_ENEMY)
-        {
-            m_vGoal = g_vecZero;
-            ResetWaypointVars();
-        }
 
-        m_eCurrentBotState = STATE_ENEMY;
-        if (!CheckJump())
-            DoCombatNav();
-    }
-    else if (CheckHunt() && HuntEnemy())
-    {
-        CheckReload();
-        CheckScope();
-        AddDebugText("Hunting to %s", m_pHuntTarget->name);
-        m_eCurrentBotState = STATE_HUNT;
-    }
-    // Heading to an interesting entity(ammo, armour etc)
-    else if (CheckItems())
-    {
-        CheckReload();
-        AddDebugText("has ent");
-        m_eCurrentBotState = STATE_ENT;
-    }
-    else if (m_classicsp && DoSPStuff()) // Home to goal, find/follow friends etc.
-    {
 
-        AddDebugText("SP stuff");
-        m_eCurrentBotState = STATE_SP;
-    }
-    else // Normal navigation
-    {
-        CheckReload();
-        if (m_eCurrentBotState != STATE_NORMAL)
-        {
-            m_vGoal = g_vecZero;
-            ResetWaypointVars();
-        }
+	m_eCurrentBotState = STATE_NORMAL;
+	bool bDoNormalNav = true;
 
-        m_eCurrentBotState = STATE_NORMAL;
-        bool bDoNormalNav = true;
+	AddDebugText("normal nav");
 
-        AddDebugText("normal nav");
+	// Make sure the bot looks straight forward and not up or down
+	m_pMyEnt->pitch = 0;
 
-        // Make sure the bot looks straight forward and not up or down
-        m_pMyEnt->pitch = 0;
+	// if it is time to look for a waypoint AND if there are waypoints in this
+	// level...
+	if (WaypointClass.m_iWaypointCount >= 1)
+	{
+		// check if we need to find a waypoint...
+		if (CurrentWPIsValid() == false)
+		{
+			if (m_iLookForWaypointTime <= lastmillis)
+			{
+				// find the nearest reachable waypoint
+				waypoint_s *pWP = GetNearestWaypoint(10.0f);
 
-        // if it is time to look for a waypoint AND if there are waypoints in this
-        // level...
-        if (WaypointClass.m_iWaypointCount >= 1)
-        {
-            // check if we need to find a waypoint...
-            if (CurrentWPIsValid() == false)
-            {
-                if (m_iLookForWaypointTime <= lastmillis)
-                {
-                    // find the nearest reachable waypoint
-                    waypoint_s *pWP = GetNearestWaypoint(10.0f);
+				if (pWP && (pWP != m_pCurrentWaypoint))
+				{
+					SetCurrentWaypoint(pWP);
+					condebug("New nav wp");
+					bDoNormalNav = !HeadToWaypoint();
+					if (bDoNormalNav)
+						ResetWaypointVars();
+				}
+				else
+					ResetWaypointVars();
 
-                    if (pWP && (pWP != m_pCurrentWaypoint))
-                    {
-                        SetCurrentWaypoint(pWP);
-                        condebug("New nav wp");
-                        bDoNormalNav = !HeadToWaypoint();
-                        if (bDoNormalNav)
-                            ResetWaypointVars();
-                    }
-                    else
-                        ResetWaypointVars();
+				m_iLookForWaypointTime = lastmillis + 250;
+			}
+		}
+		else
+		{
+			bDoNormalNav = !HeadToWaypoint();
+			if (bDoNormalNav)
+				ResetWaypointVars();
+			AddDebugText("Using wps for nav");
+		}
+	}
 
-                    m_iLookForWaypointTime = lastmillis + 250;
-                }
-            }
-            else
-            {
-                bDoNormalNav = !HeadToWaypoint();
-                if (bDoNormalNav)
-                    ResetWaypointVars();
-                AddDebugText("Using wps for nav");
-            }
-        }
+    //if (!BotManager.BotsShoot() && m_pMyEnt->enemy)
+    //    m_pMyEnt->enemy = NULL; // Clear enemy when bots may not shoot
 
-        // If nothing special, do regular (waypointless) navigation
-        if(bDoNormalNav)
-        {
-            // Is the bot underwater?
-            if (UnderWater(m_pMyEnt->o) && WaterNav())
-            {
-                // Bot is under water, navigation happens in WaterNav
-            }
-            // Time to check the environment?
-            else if (m_iCheckEnvDelay < lastmillis)
-            {
-                if (m_vWaterGoal!=g_vecZero) m_vWaterGoal = g_vecZero;
+    //if (m_bGoToDebugGoal) // For debugging the waypoint navigation
+    //{
+    //    if (!HeadToGoal())
+    //    {
+    //        ResetWaypointVars();
+    //        m_vGoal = g_vecZero;
+    //    }
+    //    else
+    //        AddDebugText("Heading to debug goal...");
+    //}
+    //if (BotManager.BotsShoot() && FindEnemy()) // Combat
+    //{
+    //    CheckReload();
+    //    CheckScope();
+    //    AddDebugText("has enemy");
+    //    // Use best weapon
+    //    ChoosePreferredWeapon();
+    //    // Shoot at enemy
+    //    ShootEnemy();
 
-                // Check for stuck and strafe
-                if (UnderWater(m_pMyEnt->o) || !CheckStuck())
-                {
-                    // Only do this when the bot is underwater or when the bot isn't stuck
+    //    if (m_eCurrentBotState != STATE_ENEMY)
+    //    {
+    //        m_vGoal = g_vecZero;
+    //        ResetWaypointVars();
+    //    }
 
-                    // Check field of view (FOV)
-                    CheckFOV();
-                }
-            }
+    //    m_eCurrentBotState = STATE_ENEMY;
+    //    if (!CheckJump())
+    //        DoCombatNav();
+    //}
+    //else if (CheckHunt() && HuntEnemy())
+    //{
+    //    CheckReload();
+    //    CheckScope();
+    //    AddDebugText("Hunting to %s", m_pHuntTarget->name);
+    //    m_eCurrentBotState = STATE_HUNT;
+    //}
+    //// Heading to an interesting entity(ammo, armour etc)
+    //else if (CheckItems())
+    //{
+    //    CheckReload();
+    //    AddDebugText("has ent");
+    //    m_eCurrentBotState = STATE_ENT;
+    //}
+    //else if (m_classicsp && DoSPStuff()) // Home to goal, find/follow friends etc.
+    //{
 
-            // Check if the bot has to strafe
-            CheckStrafe();
+    //    AddDebugText("SP stuff");
+    //    m_eCurrentBotState = STATE_SP;
+    //}
+    //else // Normal navigation
+    //{
+    //    CheckReload();
+    //    if (m_eCurrentBotState != STATE_NORMAL)
+    //    {
+    //        m_vGoal = g_vecZero;
+    //        ResetWaypointVars();
+    //    }
 
-            m_pMyEnt->move = 1;
-        }
-    }
+    //    m_eCurrentBotState = STATE_NORMAL;
+    //    bool bDoNormalNav = true;
+
+    //    AddDebugText("normal nav");
+
+    //    // Make sure the bot looks straight forward and not up or down
+    //    m_pMyEnt->pitch = 0;
+
+    //    // if it is time to look for a waypoint AND if there are waypoints in this
+    //    // level...
+    //    if (WaypointClass.m_iWaypointCount >= 1)
+    //    {
+    //        // check if we need to find a waypoint...
+    //        if (CurrentWPIsValid() == false)
+    //        {
+    //            if (m_iLookForWaypointTime <= lastmillis)
+    //            {
+    //                // find the nearest reachable waypoint
+    //                waypoint_s *pWP = GetNearestWaypoint(10.0f);
+
+    //                if (pWP && (pWP != m_pCurrentWaypoint))
+    //                {
+    //                    SetCurrentWaypoint(pWP);
+    //                    condebug("New nav wp");
+    //                    bDoNormalNav = !HeadToWaypoint();
+    //                    if (bDoNormalNav)
+    //                        ResetWaypointVars();
+    //                }
+    //                else
+    //                    ResetWaypointVars();
+
+    //                m_iLookForWaypointTime = lastmillis + 250;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            bDoNormalNav = !HeadToWaypoint();
+    //            if (bDoNormalNav)
+    //                ResetWaypointVars();
+    //            AddDebugText("Using wps for nav");
+    //        }
+    //    }
+
+    //    // If nothing special, do regular (waypointless) navigation
+    //    if(bDoNormalNav)
+    //    {
+    //        // Is the bot underwater?
+    //        if (UnderWater(m_pMyEnt->o) && WaterNav())
+    //        {
+    //            // Bot is under water, navigation happens in WaterNav
+    //        }
+    //        // Time to check the environment?
+    //        else if (m_iCheckEnvDelay < lastmillis)
+    //        {
+    //            if (m_vWaterGoal!=g_vecZero) m_vWaterGoal = g_vecZero;
+
+    //            // Check for stuck and strafe
+    //            if (UnderWater(m_pMyEnt->o) || !CheckStuck())
+    //            {
+    //                // Only do this when the bot is underwater or when the bot isn't stuck
+
+    //                // Check field of view (FOV)
+    //                CheckFOV();
+    //            }
+    //        }
+
+    //        // Check if the bot has to strafe
+    //        CheckStrafe();
+
+    //        m_pMyEnt->move = 1;
+    //    }
+    //}
 }
 
 void CBot::DoCombatNav()
