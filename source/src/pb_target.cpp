@@ -1,9 +1,9 @@
 #include "cube.h"
 #include "pb_target.h"
 
-
-pb_target::pb_target()
+pb_target::pb_target(ETaskLevel taskLevel)
 {
+	mTaskLevel = taskLevel;
 	mTargetCompletionRange = 0.f;
 	mTargetType = ETargetType::TARGET_TYPE_NONE;
 	mTargetEntity = nullptr;

@@ -3,29 +3,23 @@
 
 #include <stack>
 
-enum ETaskLevel {
-	TASK_LEVEL_LONGTERM,
-	TASK_LEVEL_REACTIVE,
-	TASK_LEVEL_IMMEDIATE
-};
-
 class pb_marpo
 {
 public:
 
-	void AddTask(pb_task* task, ETaskLevel taskLevel);
-	void SetDefaultTask(pb_task* task) { mDefaultTask = task; };
+	void AddTarget(pb_target* target, ETaskLevel taskLevel);
+	void SetDefaultTarget(pb_target* target) { mDefaultTarget = target; };
 
 	void PerformNextTask();
 
 private:
 
-	std::stack<pb_task*> mLongTermTasks;
-	std::stack<pb_task*> mReactiveTasks;
-	std::stack<pb_task*> mImmediateTasks;
+	std::stack<pb_target*> mLongTermTasks;
+	std::stack<pb_target*> mReactiveTasks;
+	std::stack<pb_target*> mImmediateTasks;
 
 	//The goal which will always be performed
-	pb_task* mDefaultTask;
+	pb_target* mDefaultTarget;
 
-	pb_task* mCurrentTask;
+	pb_target* mCurrentTarget;
 };

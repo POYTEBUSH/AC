@@ -1,50 +1,51 @@
 #include "cube.h"
 #include "pb_marpo.h"
 
-void pb_marpo::AddTask(pb_task * task, ETaskLevel taskLevel)
+void pb_marpo::AddTarget(pb_target * target, ETaskLevel taskLevel)
 {
+	//assert that the target has a target position
+	//assert(target->)
+
 	switch (taskLevel)
 	{
 	case TASK_LEVEL_LONGTERM:
-		mLongTermTasks.push(task);
+		mLongTermTasks.push(target);
 		break;
 	case TASK_LEVEL_REACTIVE:
-		mReactiveTasks.push(task);
+		mReactiveTasks.push(target);
 		break;
 	case TASK_LEVEL_IMMEDIATE:
-		mImmediateTasks.push(task);
+		mImmediateTasks.push(target);
 		break;
 	}
 }
 
 void pb_marpo::PerformNextTask()
 {
-	if (mCurrentTask == nullptr || mCurrentTask->IsCompleted())
+	if (mCurrentTarget == nullptr || mCurrentTarget->IsCompleted())
 	{
 		if (!mImmediateTasks.empty())
 		{
-			mCurrentTask = mImmediateTasks.top();
+			mCurrentTarget = mImmediateTasks.top();
 			mImmediateTasks.pop();
 		}
 		else if (!mReactiveTasks.empty())
 		{
-			mCurrentTask = mReactiveTasks.top();
+			mCurrentTarget = mReactiveTasks.top();
 			mReactiveTasks.pop();
 		}
 		else if (!mLongTermTasks.empty())
 		{
-			mCurrentTask = mLongTermTasks.top();
+			mCurrentTarget = mLongTermTasks.top();
 			mLongTermTasks.pop();
 		}
 		else
 		{
 			//At this point the long term goal stack is empty, this shouldn't be the case. Re-apply the default.
-			mCurrentTask = mDefaultTask;
+			mCurrentTarget = mDefaultTarget;
 		}
 	}
 	//We either need to perform the current task or a new one is given.
 
-	mCurrentTask->PerformTask();
-	CBot* bot = new CBot();
-	auto test = new pb_task(, TASK_LEVEL_IMMEDIATE);
+	mCurrentTarget->PerformTask();
 }
