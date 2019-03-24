@@ -103,14 +103,14 @@
     <ClInclude Include="..\src\world.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pb_marpo.h">
+    <ClInclude Include="..\src\bot\pb_marpo.h">
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pb_target.h">
+    <ClInclude Include="..\src\bot\pb_target.h">
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\pb_target_wander.h">
-      <Filter>bot\PeterBush-b013432f</Filter>
+    <ClInclude Include="..\src\bot\botmanager.h">
+      <Filter>bot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -380,9 +380,6 @@
     <ClCompile Include="..\src\bot\bot_util.cpp">
       <Filter>bot</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\bot\bot_waypoint.cpp">
-      <Filter>bot</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\bot\botmanager.cpp">
       <Filter>bot</Filter>
     </ClCompile>
@@ -401,10 +398,13 @@
     <ClCompile Include="..\src\soundscheduler.cpp">
       <Filter>sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\pb_marpo.cpp">
+    <ClCompile Include="..\src\bot\bot_waypoint.cpp">
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\pb_target.cpp">
+    <ClCompile Include="..\src\bot\pb_marpo.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target.cpp">
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
   </ItemGroup>
@@ -434,7 +434,7 @@
       <Filter>bot</Filter>
     </CustomBuildStep>
     <CustomBuildStep Include="..\src\bot\bot_waypoint.h">
-      <Filter>bot</Filter>
+      <Filter>bot\PeterBush-b013432f</Filter>
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>

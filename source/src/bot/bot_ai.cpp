@@ -756,11 +756,6 @@ void CBot::MainAI()
 		ResetWaypointVars();
 	}
 
-	//Get the information for the next task to be performed
-	mMARPO_Manager->PerformNextTask();
-
-
-
 	m_eCurrentBotState = STATE_NORMAL;
 	bool bDoNormalNav = true;
 
