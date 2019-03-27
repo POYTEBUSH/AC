@@ -32,6 +32,9 @@
     <Filter Include="bot\PeterBush-b013432f">
       <UniqueIdentifier>{caa3b97e-040a-413a-9be3-f314b1e5804b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bot\PeterBush-b013432f\Custom Targets">
+      <UniqueIdentifier>{ef6fe472-196c-49f4-b61b-773c8123e233}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\command.h">
@@ -111,6 +114,9 @@
     </ClInclude>
     <ClInclude Include="..\src\bot\botmanager.h">
       <Filter>bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_movement.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target.cpp">
       <Filter>bot\PeterBush-b013432f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_movement.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

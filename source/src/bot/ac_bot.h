@@ -16,6 +16,7 @@
 //#define BOTDEBUG
 #define MAX_WEAPONS      10
 
+//#include "pb_marpo.h"
 
 
 class CACBot: public CBot

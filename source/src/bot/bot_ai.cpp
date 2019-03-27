@@ -764,40 +764,40 @@ void CBot::MainAI()
 	// Make sure the bot looks straight forward and not up or down
 	m_pMyEnt->pitch = 0;
 
-	// if it is time to look for a waypoint AND if there are waypoints in this
-	// level...
-	if (WaypointClass.m_iWaypointCount >= 1)
-	{
-		// check if we need to find a waypoint...
-		if (CurrentWPIsValid() == false)
-		{
-			if (m_iLookForWaypointTime <= lastmillis)
-			{
-				// find the nearest reachable waypoint
-				waypoint_s *pWP = GetNearestWaypoint(10.0f);
+	//// if it is time to look for a waypoint AND if there are waypoints in this
+	//// level...
+	//if (WaypointClass.m_iWaypointCount >= 1)
+	//{
+	//	// check if we need to find a waypoint...
+	//	if (CurrentWPIsValid() == false)
+	//	{
+	//		if (m_iLookForWaypointTime <= lastmillis)
+	//		{
+	//			// find the nearest reachable waypoint
+	//			waypoint_s *pWP = GetNearestWaypoint(10.0f);
 
-				if (pWP && (pWP != m_pCurrentWaypoint))
-				{
-					SetCurrentWaypoint(pWP);
-					condebug("New nav wp");
-					bDoNormalNav = !HeadToWaypoint();
-					if (bDoNormalNav)
-						ResetWaypointVars();
-				}
-				else
-					ResetWaypointVars();
+	//			if (pWP && (pWP != m_pCurrentWaypoint))
+	//			{
+	//				SetCurrentWaypoint(pWP);
+	//				condebug("New nav wp");
+	//				bDoNormalNav = !HeadToWaypoint();
+	//				if (bDoNormalNav)
+	//					ResetWaypointVars();
+	//			}
+	//			else
+	//				ResetWaypointVars();
 
-				m_iLookForWaypointTime = lastmillis + 250;
-			}
-		}
-		else
-		{
-			bDoNormalNav = !HeadToWaypoint();
-			if (bDoNormalNav)
-				ResetWaypointVars();
-			AddDebugText("Using wps for nav");
-		}
-	}
+	//			m_iLookForWaypointTime = lastmillis + 250;
+	//		}
+	//	}
+	//	else
+	//	{
+	//		bDoNormalNav = !HeadToWaypoint();
+	//		if (bDoNormalNav)
+	//			ResetWaypointVars();
+	//		AddDebugText("Using wps for nav");
+	//	}
+	//}
 
     //if (!BotManager.BotsShoot() && m_pMyEnt->enemy)
     //    m_pMyEnt->enemy = NULL; // Clear enemy when bots may not shoot

@@ -40,10 +40,14 @@ public:
 	void Set(const entity* entity);
 	void Set(const playerent* entity);
 
-	//Return a collection of required sub-tasks
+	///<summary>Return a collection of required sub-tasks</summary>
 	virtual std::vector<pb_target*> CalculateSubTasks(CBot* bot) = 0;
 	virtual void PerformTask(CBot* bot) = 0;
+	virtual bool IsValid(CBot* bot) = 0;
+
 	bool IsCompleted() const { return mIsCompleted; }
+
+	ETaskLevel GetTaskLevel()const { return mTaskLevel; }
 
 protected:
 
@@ -75,10 +79,14 @@ class pb_marpo
 {
 public:
 
-	pb_marpo(CBot* bot) : mBot(bot) {}
+	pb_marpo(botent* bot) : mBot(bot) 
+	{
+		SetDefaultTarget(new pb_target(TASK_LEVEL_LONGTERM));
+	}
 	~pb_marpo() {}
 
 	void AddTarget(pb_target* target, ETaskLevel taskLevel);
+
 	void SetDefaultTarget(pb_target* target) { mDefaultTarget = target; };
 
 	void PerformNextTask();
@@ -97,7 +105,7 @@ private:
 	pb_target* mCurrentTarget;
 
 	//pointer the bot which this MARPO instance is managing
-	CBot* mBot;
+	botent* mBot;
 
 };
 
@@ -110,7 +118,7 @@ public:
 		return instance;
 	};
 
-	pb_marpo* AttachBot(CBot* bot)
+	pb_marpo* AttachBot(botent* bot)
 	{
 		if (mMarpoInstances.find(bot) == mMarpoInstances.end()) {
 			mMarpoInstances[bot] = new pb_marpo(bot);
@@ -126,7 +134,7 @@ public:
 		}
 	}
 
-	void DetachBot(CBot* bot)
+	void DetachBot(botent* bot)
 	{
 		delete mMarpoInstances[bot];
 	}
@@ -141,6 +149,6 @@ private:
 	pb_marpomanager(pb_marpomanager const&);    // Don't Implement
 	void operator=(pb_marpomanager const&);	// Don't implement
 
-	std::map<CBot*, pb_marpo*> mMarpoInstances;
+	std::map<botent*, pb_marpo*> mMarpoInstances;
 	//std::vector<pb_marpo*> mMarpoInstances;
 };

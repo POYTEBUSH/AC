@@ -22,7 +22,7 @@ void pb_marpo::AddTarget(pb_target * target, ETaskLevel taskLevel)
 
 void pb_marpo::PerformNextTask()
 {
-	if (mCurrentTarget == nullptr || mCurrentTarget->IsCompleted())
+	if (mCurrentTarget == nullptr || mCurrentTarget->IsCompleted() || mCurrentTarget->IsValid(mBot->pBot))
 	{
 		if (!mImmediateTasks.empty())
 		{
@@ -45,6 +45,19 @@ void pb_marpo::PerformNextTask()
 			mCurrentTarget = mDefaultTarget;
 		}
 	}
+	//Check if there are any subtasks to perform
+	auto subtasks = mCurrentTarget->CalculateSubTasks(mBot->pBot);
+
+	if (!subtasks.empty()) {
+		for (auto t : subtasks)
+		{
+			AddTarget(t, mCurrentTarget->GetTaskLevel());
+		}
+		//Set the current to nullptr so when it loops around again we use the new task
+		mCurrentTarget == nullptr;
+		return;
+	}
+
 	//We either need to perform the current task or a new one is given.
-	mCurrentTarget->PerformTask(mBot);
+	mCurrentTarget->PerformTask(mBot->pBot);
 }

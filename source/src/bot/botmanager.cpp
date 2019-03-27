@@ -888,10 +888,7 @@ botent *CBotManager::CreateBot(const char *team, const char *skill, const char *
     m->pBot->m_bSendC2SInit = false;
 
 	//Attach bot to MARPO System
-	pb_marpomanager::Instance().AttachBot(m->pBot);
-	//pb_target_wander* defaultTarget = new pb_target_wander(TASK_LEVEL_LONGTERM);
-	//mMARPO_Manager->SetDefaultTarget(defaultTarget);
-
+	pb_marpomanager::Instance().AttachBot(m);
 
     if (name && *name) copystring(m->name, name, 16);
     else copystring(m->name, BotManager.GetBotName(), 16);
@@ -1020,6 +1017,7 @@ void kickbot(const char *szName)
     {
         botent *d = bots[iBotInd];
         if(d->name[0]) conoutf("bot %s disconnected", d->name);
+		pb_marpomanager::Instance().DetachBot(d);
         delete d->pBot;
         bots.remove(iBotInd);
         freebotent(d);
@@ -1037,7 +1035,7 @@ void kickallbots(void)
         if (bots[i])
         {
             if(bots[i]->name[0]) conoutf("bot %s disconnected", bots[i]->name);
-			//pb_marpomanager::Instance().
+			pb_marpomanager::Instance().DetachBot(bots[i]);
             delete bots[i]->pBot;
             freebotent(bots[i]);
         }
