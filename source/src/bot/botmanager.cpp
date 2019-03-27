@@ -92,8 +92,15 @@ void CBotManager::Think()
 			{
 				botMarpoI->PerformNextTask();
 			}
+			// Aim to ideal yaw and pitch
+			bot->pBot->AimToIdeal();
+			moveplayer(bot, 1, true);
+			// Update bot info on all clients
+			bot->pBot->SendBotInfo();
 
-			//bots[i]->pBot->CheckWeaponSwitch(); // 2011jan17:ft: fix non-shooting bots
+			bot->pBot->CheckWeaponSwitch(); // 2011jan17:ft: fix non-shooting bots
+
+
 			//bots[i]->pBot->Think();
 		}
 		else condebug("Error: pBot == NULL in bot ent\n");
