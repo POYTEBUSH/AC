@@ -24,6 +24,7 @@ void pb_marpo::PerformNextTask()
 {
 	if (mCurrentTarget == nullptr || mCurrentTarget->IsCompleted() || mCurrentTarget->IsValid(mBot->pBot))
 	{
+		//delete mCurrentTarget;
 		if (!mImmediateTasks.empty())
 		{
 			mCurrentTarget = mImmediateTasks.top();

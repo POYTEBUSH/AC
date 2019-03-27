@@ -407,6 +407,7 @@
     <ClInclude Include="..\src\bot\pb_marpo.h" />
     <ClInclude Include="..\src\bot\pb_target.h" />
     <ClInclude Include="..\src\bot\pb_target_movement.h" />
+    <ClInclude Include="..\src\bot\pb_target_wander.h" />
     <ClInclude Include="..\src\command.h" />
     <ClInclude Include="..\src\console.h" />
     <ClInclude Include="..\src\crypto_tools.h" />
@@ -514,6 +515,7 @@
     <ClCompile Include="..\src\bot\pb_marpo.cpp" />
     <ClCompile Include="..\src\bot\pb_target.cpp" />
     <ClCompile Include="..\src\bot\pb_target_movement.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_wander.cpp" />
     <ClCompile Include="..\src\rendercubes.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone|Win32'">true</ExcludedFromBuild>

@@ -118,6 +118,9 @@
     <ClInclude Include="..\src\bot\pb_target_movement.h">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_wander.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\config\admin.cfg">
@@ -414,6 +417,9 @@
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target_movement.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_wander.cpp">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
   </ItemGroup>
