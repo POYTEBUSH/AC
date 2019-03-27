@@ -7,6 +7,8 @@
 #include <vector>
 #include <assert.h>
 
+#include <map>
+
 #include <stack>
 
 //Forward Dec
@@ -108,26 +110,25 @@ public:
 		return instance;
 	};
 
-	void AddInstance(pb_marpo* marpoInsance)
+	pb_marpo* AttachBot(CBot* bot)
 	{
-		mMarpoInstances.push_back(marpoInsance);
+		if (mMarpoInstances.find(bot) == mMarpoInstances.end()) {
+			mMarpoInstances[bot] = new pb_marpo(bot);
+		}
+		return mMarpoInstances[bot];
 	}
-	void ClearInstances()
+
+	void ClearAttachments()
 	{
-		for (size_t i = 0; i < mMarpoInstances.size(); i++)
+		for (auto i : mMarpoInstances)
 		{
-			DeleteInstance(i);
+			DetachBot(i.first);
 		}
 	}
-	void DetachBotMarpo(CBot* bot)
+
+	void DetachBot(CBot* bot)
 	{
-		for (size_t i = 0; i < mMarpoInstances.size(); i++)
-		{
-			if (mMarpoInstances[i]->mBot == bot) 
-			{
-				DeleteInstance(i);
-			}
-		}
+		delete mMarpoInstances[bot];
 	}
 
 	void Think()
@@ -140,11 +141,6 @@ private:
 	pb_marpomanager(pb_marpomanager const&);    // Don't Implement
 	void operator=(pb_marpomanager const&);	// Don't implement
 
-	void DeleteInstance(int i)
-	{
-		delete mMarpoInstances[i];
-		mMarpoInstances.erase(begin(mMarpoInstances) + i);
-	}
-
-	std::vector<pb_marpo*> mMarpoInstances;
+	std::map<CBot*, pb_marpo*> mMarpoInstances;
+	//std::vector<pb_marpo*> mMarpoInstances;
 };
