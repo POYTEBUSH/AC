@@ -1037,7 +1037,7 @@ void kickallbots(void)
         if (bots[i])
         {
             if(bots[i]->name[0]) conoutf("bot %s disconnected", bots[i]->name);
-			pb_marpomanager::Instance().
+			//pb_marpomanager::Instance().
             delete bots[i]->pBot;
             freebotent(bots[i]);
         }
