@@ -54,7 +54,7 @@ void pb_marpo::PerformNextTask()
 			AddTarget(t, mCurrentTarget->GetTaskLevel());
 		}
 		//Set the current to nullptr so when it loops around again we use the new task
-		mCurrentTarget == nullptr;
+		mCurrentTarget = nullptr;
 		return;
 	}
 

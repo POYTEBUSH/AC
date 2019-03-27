@@ -1,6 +1,6 @@
 #pragma once
 #include "bot/bot.h"
-#include "pb_marpo.h"
+//#include "pb_marpo.h"
 
 class CBotManager
 {
@@ -31,9 +31,6 @@ class CBotManager
 	friend class CBot;
 	friend class CACBot;
 	friend class CWaypointClass;
-
-	//Additionals - b013432f
-	std::vector<pb_marpo*> mMARPO_Managers;
 
 public:
 	botent *m_pBotToView;

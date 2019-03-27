@@ -7,6 +7,8 @@ std::vector<pb_target*> pb_target_movement::CalculateSubTasks(CBot * bot)
 	bot->CheckStuck();
 	bot->CheckCrouch();
 	bot->CheckJump();
+
+	return std::vector<pb_target*>();
 }
 
 void pb_target_movement::PerformTask(CBot * bot)

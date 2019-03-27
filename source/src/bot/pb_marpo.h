@@ -56,9 +56,9 @@ protected:
 
 	//Target entity if targeting a collectable
 
-	const entity* mTargetEntity;
+	const entity* mTargetEntity = nullptr;
 	//Target entity when targeting a bot or player
-	const playerent* mTargetBot;
+	const playerent* mTargetBot = nullptr;;
 
 	//Type of target
 	ETargetType mTargetType;
@@ -70,7 +70,7 @@ protected:
 	ETaskLevel mTaskLevel;
 
 	//Is the task completed or not
-	bool mIsCompleted;
+	bool mIsCompleted = false;
 
 	int runtime = 0;
 };
@@ -79,10 +79,7 @@ class pb_marpo
 {
 public:
 
-	pb_marpo(botent* bot) : mBot(bot) 
-	{
-		SetDefaultTarget(new pb_target(TASK_LEVEL_LONGTERM));
-	}
+	pb_marpo(botent* bot) : mBot(bot) {}
 	~pb_marpo() {}
 
 	void AddTarget(pb_target* target, ETaskLevel taskLevel);
@@ -99,13 +96,13 @@ private:
 	std::stack<pb_target*> mImmediateTasks;
 
 	//The goal which will always be performed
-	pb_target* mDefaultTarget;
+	pb_target* mDefaultTarget = nullptr;;
 
 	//The current goal which the entity is attempting to perform
-	pb_target* mCurrentTarget;
+	pb_target* mCurrentTarget = nullptr;;
 
 	//pointer the bot which this MARPO instance is managing
-	botent* mBot;
+	botent* mBot = nullptr;;
 
 };
 
@@ -124,6 +121,14 @@ public:
 			mMarpoInstances[bot] = new pb_marpo(bot);
 		}
 		return mMarpoInstances[bot];
+	}
+
+	pb_marpo* GetBotAttachment(botent* bot)
+	{
+		if (mMarpoInstances.find(bot) != mMarpoInstances.end()) {
+			return mMarpoInstances[bot];
+		}
+		return nullptr;
 	}
 
 	void ClearAttachments()

@@ -744,6 +744,8 @@ void CBot::MainAI()
 
     // Default bots won't strafe
     m_pMyEnt->strafe = 0;
+	// Make sure the bot looks straight forward and not up or down
+	m_pMyEnt->pitch = 0;
 
     // Whatever the bot is doing, check for needed crouch
     if(CheckCrouch()) m_pMyEnt->trycrouch = true;
