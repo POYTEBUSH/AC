@@ -62,11 +62,6 @@ void CACBot::Spawn()
 
      m_vGoal = m_vWaterGoal = g_vecZero;
 
-	 //Attach bot to its MARPO Manager
-	 pb_marpomanager::Instance().AddInstance(new pb_marpo(this));
-	 //pb_target_wander* defaultTarget = new pb_target_wander(TASK_LEVEL_LONGTERM);
-	 //mMARPO_Manager->SetDefaultTarget(defaultTarget);
-
      ResetWaypointVars();
 }
 
