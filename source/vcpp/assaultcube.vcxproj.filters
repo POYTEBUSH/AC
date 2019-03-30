@@ -35,6 +35,9 @@
     <Filter Include="bot\PeterBush-b013432f\Custom Targets">
       <UniqueIdentifier>{ef6fe472-196c-49f4-b61b-773c8123e233}</UniqueIdentifier>
     </Filter>
+    <Filter Include="containers">
+      <UniqueIdentifier>{97bf46a3-2089-48a3-90cd-05da3a71d7ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\command.h">
@@ -109,9 +112,6 @@
     <ClInclude Include="..\src\bot\pb_marpo.h">
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\bot\pb_target.h">
-      <Filter>bot\PeterBush-b013432f</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\bot\botmanager.h">
       <Filter>bot</Filter>
     </ClInclude>
@@ -120,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="..\src\bot\pb_target_wander.h">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\containers\pb_circularbuffer.h">
+      <Filter>containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -411,9 +414,6 @@
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_marpo.cpp">
-      <Filter>bot\PeterBush-b013432f</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\bot\pb_target.cpp">
       <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target_movement.cpp">

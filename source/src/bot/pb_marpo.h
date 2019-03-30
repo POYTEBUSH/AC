@@ -15,7 +15,6 @@
 class CBot;
 class pb_marpomanager;
 
-
 enum ETargetType
 {
 	TARGET_TYPE_ENTITY,
@@ -46,6 +45,13 @@ public:
 	virtual bool IsValid(CBot* bot) = 0;
 
 	bool IsCompleted() const { return mIsCompleted; }
+
+	void Reset()
+	{
+		mIsCompleted = false;
+		mTargetEntity = nullptr;
+		mTargetBot = nullptr;
+	}
 
 	ETaskLevel GetTaskLevel()const { return mTaskLevel; }
 
@@ -102,8 +108,10 @@ private:
 	pb_target* mCurrentTarget = nullptr;;
 
 	//pointer the bot which this MARPO instance is managing
-	botent* mBot = nullptr;;
+	botent* mBot = nullptr;
 
+	//Recently traveled locations
+	std::vector <
 };
 
 class pb_marpomanager

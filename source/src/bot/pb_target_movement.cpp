@@ -13,10 +13,8 @@ std::vector<pb_target*> pb_target_movement::CalculateSubTasks(CBot * bot)
 
 void pb_target_movement::PerformTask(CBot * bot)
 {
-	//This task attempts to simply move to the location supplied.
-	vec targetPos;
 	//Set the goal waypoint to the one closest to the target vec
-	bot->m_pCurrentGoalWaypoint = bot->GetNearestWaypoint(targetPos, 9999.f);
+	bot->m_pCurrentGoalWaypoint = bot->GetNearestWaypoint(mTargetVec, 9999.f);
 
 	bot->HeadToGoal();
 }

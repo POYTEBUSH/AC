@@ -13,7 +13,7 @@
 #include "cube.h"
 #include "bot.h"
 
-#include "pb_target_movement.h"
+#include "pb_target_wander.h"
 
 extern void respawnself();
 
@@ -915,7 +915,7 @@ botent *CBotManager::CreateBot(const char *team, const char *skill, const char *
 
 	//Attach bot to MARPO System
 	auto marpoI = pb_marpomanager::Instance().AttachBot(m);
-	marpoI->SetDefaultTarget(new pb_target_movement(TASK_LEVEL_LONGTERM));
+	marpoI->SetDefaultTarget(new pb_target_wander(TASK_LEVEL_LONGTERM));
 
 	if (name && *name) copystring(m->name, name, 16);
 	else copystring(m->name, BotManager.GetBotName(), 16);
