@@ -65,9 +65,9 @@ protected:
 
 	//Target entity if targeting a collectable
 
-	const entity* mTargetEntity = nullptr;
+	entity* mTargetEntity = nullptr;
 	//Target entity when targeting a bot or player
-	const playerent* mTargetBot = nullptr;;
+	playerent* mTargetBot = nullptr;
 
 	//Type of target
 	ETargetType mTargetType;
@@ -96,6 +96,9 @@ public:
 
 private:
 	friend class pb_marpomanager;
+
+	///<summary>Check for tasks which sit at a higher priority queue</summary>
+	void CheckMorePertinentTasks();
 
 	std::stack<pb_target*> mLongTermTasks;
 	std::stack<pb_target*> mReactiveTasks;

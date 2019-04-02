@@ -5,7 +5,7 @@
 bool pb_target_wander::CalculateSubTasks(CBot * bot)
 {
 	auto targetvec = bot->GetNearestWaypoint(50.f);
-	if (targetvec && (targetvec != bot->m_pCurrentWaypoint) && bot->m_iLookForWaypointTime <= lastmillis)
+	if ((targetvec && (targetvec != bot->m_pCurrentWaypoint)) || bot->m_iLookForWaypointTime <= lastmillis)
 	{
 		//Create a new sub-task to move the bot towards that location
 		pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);

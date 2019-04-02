@@ -78,13 +78,6 @@ void CBotManager::Think()
 		if (bots[i]->pBot)
 		{
 			bots[i]->pBot->Think();
-			//// Aim to ideal yaw and pitch
-			//bots[i]->pBot->AimToIdeal();
-			//moveplayer(bots[i], 1, true);
-			//// Update bot info on all clients
-			//bots[i]->pBot->SendBotInfo();
-
-			//bots[i]->pBot->CheckWeaponSwitch(); // 2011jan17:ft: fix non-shooting bots
 		}
 		else condebug("Error: pBot == NULL in bot ent\n");
 	}	

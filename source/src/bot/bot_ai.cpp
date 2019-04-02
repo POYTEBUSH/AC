@@ -799,7 +799,7 @@ void CBot::MainAI()
 	//	}
 	//}
 
-	//if (!BotManager.BotsShoot() && m_pMyEnt->enemy)
+//if (!BotManager.BotsShoot() && m_pMyEnt->enemy)
 	//    m_pMyEnt->enemy = NULL; // Clear enemy when bots may not shoot
 
 	//if (m_bGoToDebugGoal) // For debugging the waypoint navigation
@@ -812,7 +812,7 @@ void CBot::MainAI()
 	//    else
 	//        AddDebugText("Heading to debug goal...");
 	//}
-	//if (BotManager.BotsShoot() && FindEnemy()) // Combat
+	if (BotManager.BotsShoot() && FindEnemy()) // Combat
 	//{
 	//    CheckReload();
 	//    CheckScope();

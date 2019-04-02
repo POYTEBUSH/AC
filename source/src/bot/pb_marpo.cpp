@@ -67,6 +67,8 @@ void pb_marpo::PerformNextTask()
 	mBot->pBot->CheckJump();
 	mBot->pBot->CheckReload();
 
+	CheckMorePertinentTasks();
+
 	if (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
 	{
 		if (!mImmediateTasks.empty())
@@ -102,4 +104,23 @@ void pb_marpo::PerformNextTask()
 
 	//We either need to perform the current task or a new one is given.
 	mCurrentTarget->PerformTask(mBot->pBot);
+}
+
+void pb_marpo::CheckMorePertinentTasks()
+{
+	if (mCurrentTarget != nullptr)
+	{
+		if (mCurrentTarget->GetTaskLevel() == TASK_LEVEL_LONGTERM
+			&& !mReactiveTasks.empty())
+		{
+			mCurrentTarget = mReactiveTasks.top();
+			mReactiveTasks.pop();
+		}
+		if (mCurrentTarget->GetTaskLevel() == TASK_LEVEL_REACTIVE
+			&& !mImmediateTasks.empty())
+		{
+			mCurrentTarget = mImmediateTasks.top();
+			mImmediateTasks.pop();
+		}
+	}
 }

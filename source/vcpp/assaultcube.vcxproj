@@ -415,6 +415,7 @@
     <ClInclude Include="..\src\entity.h" />
     <ClInclude Include="..\src\geom.h" />
     <ClInclude Include="..\src\hudgun.h" />
+    <ClInclude Include="pb_target_attack.h" />
     <CustomBuildStep Include="..\src\md2.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone|Win32'">true</ExcludedFromBuild>
@@ -759,6 +760,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="pb_target_attack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="assaultcube.rc" />
