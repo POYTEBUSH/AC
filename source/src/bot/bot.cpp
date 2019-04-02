@@ -127,10 +127,10 @@ void CBot::Think()
         p = p->next;
     }
 
- //   //if (!BotManager.IdleBots()) { MainAI(); }
 	ResetMoveSpeed();
 
 	m_pMyEnt->move = 1;
+	m_pMyEnt->pitch = 1;
     // Aim to ideal yaw and pitch
     AimToIdeal();
     // Store current location, to see if the bot is stuck
