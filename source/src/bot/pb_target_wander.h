@@ -7,8 +7,13 @@ public:
 	pb_target_wander(ETaskLevel taskLevel) : pb_target(taskLevel) {};
 	~pb_target_wander() {}
 
-	std::vector<pb_target*> CalculateSubTasks(CBot* bot);
+	bool CalculateSubTasks(CBot* bot);
 	void PerformTask(CBot* bot);
 	bool IsValid(CBot* bot);
+	//Not marked as const due to override
+	bool IsCompleted(CBot* bot) { return mCompleted; }
+
+private:
+	bool mCompleted;
 };
 

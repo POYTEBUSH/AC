@@ -3,17 +3,19 @@
 #include "entity.h"
 
 #include "bot.h"
+#include "../containers/pb_circularbuffer.h"
 
 #include <vector>
 #include <assert.h>
-
 #include <map>
-
 #include <stack>
 
 //Forward Dec
 class CBot;
 class pb_marpomanager;
+
+//The max number of previous positions remembered
+const int MAX_POSITIONAL_MEM = 10;
 
 enum ETargetType
 {
@@ -40,15 +42,14 @@ public:
 	void Set(const playerent* entity);
 
 	///<summary>Return a collection of required sub-tasks</summary>
-	virtual std::vector<pb_target*> CalculateSubTasks(CBot* bot) = 0;
+	virtual bool CalculateSubTasks(CBot* bot) = 0;
 	virtual void PerformTask(CBot* bot) = 0;
 	virtual bool IsValid(CBot* bot) = 0;
-
-	bool IsCompleted() const { return mIsCompleted; }
+	///<summary>Is the task completed or not</summary>
+	virtual bool IsCompleted(CBot* bot) = 0;
 
 	void Reset()
 	{
-		mIsCompleted = false;
 		mTargetEntity = nullptr;
 		mTargetBot = nullptr;
 	}
@@ -56,6 +57,8 @@ public:
 	ETaskLevel GetTaskLevel()const { return mTaskLevel; }
 
 protected:
+
+	friend class pb_marpo;
 
 	//Position of target
 	vec mTargetVec;
@@ -75,9 +78,6 @@ protected:
 	//This tasks level, stored so we can add the sub-tasks to the same stack
 	ETaskLevel mTaskLevel;
 
-	//Is the task completed or not
-	bool mIsCompleted = false;
-
 	int runtime = 0;
 };
 
@@ -89,10 +89,10 @@ public:
 	~pb_marpo() {}
 
 	void AddTarget(pb_target* target, ETaskLevel taskLevel);
-
 	void SetDefaultTarget(pb_target* target) { mDefaultTarget = target; };
-
 	void PerformNextTask();
+
+	pb_circularbuffer<vec, MAX_POSITIONAL_MEM>* GetPositionMemory() { return &mPreviousLocations; }
 
 private:
 	friend class pb_marpomanager;
@@ -111,7 +111,7 @@ private:
 	botent* mBot = nullptr;
 
 	//Recently traveled locations
-	std::vector <
+	pb_circularbuffer<vec, MAX_POSITIONAL_MEM> mPreviousLocations;
 };
 
 class pb_marpomanager

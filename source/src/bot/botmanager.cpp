@@ -74,34 +74,17 @@ void CBotManager::Think()
 	// Let all bots 'think'
 	loopv(bots)
 	{
-		botent* bot = bots[i];
+		if (!bots[i]) continue;
+		if (bots[i]->pBot)
+		{
+			bots[i]->pBot->Think();
+			//// Aim to ideal yaw and pitch
+			//bots[i]->pBot->AimToIdeal();
+			//moveplayer(bots[i], 1, true);
+			//// Update bot info on all clients
+			//bots[i]->pBot->SendBotInfo();
 
-		if (!bot) continue;
-		if (bot->pBot)
-		{  
-			// Default bots will run forward
-			bot->move = 1;
-			// Default bots won't strafe
-			bot->strafe = 0;
-			// Make sure the bot looks straight forward and not up or down
-			bot->pitch = 0;
-
-			auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(bots[i]);
-
-			if (botMarpoI != nullptr)
-			{
-				botMarpoI->PerformNextTask();
-			}
-			// Aim to ideal yaw and pitch
-			bot->pBot->AimToIdeal();
-			moveplayer(bot, 1, true);
-			// Update bot info on all clients
-			bot->pBot->SendBotInfo();
-
-			bot->pBot->CheckWeaponSwitch(); // 2011jan17:ft: fix non-shooting bots
-
-
-			//bots[i]->pBot->Think();
+			//bots[i]->pBot->CheckWeaponSwitch(); // 2011jan17:ft: fix non-shooting bots
 		}
 		else condebug("Error: pBot == NULL in bot ent\n");
 	}	
@@ -914,6 +897,7 @@ botent *CBotManager::CreateBot(const char *team, const char *skill, const char *
 	m->pBot->m_bSendC2SInit = false;
 
 	//Attach bot to MARPO System
+	m->pBot->m_iLookForWaypointTime = lastmillis + 1000;
 	auto marpoI = pb_marpomanager::Instance().AttachBot(m);
 	marpoI->SetDefaultTarget(new pb_target_wander(TASK_LEVEL_LONGTERM));
 

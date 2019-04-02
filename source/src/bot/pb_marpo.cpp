@@ -55,13 +55,20 @@ void pb_marpo::AddTarget(pb_target * target, ETaskLevel taskLevel)
 		mImmediateTasks.push(target);
 		break;
 	}
+	//Log the position in the circular collection
+	mPreviousLocations.Add(target->mTargetVec);
 }
 
 void pb_marpo::PerformNextTask()
 {
-	if (mCurrentTarget == nullptr || mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted())
+	//Check code supplied by base code
+	mBot->pBot->CheckStuck();
+	mBot->pBot->CheckCrouch();
+	mBot->pBot->CheckJump();
+	mBot->pBot->CheckReload();
+
+	if (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
 	{
-		//delete mCurrentTarget;
 		if (!mImmediateTasks.empty())
 		{
 			mCurrentTarget = mImmediateTasks.top();
@@ -85,10 +92,9 @@ void pb_marpo::PerformNextTask()
 			mCurrentTarget = mDefaultTarget;
 		}
 	}
-	//Check if there are any subtasks to perform
-	auto subtasks = mCurrentTarget->CalculateSubTasks(mBot->pBot);
 
-	if (!subtasks.empty()) {
+	//Check if there are any subtasks to perform
+	if (mCurrentTarget->CalculateSubTasks(mBot->pBot)) {
 		//Set the current to nullptr so when it loops around again we use the new task
 		mCurrentTarget = nullptr;
 		return;

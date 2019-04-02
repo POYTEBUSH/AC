@@ -9,8 +9,9 @@ public:
 	pb_target_movement(ETaskLevel taskLevel) : pb_target(taskLevel) {};
 	~pb_target_movement() {};
 
-	std::vector<pb_target*> CalculateSubTasks(CBot* bot);
+	bool CalculateSubTasks(CBot* bot);
 	void PerformTask(CBot* bot);
 	bool IsValid(CBot* bot);
+	bool IsCompleted(CBot* bot);
 };
 

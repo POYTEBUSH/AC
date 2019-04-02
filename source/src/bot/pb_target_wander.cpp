@@ -2,25 +2,28 @@
 #include "pb_target_wander.h"
 #include "pb_target_movement.h"
 
-std::vector<pb_target*> pb_target_wander::CalculateSubTasks(CBot * bot)
+bool pb_target_wander::CalculateSubTasks(CBot * bot)
 {
-	//Find what the bot is looking at currently
-
-	auto targetvec = bot->GetNearestWaypoint(50.f);
-	//can we see the node
-	if (!bot->IsInFOV(targetvec->pNode->v_origin))
+	auto targetvec = bot->GetNearestWaypoint(50.f);	
+	if (targetvec && (targetvec != bot->m_pCurrentWaypoint))
 	{
-		bot->AimToVec(targetvec->pNode->v_origin);
+		bot->SetCurrentWaypoint(targetvec);
+		if (bot->HeadToWaypoint())
+		{
+			//Create a new sub-task to move the bot towards that location
+			pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
+			newMovementTask->Set(targetvec->pNode->v_origin);
+			pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask, mTaskLevel);
+			mCompleted = true;
+			return true;
+		}
+	}
+	else {
+		bot->ResetWaypointVars();
+		mCompleted = false;
+		return false;
 	}
 
-	pb_target_movement* movementSubTask = new pb_target_movement(mTaskLevel);
-	movementSubTask->Set(targetvec->pNode->v_origin);
-
-	pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(movementSubTask, mTaskLevel);
-
-	//At this point we have supplied a sub-task, this tasks job is complete.
-	mIsCompleted = true;
-	return std::vector<pb_target*>{ movementSubTask };
 }
 
 void pb_target_wander::PerformTask(CBot * bot)

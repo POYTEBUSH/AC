@@ -19,13 +19,13 @@ template <typename T, size_t S>
 class pb_circularbuffer
 {
 public:
-	pb_circularbuffer() mMaxSize(S), mCurrentSize(0), mHeadNode(nullptr);
+	pb_circularbuffer() { mMaxSize = S; mCurrentSize = 0; mHeadNode = nullptr; };
 	~pb_circularbuffer()
 	{
-		Node* currentNode = mHeadNode;
+		Node<T>* currentNode = mHeadNode;
 		while (currentNode != nullptr)
 		{
-			Node* nextNode = currentNode->RightNode;
+			Node<T>* nextNode = currentNode->RightNode;
 			delete currentNode;
 			currentNode = nextNode;
 		}
@@ -38,14 +38,14 @@ public:
 	{
 		mCurrentSize++;
 
-		Node* newNode = new Node(data);
+		Node<T>* newNode = new Node<T>(data);
 		if (mHeadNode == nullptr)
 		{
 			mHeadNode = newNode;
 		}		
 		else {
 			//Get the last item
-			Node* currentNode = mHeadNode;
+			Node<T>* currentNode = mHeadNode;
 			while (currentNode->RightNode != nullptr)
 			{
 				currentNode = currentNode->RightNode;
@@ -59,19 +59,20 @@ public:
 		//e.g. shifting all items left one.
 		if (mCurrentSize > mMaxSize)
 		{
-			Node* nextNode = mHeadNode->RightNode;
+			Node<T>* nextNode = mHeadNode->RightNode;
 			delete mHeadNode;
 			mHeadNode = nextNode;
 			mHeadNode->LeftNode = nullptr;
+			mCurrentSize--;
 		}
 	}
 
 	void Clear()
 	{
-		Node* currentNode = mHeadNode;
+		Node<T>* currentNode = mHeadNode;
 		while (currentNode != nullptr)
 		{
-			Node* nextNode = currentNode->RightNode;
+			Node<T>* nextNode = currentNode->RightNode;
 			delete currentNode;
 			currentNode = nextNode;
 		}
@@ -81,7 +82,7 @@ public:
 
 	bool Contains(T data)
 	{
-		Node* currentNode = mHeadNode;
+		Node<T>* currentNode = mHeadNode;
 		while (currentNode != nullptr)
 		{
 			if (currentNode->ThisNode == data)
@@ -96,8 +97,8 @@ public:
 
 private:
 
-	size_t mMaxSize;
-	size_t mCurrentSize;
+	std::size_t mMaxSize;
+	std::size_t mCurrentSize;
 
-	Node* mHeadNode;
+	Node<T>* mHeadNode;
 };
