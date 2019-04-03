@@ -9,8 +9,9 @@ bool pb_target_attack::CalculateSubTasks(CBot * bot)
 	}
 	else
 	{
-		m
+		
 	}
+	return false;
 }
 
 void pb_target_attack::PerformTask(CBot * bot)

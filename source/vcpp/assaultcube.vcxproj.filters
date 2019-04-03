@@ -124,8 +124,8 @@
     <ClInclude Include="..\src\containers\pb_circularbuffer.h">
       <Filter>containers</Filter>
     </ClInclude>
-    <ClInclude Include="pb_target_attack.h">
-      <Filter>headers</Filter>
+    <ClInclude Include="..\src\bot\pb_target_attack.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -425,7 +425,9 @@
     <ClCompile Include="..\src\bot\pb_target_wander.cpp">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
-    <ClCompile Include="pb_target_attack.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_attack.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\src\md2.h">

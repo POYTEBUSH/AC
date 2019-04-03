@@ -812,7 +812,7 @@ void CBot::MainAI()
 	//    else
 	//        AddDebugText("Heading to debug goal...");
 	//}
-	if (BotManager.BotsShoot() && FindEnemy()) // Combat
+	//if (BotManager.BotsShoot() && FindEnemy()) // Combat
 	//{
 	//    CheckReload();
 	//    CheckScope();

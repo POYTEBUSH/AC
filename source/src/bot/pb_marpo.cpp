@@ -18,7 +18,7 @@ void pb_target::Set(const vec & position)
 	mTargetType = ETargetType::TARGET_TYPE_NONE;
 }
 
-void pb_target::Set(const entity * entity)
+void pb_target::Set(entity * entity)
 {
 	mTargetEntity = entity;
 
@@ -28,7 +28,7 @@ void pb_target::Set(const entity * entity)
 	mTargetType = ETargetType::TARGET_TYPE_ENTITY;
 }
 
-void pb_target::Set(const playerent * entity)
+void pb_target::Set(playerent * entity)
 {
 	mTargetBot = entity;
 

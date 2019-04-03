@@ -38,8 +38,8 @@ public:
 	~pb_target();
 
 	void Set(const vec& position);
-	void Set(const entity* entity);
-	void Set(const playerent* entity);
+	void Set(entity* entity);
+	void Set(playerent* entity);
 
 	///<summary>Return a collection of required sub-tasks</summary>
 	virtual bool CalculateSubTasks(CBot* bot) = 0;
