@@ -121,7 +121,7 @@ void CBot::Think()
 			{
 				botent* d = bots[i]; // Handy shortcut
 
-				if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)) && (m_pMyEnt->enemy == nullptr/* || m_pMyEnt->enemy != d*/))
+				if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)))
 				{
 					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 					attackTask->Set(d);
@@ -129,7 +129,7 @@ void CBot::Think()
 				}
 
 			}
-			if(IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o))/* && (m_pMyEnt->enemy == nullptr)*//* || m_pMyEnt->enemy != player1)*/)
+			if(IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o)))
 			{
 				auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 				attackTask->Set(player1);

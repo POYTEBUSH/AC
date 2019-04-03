@@ -34,6 +34,7 @@ void pb_target_attack::PerformTask(CBot * bot)
 		bot->m_pMyEnt->move = 0;
 
 		bot->m_pMyEnt->enemy = mTargetBot;
+		bot->AimToVec(mTargetBot->head);
 		bot->ShootEnemy();
 
 		bot->ResetWaypointVars();
@@ -48,7 +49,11 @@ bool pb_target_attack::IsValid(CBot * bot)
 		bot->DetectEnemy(mTargetBot) &&
 		mTargetBot->state == CS_ALIVE);
 
-	bool inRange = (bot->m_pBotSkill->flAlwaysDetectDistance > bot->m_pMyEnt->o.dist(mTargetBot->o));
+	float flDist = GetDistance(bot->m_pMyEnt->o, mTargetBot->o);
+
+	// Check if bot is in fire range
+	bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
+		(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
 
 	return validenemy && inRange;
 }
