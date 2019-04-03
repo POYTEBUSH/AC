@@ -12,6 +12,7 @@
 
 #include "cube.h"
 #include "bot.h"
+#include "pb_target_attack.h"
 
 vector<botent *> bots;
 
@@ -105,9 +106,21 @@ void CBot::Think()
     }
 	else {
 		auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(m_pMyEnt);
-
 		if (botMarpoI != nullptr)
 		{
+			// First loop through all bots
+			loopv(bots)
+			{
+				botent* d = bots[i]; // Handy shortcut
+
+				if (IsInFOV(d))
+				{
+					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
+					attackTask->Set(d);
+					botMarpoI->AddTarget(attackTask);
+				}
+
+			}
 			botMarpoI->PerformNextTask();
 		}
 	}

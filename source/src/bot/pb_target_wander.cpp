@@ -10,7 +10,7 @@ bool pb_target_wander::CalculateSubTasks(CBot * bot)
 		//Create a new sub-task to move the bot towards that location
 		pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
 		newMovementTask->Set(targetvec->pNode->v_origin);
-		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask, mTaskLevel);
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask);
 		mCompleted = true;
 		bot->m_iLookForWaypointTime = lastmillis + 250;
 		return true;

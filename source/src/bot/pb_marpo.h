@@ -39,7 +39,7 @@ public:
 
 	void Set(const vec& position);
 	void Set(entity* entity);
-	void Set(playerent* entity);
+	void Set(botent* entity);
 
 	///<summary>Return a collection of required sub-tasks</summary>
 	virtual bool CalculateSubTasks(CBot* bot) = 0;
@@ -67,7 +67,7 @@ protected:
 
 	entity* mTargetEntity = nullptr;
 	//Target entity when targeting a bot or player
-	playerent* mTargetBot = nullptr;
+	botent* mTargetBot = nullptr;
 
 	//Type of target
 	ETargetType mTargetType;
@@ -88,7 +88,7 @@ public:
 	pb_marpo(botent* bot) : mBot(bot) {}
 	~pb_marpo() {}
 
-	void AddTarget(pb_target* target, ETaskLevel taskLevel);
+	void AddTarget(pb_target* target);
 	void SetDefaultTarget(pb_target* target) { mDefaultTarget = target; };
 	void PerformNextTask();
 

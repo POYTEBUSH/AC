@@ -28,7 +28,7 @@ void pb_target::Set(entity * entity)
 	mTargetType = ETargetType::TARGET_TYPE_ENTITY;
 }
 
-void pb_target::Set(playerent * entity)
+void pb_target::Set(botent * entity)
 {
 	mTargetBot = entity;
 
@@ -38,12 +38,12 @@ void pb_target::Set(playerent * entity)
 	mTargetType = ETargetType::TARGET_TYPE_BOT;
 }
 
-void pb_marpo::AddTarget(pb_target * target, ETaskLevel taskLevel)
+void pb_marpo::AddTarget(pb_target * target)
 {
 	//assert that the target has a target position
 	//assert(target->)
 
-	switch (taskLevel)
+	switch (target->mTargetType)
 	{
 	case TASK_LEVEL_LONGTERM:
 		mLongTermTasks.push(target);

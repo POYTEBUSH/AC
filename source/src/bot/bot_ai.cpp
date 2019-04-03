@@ -647,8 +647,8 @@ void CBot::ShootEnemy()
 				float yawtoturn = fabs(WrapYZAngle(m_pMyEnt->yaw - m_pMyEnt->targetyaw));
 				float pitchtoturn = fabs(WrapYZAngle(m_pMyEnt->pitch - m_pMyEnt->targetpitch));
 
-				if ((yawtoturn > 5) || (pitchtoturn > 15)) // UNDONE: Should be skill based
-					return;
+				//if ((yawtoturn > 5) || (pitchtoturn > 15)) // UNDONE: Should be skill based
+				//	return;
 			}
 
 			float flDist = GetDistance(enemypos);
