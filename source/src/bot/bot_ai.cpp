@@ -654,7 +654,7 @@ void CBot::ShootEnemy()
 			float flDist = GetDistance(enemypos);
 
 			// Check if bot is in fire range
-			if ((flDist < WeaponInfoTable[m_pMyEnt->gunselect].flMinFireDistance) ||
+			if (/*(flDist < WeaponInfoTable[m_pMyEnt->gunselect].flMinFireDistance) ||*/
 				(flDist > WeaponInfoTable[m_pMyEnt->gunselect].flMaxFireDistance))
 				return;
 

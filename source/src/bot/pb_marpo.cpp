@@ -28,7 +28,7 @@ void pb_target::Set(entity * entity)
 	mTargetType = ETargetType::TARGET_TYPE_ENTITY;
 }
 
-void pb_target::Set(botent * entity)
+void pb_target::Set(playerent * entity)
 {
 	mTargetBot = entity;
 
@@ -65,12 +65,16 @@ void pb_marpo::PerformNextTask()
 	mBot->pBot->CheckStuck();
 	mBot->pBot->CheckCrouch();
 	mBot->pBot->CheckJump();
-	mBot->pBot->CheckReload();
+	//mBot->pBot->CheckReload();
+
+	//Start with the bot moving
+	mBot->move = 1;
 
 	CheckMorePertinentTasks();
 
 	if (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
 	{
+		DeleteCurrentTask();
 		if (!mImmediateTasks.empty())
 		{
 			mCurrentTarget = mImmediateTasks.top();
@@ -89,7 +93,7 @@ void pb_marpo::PerformNextTask()
 		else
 		{
 			//At this point the long term goal stack is empty, this shouldn't be the case. Re-apply the default.
-			//Set the default target to not completed, this way it can be worked on again.
+			//Set the default target to not completed, this way it can be worked on again.		
 			mDefaultTarget->Reset();
 			mCurrentTarget = mDefaultTarget;
 		}
@@ -104,6 +108,52 @@ void pb_marpo::PerformNextTask()
 
 	//We either need to perform the current task or a new one is given.
 	mCurrentTarget->PerformTask(mBot->pBot);
+}
+
+void pb_marpo::ClearTasks()
+{
+	ClearTaskStack(TASK_LEVEL_IMMEDIATE);
+	ClearTaskStack(TASK_LEVEL_REACTIVE);
+	ClearTaskStack(TASK_LEVEL_LONGTERM);
+}
+
+void pb_marpo::ClearTaskStack(ETaskLevel taskLevel)
+{
+	switch (taskLevel)
+	{
+	case TASK_LEVEL_LONGTERM:
+	{
+		while (!mLongTermTasks.empty())
+		{
+			auto t = mLongTermTasks.top();
+			mLongTermTasks.pop();
+			delete t;
+		}
+	}
+	break;
+	case TASK_LEVEL_REACTIVE:
+	{
+		while (!mReactiveTasks.empty())
+		{
+			auto t = mReactiveTasks.top();
+			mReactiveTasks.pop();
+			delete t;
+		}
+	}
+	break;
+	case TASK_LEVEL_IMMEDIATE:
+	{
+		while (!mImmediateTasks.empty())
+		{
+			auto t = mImmediateTasks.top();
+			mImmediateTasks.pop();
+			delete t;
+		}
+	}
+	break;
+	default:
+		break;
+	}
 }
 
 void pb_marpo::CheckMorePertinentTasks()
@@ -123,4 +173,10 @@ void pb_marpo::CheckMorePertinentTasks()
 			mImmediateTasks.pop();
 		}
 	}
+}
+
+void pb_marpo::DeleteCurrentTask()
+{
+	if (mCurrentTarget != mDefaultTarget)
+		delete mCurrentTarget;
 }

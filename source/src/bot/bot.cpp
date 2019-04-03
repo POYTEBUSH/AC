@@ -93,8 +93,16 @@ void CBot::Think()
 {
     if (intermission) return;
     // Bot is dead?
+
+
+	ResetMoveSpeed();
+	auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(m_pMyEnt);
     if (m_pMyEnt->state == CS_DEAD)
     {
+		if (botMarpoI != nullptr)
+		{
+			botMarpoI->ClearTasks();
+		}
         if(lastmillis-m_pMyEnt->lastdeath<1200)
         {
             m_pMyEnt->move = 0;
@@ -105,7 +113,7 @@ void CBot::Think()
         return;
     }
 	else {
-		auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(m_pMyEnt);
+		
 		if (botMarpoI != nullptr)
 		{
 			// First loop through all bots
@@ -113,13 +121,19 @@ void CBot::Think()
 			{
 				botent* d = bots[i]; // Handy shortcut
 
-				if (IsInFOV(d))
+				if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)) && (m_pMyEnt->enemy == nullptr/* || m_pMyEnt->enemy != d*/))
 				{
 					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 					attackTask->Set(d);
 					botMarpoI->AddTarget(attackTask);
 				}
 
+			}
+			if(IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o))/* && (m_pMyEnt->enemy == nullptr)*//* || m_pMyEnt->enemy != player1)*/)
+			{
+				auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
+				attackTask->Set(player1);
+				botMarpoI->AddTarget(attackTask);
 			}
 			botMarpoI->PerformNextTask();
 		}
@@ -140,9 +154,6 @@ void CBot::Think()
         p = p->next;
     }
 
-	ResetMoveSpeed();
-
-	m_pMyEnt->move = 1;
 	m_pMyEnt->pitch = 1;
     // Aim to ideal yaw and pitch
     AimToIdeal();
@@ -154,6 +165,7 @@ void CBot::Think()
     moveplayer(m_pMyEnt, 1, true);
     // Update bot info on all clients
     SendBotInfo();
+	CheckWeaponSwitch();
 }
 
 void CBot::AimToVec(const vec &o)

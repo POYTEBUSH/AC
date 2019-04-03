@@ -39,7 +39,7 @@ public:
 
 	void Set(const vec& position);
 	void Set(entity* entity);
-	void Set(botent* entity);
+	void Set(playerent* entity);
 
 	///<summary>Return a collection of required sub-tasks</summary>
 	virtual bool CalculateSubTasks(CBot* bot) = 0;
@@ -67,7 +67,7 @@ protected:
 
 	entity* mTargetEntity = nullptr;
 	//Target entity when targeting a bot or player
-	botent* mTargetBot = nullptr;
+	playerent* mTargetBot = nullptr;
 
 	//Type of target
 	ETargetType mTargetType;
@@ -92,6 +92,9 @@ public:
 	void SetDefaultTarget(pb_target* target) { mDefaultTarget = target; };
 	void PerformNextTask();
 
+	void ClearTasks();
+	void ClearTaskStack(ETaskLevel taskLevel);
+
 	pb_circularbuffer<vec, MAX_POSITIONAL_MEM>* GetPositionMemory() { return &mPreviousLocations; }
 
 private:
@@ -100,15 +103,17 @@ private:
 	///<summary>Check for tasks which sit at a higher priority queue</summary>
 	void CheckMorePertinentTasks();
 
+	void DeleteCurrentTask();
+
 	std::stack<pb_target*> mLongTermTasks;
 	std::stack<pb_target*> mReactiveTasks;
 	std::stack<pb_target*> mImmediateTasks;
 
 	//The goal which will always be performed
-	pb_target* mDefaultTarget = nullptr;;
+	pb_target* mDefaultTarget = nullptr;
 
 	//The current goal which the entity is attempting to perform
-	pb_target* mCurrentTarget = nullptr;;
+	pb_target* mCurrentTarget = nullptr;
 
 	//pointer the bot which this MARPO instance is managing
 	botent* mBot = nullptr;
