@@ -127,6 +127,9 @@
     <ClInclude Include="..\src\bot\pb_target_attack.h">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_reload.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\config\admin.cfg">
@@ -426,6 +429,9 @@
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target_attack.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_reload.cpp">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,10 +1,17 @@
 #include "cube.h"
 #include "pb_target_attack.h"
 #include "pb_target_movement.h"
+#include "pb_target_reload.h"
 
 bool pb_target_attack::CalculateSubTasks(CBot * bot)
 {
 	//If we have the bot but they are unable to be detected, we should make sure they can be 
+	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] < WeaponInfoTable[bot->m_pMyEnt->weaponsel->type].sMinDesiredAmmo)
+	{
+		pb_target_reload* reloadTask= new pb_target_reload(mTaskLevel);
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(reloadTask);
+		return true;
+	}
 	if (mTargetBot != nullptr)
 	{
 		////If we are not in the range specified by the bots skill we need to try and move closer.
@@ -55,7 +62,9 @@ bool pb_target_attack::IsValid(CBot * bot)
 	bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
 		(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
 
-	return validenemy && inRange;
+	bool hasAmmo = bot->m_pMyEnt->enemy && bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type];
+
+	return validenemy && inRange && hasAmmo;
 }
 
 bool pb_target_attack::IsCompleted(CBot * bot)

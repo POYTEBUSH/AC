@@ -96,6 +96,8 @@ void CBot::Think()
 
 
 	ResetMoveSpeed();
+	m_pMyEnt->pitch = 1;
+
 	auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(m_pMyEnt);
     if (m_pMyEnt->state == CS_DEAD)
     {
@@ -121,15 +123,14 @@ void CBot::Think()
 			{
 				botent* d = bots[i]; // Handy shortcut
 
-				if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)))
+				if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)) && d->team != m_pMyEnt->team)
 				{
 					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 					attackTask->Set(d);
 					botMarpoI->AddTarget(attackTask);
 				}
-
 			}
-			if(IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o)))
+			if(IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o)) && player1->team != m_pMyEnt->team)
 			{
 				auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 				attackTask->Set(player1);
@@ -153,8 +154,6 @@ void CBot::Think()
         }
         p = p->next;
     }
-
-	m_pMyEnt->pitch = 1;
     // Aim to ideal yaw and pitch
     AimToIdeal();
     // Store current location, to see if the bot is stuck
