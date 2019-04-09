@@ -133,6 +133,9 @@
     <ClInclude Include="..\src\bot\pb_target_rotate.h">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_hunt.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\config\admin.cfg">
@@ -438,6 +441,9 @@
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target_rotate.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_hunt.cpp">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClCompile>
   </ItemGroup>

@@ -406,6 +406,7 @@
     <ClInclude Include="..\src\bot\botmanager.h" />
     <ClInclude Include="..\src\bot\pb_marpo.h" />
     <ClInclude Include="..\src\bot\pb_target_attack.h" />
+    <ClInclude Include="..\src\bot\pb_target_hunt.h" />
     <ClInclude Include="..\src\bot\pb_target_movement.h" />
     <ClInclude Include="..\src\bot\pb_target_reload.h" />
     <ClInclude Include="..\src\bot\pb_target_rotate.h" />
@@ -517,6 +518,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\bot\pb_marpo.cpp" />
     <ClCompile Include="..\src\bot\pb_target_attack.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_hunt.cpp" />
     <ClCompile Include="..\src\bot\pb_target_movement.cpp" />
     <ClCompile Include="..\src\bot\pb_target_reload.cpp" />
     <ClCompile Include="..\src\bot\pb_target_rotate.cpp" />
