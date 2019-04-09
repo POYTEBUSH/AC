@@ -43,7 +43,7 @@ void pb_marpo::AddTarget(pb_target * target)
 	//assert that the target has a target position
 	//assert(target->)
 
-	switch (target->mTargetType)
+	switch (target->mTaskLevel)
 	{
 	case TASK_LEVEL_LONGTERM:
 		mLongTermTasks.push(target);
@@ -82,7 +82,7 @@ void pb_marpo::PerformNextTask()
 		}
 		else if (!mReactiveTasks.empty())
 		{
-			mCurrentTarget = mReactiveTasks.top();
+ 			mCurrentTarget = mReactiveTasks.top();
 			mReactiveTasks.pop();
 		}
 		else if (!mLongTermTasks.empty())

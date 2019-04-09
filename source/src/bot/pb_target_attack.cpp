@@ -6,8 +6,11 @@
 bool pb_target_attack::CalculateSubTasks(CBot * bot)
 {
 	//If we have the bot but they are unable to be detected, we should make sure they can be 
-	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] < WeaponInfoTable[bot->m_pMyEnt->weaponsel->type].sMinDesiredAmmo)
+	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == WeaponInfoTable[bot->m_pMyEnt->weaponsel->type].sMinDesiredAmmo)
 	{
+		//Re add this task back to queue
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
+
 		pb_target_reload* reloadTask= new pb_target_reload(mTaskLevel);
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(reloadTask);
 		return true;
