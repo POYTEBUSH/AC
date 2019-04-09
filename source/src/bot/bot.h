@@ -46,6 +46,8 @@
 #include "bot_util.h"
 #include "bot_waypoint.h"
 
+#include "pb_marpo.h"
+
 extern itemstat itemstats[];
 
 #ifdef RELEASE_BUILD

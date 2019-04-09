@@ -1,3 +1,5 @@
+#pragma once
+
 enum                            // static entity types
 {
     NOTUSED = 0,                // entity slot not in use in map (usually seen at deleted entities)

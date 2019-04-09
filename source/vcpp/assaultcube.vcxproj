@@ -25,7 +25,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1FAF5BB4-C49A-4124-9F23-188528BAE7C8}</ProjectGuid>
     <RootNamespace>assaultcube</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'" Label="Configuration">
@@ -162,6 +162,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -210,6 +211,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <EnablePREfast>false</EnablePREfast>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -268,6 +270,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -324,6 +327,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -370,6 +374,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -398,8 +403,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\bot\botmanager.h" />
+    <ClInclude Include="..\src\bot\pb_marpo.h" />
+    <ClInclude Include="..\src\bot\pb_target_attack.h" />
+    <ClInclude Include="..\src\bot\pb_target_movement.h" />
+    <ClInclude Include="..\src\bot\pb_target_reload.h" />
+    <ClInclude Include="..\src\bot\pb_target_rotate.h" />
+    <ClInclude Include="..\src\bot\pb_target_wander.h" />
     <ClInclude Include="..\src\command.h" />
     <ClInclude Include="..\src\console.h" />
+    <ClInclude Include="..\src\containers\pb_circularbuffer.h" />
     <ClInclude Include="..\src\crypto_tools.h" />
     <ClInclude Include="..\src\cube.h" />
     <ClInclude Include="..\src\entity.h" />
@@ -415,8 +428,6 @@
     </CustomBuildStep>
     <ClInclude Include="..\src\model.h" />
     <ClInclude Include="..\src\modelcache.h" />
-    <ClInclude Include="..\src\pb_marpo.h" />
-    <ClInclude Include="..\src\pb_target.h" />
     <ClInclude Include="..\src\platform.h" />
     <ClInclude Include="..\src\protocol.h" />
     <ClInclude Include="..\src\protos.h" />
@@ -504,8 +515,12 @@
     <None Include="..\..\config\sounds.cfg" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\pb_marpo.cpp" />
-    <ClCompile Include="..\src\pb_target.cpp" />
+    <ClCompile Include="..\src\bot\pb_marpo.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_attack.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_movement.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_reload.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_rotate.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_wander.cpp" />
     <ClCompile Include="..\src\rendercubes.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone|Win32'">true</ExcludedFromBuild>
