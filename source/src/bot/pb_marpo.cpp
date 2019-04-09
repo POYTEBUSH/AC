@@ -62,10 +62,8 @@ void pb_marpo::AddTarget(pb_target * target)
 void pb_marpo::PerformNextTask()
 {
 	//Check code supplied by base code
-	mBot->pBot->CheckStuck();
-	mBot->pBot->CheckCrouch();
+	//mBot->pBot->CheckCrouch();
 	mBot->pBot->CheckJump();
-	//mBot->pBot->CheckReload();
 
 	//Start with the bot moving
 	mBot->move = 1;

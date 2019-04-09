@@ -408,6 +408,7 @@
     <ClInclude Include="..\src\bot\pb_target_attack.h" />
     <ClInclude Include="..\src\bot\pb_target_movement.h" />
     <ClInclude Include="..\src\bot\pb_target_reload.h" />
+    <ClInclude Include="..\src\bot\pb_target_rotate.h" />
     <ClInclude Include="..\src\bot\pb_target_wander.h" />
     <ClInclude Include="..\src\command.h" />
     <ClInclude Include="..\src\console.h" />
@@ -518,6 +519,7 @@
     <ClCompile Include="..\src\bot\pb_target_attack.cpp" />
     <ClCompile Include="..\src\bot\pb_target_movement.cpp" />
     <ClCompile Include="..\src\bot\pb_target_reload.cpp" />
+    <ClCompile Include="..\src\bot\pb_target_rotate.cpp" />
     <ClCompile Include="..\src\bot\pb_target_wander.cpp" />
     <ClCompile Include="..\src\rendercubes.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standalone Debug|Win32'">true</ExcludedFromBuild>

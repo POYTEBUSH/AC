@@ -120,21 +120,24 @@ void CBot::Think()
 		{
 			// First loop through all bots
 			loopv(bots)
-			{			
+			{
 				botent* d = bots[i]; // Handy shortcut
-
-				if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)) && (d->team != m_pMyEnt->team || m_arena) /*&& m_pMyEnt->enemy != d*/)
-				{
-					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
-					attackTask->Set(d);
-					botMarpoI->AddTarget(attackTask);
+				if (d->state == CS_ALIVE) {
+					if (IsInFOV(d) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(d->o)) && (d->team != m_pMyEnt->team || m_arena))
+					{
+						auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
+						attackTask->Set(d);
+						botMarpoI->AddTarget(attackTask);
+					}
 				}
 			} 
-			if(IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o)) && (player1->team != m_pMyEnt->team || m_arena) /*&& m_pMyEnt->enemy != player1*/)
-			{
-				auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
-				attackTask->Set(player1);
-				botMarpoI->AddTarget(attackTask);
+			if (player1->state == CS_ALIVE) {
+				if (IsInFOV(player1) && (m_pBotSkill->flAlwaysDetectDistance > m_pMyEnt->o.dist(player1->o)) && (player1->team != m_pMyEnt->team || m_arena))
+				{
+					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
+					attackTask->Set(player1);
+					botMarpoI->AddTarget(attackTask);
+				}
 			}
 			botMarpoI->PerformNextTask();
 		}
