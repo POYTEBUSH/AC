@@ -23,11 +23,11 @@ bool pb_target_wander::CalculateSubTasks(CBot * bot)
 		mCompleted = false;
 		return false;
 	}
-
 }
 
 void pb_target_wander::PerformTask(CBot * bot)
 {
+	bot->m_pMyEnt->move = 1;
 	//This specific task does not have any performance task
 }
 
