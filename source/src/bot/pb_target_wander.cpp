@@ -4,9 +4,9 @@
 
 bool pb_target_wander::CalculateSubTasks(CBot * bot)
 {
-	auto targetvec = bot->GetNearestWaypoint(10.f); 
+	auto targetvec = bot->GetNearestWaypoint(50.f); 
 	/*&& (targetvec != bot->m_pCurrentWaypoint)*/
-	if (targetvec != nullptr && bot->m_iLookForWaypointTime <= lastmillis)
+	if (targetvec != nullptr && (targetvec != bot->m_pCurrentWaypoint) && bot->m_iLookForWaypointTime <= lastmillis)
 	{
 		//Re add this task back to queue
 		//pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);

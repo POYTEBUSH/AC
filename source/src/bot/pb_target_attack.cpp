@@ -65,9 +65,7 @@ bool pb_target_attack::IsValid(CBot * bot)
 	bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
 		(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
 
-	bool hasAmmo = bot->m_pMyEnt->enemy && bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type];
-
-	return validenemy && inRange && hasAmmo;
+	return validenemy && inRange;
 }
 
 bool pb_target_attack::IsCompleted(CBot * bot)

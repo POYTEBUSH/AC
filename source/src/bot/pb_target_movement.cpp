@@ -35,7 +35,6 @@ bool pb_target_movement::CalculateSubTasks(CBot * bot)
 	if (IsStuck)
 	{
 		//pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
-
 		pb_target_rotate* rotationTask = new pb_target_rotate(mTaskLevel);
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(rotationTask);
 		return true;
@@ -59,6 +58,11 @@ bool pb_target_movement::IsValid(CBot * bot)
 
 bool pb_target_movement::IsCompleted(CBot * bot)
 {
-	return bot->GetDistance(mTargetVec) <= 2.f;
+	if (bot->GetDistance(mTargetVec) <= 2.f)
+	{
+		bot->ResetWaypointVars();
+		return true;
+	}
+	return false;
 }
 
