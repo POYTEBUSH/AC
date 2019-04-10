@@ -48,7 +48,7 @@ public:
 	///<summary>Is the task completed or not</summary>
 	virtual bool IsCompleted(CBot* bot) = 0;
 
-	void Reset()
+	virtual void Reset()
 	{
 		mTargetEntity = nullptr;
 		mTargetBot = nullptr;

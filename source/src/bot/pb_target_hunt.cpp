@@ -1,36 +1,49 @@
 #include "cube.h"
 #include "pb_target_hunt.h"
 
+#include "pb_target_movement.h"
+
 bool pb_target_hunt::CalculateSubTasks(CBot * bot)
 {
-	switch (mHuntType)
-	{
-	case HUNT_TARGET_ENEMY:
-		return false;
-	case HUNT_TARGET_AMMO:
-	{
+	entity* foundEntity = FindEntity(bot, mHuntType);
 
-	}
-	return true;
-	case HUNT_TARGET_HEALTH:
+	if (foundEntity != nullptr)
+	{
+		mTaskFound = true;
+
+		pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
+		newMovementTask->Set(foundEntity);
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask);
 
 		return true;
-	default:
-		return false;
 	}
 	return false;
 }
 
 void pb_target_hunt::PerformTask(CBot * bot)
 {
+	//No direct task for this action, it is performed as part of the calculate sub tasks
 }
 
 bool pb_target_hunt::IsValid(CBot * bot)
 {
-	return false;
+	//Could check if the bot still requires the pickup
+	return true;
 }
 
 bool pb_target_hunt::IsCompleted(CBot * bot)
 {
-	return false;
+	return mTaskFound;
+}
+
+entity* pb_target_hunt::FindEntity(CBot * bot, EntityTypes type)
+{
+	loopv(ents)
+	{
+		auto &e = ents[i];
+		//Check if the entity is one that is required and if it's in the bots view
+		if (e.type == type && bot->IsInFOV(vec(e.x,e.y,e.z)))
+			return &ents[i];
+	}
+	return nullptr;
 }

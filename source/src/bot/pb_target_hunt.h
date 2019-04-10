@@ -14,7 +14,7 @@ public:
 	pb_target_hunt(ETaskLevel taskLevel) : pb_target(taskLevel) {};
 	~pb_target_hunt() {};
 
-	void SetTargetType(HUNT_TARGET_TYPE type) { mHuntType = type; }
+	void SetTargetType(EntityTypes type) { mHuntType = type; }
 
 	bool CalculateSubTasks(CBot* bot);
 	void PerformTask(CBot* bot);
@@ -23,7 +23,9 @@ public:
 
 private:
 
-	HUNT_TARGET_TYPE mHuntType;
+	entity* FindEntity(CBot * bot, EntityTypes type);
+
+	EntityTypes mHuntType;
 	bool mTaskFound;
 };
 

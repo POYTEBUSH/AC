@@ -13,6 +13,8 @@ public:
 	//Not marked as const due to override
 	bool IsCompleted(CBot* bot) { return mCompleted; }
 
+	void Reset() { mCompleted = false; }
+
 private:
 	bool mCompleted;
 };

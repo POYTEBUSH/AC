@@ -70,7 +70,7 @@ void pb_marpo::PerformNextTask()
 
 	CheckMorePertinentTasks();
 
-	if (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
+	while (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
 	{
 		DeleteCurrentTask();
 		if (!mImmediateTasks.empty())
@@ -80,7 +80,7 @@ void pb_marpo::PerformNextTask()
 		}
 		else if (!mReactiveTasks.empty())
 		{
- 			mCurrentTarget = mReactiveTasks.top();
+			mCurrentTarget = mReactiveTasks.top();
 			mReactiveTasks.pop();
 		}
 		else if (!mLongTermTasks.empty())
@@ -105,6 +105,7 @@ void pb_marpo::PerformNextTask()
 	}
 
 	//We either need to perform the current task or a new one is given.
+	debugbeam(mBot->o, mCurrentTarget->mTargetVec);
 	mCurrentTarget->PerformTask(mBot->pBot);
 }
 
