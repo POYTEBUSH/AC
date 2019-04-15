@@ -404,6 +404,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\bot\botmanager.h" />
+    <ClInclude Include="..\src\bot\pb_FuzzyModule.h" />
+    <ClInclude Include="..\src\bot\pb_FuzzyRule.h" />
+    <ClInclude Include="..\src\bot\pb_FuzzySet.h" />
+    <ClInclude Include="..\src\bot\pb_FuzzyTerm.h" />
+    <ClInclude Include="..\src\bot\pb_FuzzyVariable.h" />
     <ClInclude Include="..\src\bot\pb_marpo.h" />
     <ClInclude Include="..\src\bot\pb_target_attack.h" />
     <ClInclude Include="..\src\bot\pb_target_hunt.h" />
@@ -516,6 +521,11 @@
     <None Include="..\..\config\sounds.cfg" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\bot\pb_FuzzyModule.cpp" />
+    <ClCompile Include="..\src\bot\pb_FuzzyRule.cpp" />
+    <ClCompile Include="..\src\bot\pb_FuzzySet.cpp" />
+    <ClCompile Include="..\src\bot\pb_FuzzyTerm.cpp" />
+    <ClCompile Include="..\src\bot\pb_FuzzyVariable.cpp" />
     <ClCompile Include="..\src\bot\pb_marpo.cpp" />
     <ClCompile Include="..\src\bot\pb_target_attack.cpp" />
     <ClCompile Include="..\src\bot\pb_target_hunt.cpp" />

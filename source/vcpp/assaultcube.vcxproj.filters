@@ -38,6 +38,9 @@
     <Filter Include="containers">
       <UniqueIdentifier>{97bf46a3-2089-48a3-90cd-05da3a71d7ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bot\PeterBush-b013432f\Fuzzy Logic">
+      <UniqueIdentifier>{26dfc8b5-f108-45f8-a8e9-6c54ba602343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\command.h">
@@ -135,6 +138,21 @@
     </ClInclude>
     <ClInclude Include="..\src\bot\pb_target_hunt.h">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyModule.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzySet.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyVariable.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyRule.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyTerm.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +463,21 @@
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target_hunt.cpp">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyModule.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzySet.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyVariable.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyRule.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyTerm.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
