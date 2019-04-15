@@ -17,6 +17,7 @@ public:
 	void SetDegreeOfMemebership(double val) { mDegreeOfMembership = val; }
 	void ResetDegreeOfMemebership() { mDegreeOfMembership = .0; }
 
+
 private:
 
 	double mDegreeOfMembership;
@@ -32,6 +33,40 @@ public:
 	double CalculateDOM(double val) const;
 
 	~pb_FuzzySet_Triange() {}
+
+private:
+
+	double mPeak;
+	double mLeftOffset;
+	double mRightOffset;
+};
+
+class pb_FuzzySet_RightShoulder : public pb_FuzzySet
+{
+public:
+
+	pb_FuzzySet_RightShoulder(double left, double mid, double right) : pb_FuzzySet(mid), mLeftOffset(left), mPeak(mid), mRightOffset(right) {};
+
+	double CalculateDOM(double val) const;
+
+	~pb_FuzzySet_RightShoulder() {}
+
+private:
+
+	double mPeak;
+	double mLeftOffset;
+	double mRightOffset;
+};
+
+class pb_FuzzySet_LeftShoulder : public pb_FuzzySet
+{
+public:
+
+	pb_FuzzySet_LeftShoulder(double left, double mid, double right) : pb_FuzzySet(mid), mLeftOffset(left), mPeak(mid), mRightOffset(right) {};
+
+	double CalculateDOM(double val) const;
+
+	~pb_FuzzySet_LeftShoulder() {}
 
 private:
 
