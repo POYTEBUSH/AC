@@ -1,14 +1,7 @@
 #include "cube.h"
 #include "pb_FuzzyModule.h"
 
-pb_FuzzyModule::pb_FuzzyModule()
-{
-}
-
-
-pb_FuzzyModule::~pb_FuzzyModule()
-{
-}
+#include <assert.h>
 
 void pb_FuzzyModule::AddRule(pb_FuzzyTerm & atecedent, pb_FuzzyTerm & concequence)
 {
@@ -21,7 +14,7 @@ pb_FuzzyVariable & pb_FuzzyModule::CreateFuzzyVariable(const std::string & name)
 	return *mVariables[name];
 }
 
-double pb_FuzzyModule::Fuzzify(const std::string & name, double val)
+void pb_FuzzyModule::Fuzzify(const std::string & name, double val)
 {
 	mVariables[name]->Fuzzify(val);
 }
@@ -40,4 +33,8 @@ double pb_FuzzyModule::DeFuzzify(const std::string & name)
 
 void pb_FuzzyModule::ZeroConsequence()
 {
+	for (auto r : mFuzzyRules)
+	{
+		r->ZeroConsequnceConfidence();
+	}
 }

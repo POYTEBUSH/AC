@@ -12,13 +12,13 @@ class pb_FuzzyModule
 {
 public:
 	pb_FuzzyModule() {};
-	~pb_FuzzyModule();
+	~pb_FuzzyModule() {};
 
 	pb_FuzzyVariable& CreateFuzzyVariable(const std::string& name);
 
 	void AddRule(pb_FuzzyTerm& atecedent, pb_FuzzyTerm& concequence);
 
-	double Fuzzify(const std::string& name, double val);
+	void Fuzzify(const std::string& name, double val);
 	double DeFuzzify(const std::string& name);
 
 private:

@@ -6,7 +6,7 @@
 class pb_FuzzyTerm
 {
 public:
-	pb_FuzzyTerm();
+	pb_FuzzyTerm() {};
 
 	virtual ~pb_FuzzyTerm() {};
 
@@ -62,4 +62,4 @@ private:
 
 	std::vector<pb_FuzzyTerm*> mTerms;
 
-}
+};

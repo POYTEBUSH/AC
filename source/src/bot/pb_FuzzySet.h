@@ -12,7 +12,7 @@ public:
 	void ORWithDOM(double val);
 
 	double GetRepresentativeValue() const { return mRepresentativeValue; }
-	double GetDegreeOfMembership() const { mDegreeOfMembership; }
+	double GetDegreeOfMembership() const { return mDegreeOfMembership; }
 
 	void SetDegreeOfMemebership(double val) { mDegreeOfMembership = val; }
 	void ResetDegreeOfMemebership() { mDegreeOfMembership = .0; }

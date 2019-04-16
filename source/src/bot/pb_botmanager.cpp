@@ -1,6 +1,9 @@
 #include "cube.h"
 #include "pb_botmanager.h"
 
+//MARPO Tasks
+#include "pb_target_attack.h"
+
 pb_botmanager* pb_botmanager::mInstance;
 
 void pb_botmanager::Init()
@@ -44,12 +47,65 @@ void pb_botmanager::Init()
 	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, armourLow), desirabilityLow);
 	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, healthMedium), desirabilityNeutral);
 	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, healthHigh), desirabilityNeutral);
-
-
-
-
 }
 
-void pb_botmanager::Update(std::vector<botent*> bots)
+void pb_botmanager::Update(vector<botent*> bots)
 {
+	for (size_t i = 0; i < bots.length(); i++)
+	{
+		auto thisBotEnt = bots[i];
+		auto thisBot = bots[i]->pBot;
+
+
+		if (!bots[i]) continue;
+		if (bots[i]->pBot)
+		{
+			auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(thisBotEnt);
+
+			mFuzzyModule.Fuzzify("Health", thisBotEnt->health);
+			mFuzzyModule.Fuzzify("Armour", thisBotEnt->armour);
+
+			playerent* target = nullptr;
+			double targetBestScore = 0.0;
+
+			for (size_t j = 0; j < bots.length(); j++)
+			{
+				botent* enemyBot = bots[j];
+				if (enemyBot->state == CS_ALIVE) {
+					if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
+					{
+						mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(enemyBot->o));
+
+						double desireToAttack = mFuzzyModule.DeFuzzify("Desirability");
+						if (desireToAttack > targetBestScore)
+						{
+							targetBestScore = desireToAttack;
+							target = enemyBot;
+						}
+					}
+				}
+			}
+			if (player1->state == CS_ALIVE) {
+				if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
+				{
+					mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(player1->o));
+					double desireToAttack = mFuzzyModule.DeFuzzify("Desirability");
+					if (desireToAttack > targetBestScore)
+					{
+						targetBestScore = desireToAttack;
+						target = player1;
+					}
+				}
+			}
+
+			if (target != nullptr)
+			{
+				auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
+				attackTask->Set(target);
+				botMarpoI->AddTarget(attackTask);
+			}
+
+			bots[i]->pBot->Think();
+		}
+	}	
 }

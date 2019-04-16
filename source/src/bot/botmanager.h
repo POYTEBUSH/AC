@@ -1,6 +1,5 @@
 #pragma once
 #include "bot/bot.h"
-//#include "pb_marpo.h"
 
 class CBotManager
 {

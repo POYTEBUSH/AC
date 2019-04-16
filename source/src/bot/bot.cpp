@@ -12,7 +12,6 @@
 
 #include "cube.h"
 #include "bot.h"
-#include "pb_target_attack.h"
 
 vector<botent *> bots;
 
@@ -94,7 +93,6 @@ void CBot::Think()
     if (intermission) return;
     // Bot is dead?
 
-
 	ResetMoveSpeed();
 	m_pMyEnt->pitch = 1;
 	// Aim to ideal yaw and pitch
@@ -120,27 +118,6 @@ void CBot::Think()
 		
 		if (botMarpoI != nullptr)
 		{
-			// First loop through all bots
-			loopv(bots)
-			{
-				botent* d = bots[i]; // Handy shortcut
-				if (d->state == CS_ALIVE) {
-					if (IsInFOV(d) && (d->team != m_pMyEnt->team || m_arena))
-					{
-						auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
-						attackTask->Set(d);
-						botMarpoI->AddTarget(attackTask);
-					}
-				}
-			} 
-			if (player1->state == CS_ALIVE) {
-				if (IsInFOV(player1) && (player1->team != m_pMyEnt->team || m_arena))
-				{
-					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
-					attackTask->Set(player1);
-					botMarpoI->AddTarget(attackTask);
-				}
-			}
 			botMarpoI->PerformNextTask();
 		}
 	}

@@ -7,7 +7,7 @@
 #include "pb_FuzzyModule.h"
 #include "pb_FuzzyTerm.h"
 
-#include <vector>
+#include "tools.h"
 
 class pb_botmanager
 {
@@ -25,7 +25,7 @@ public:
 	}
 
 	void Init();
-	void Update(std::vector<botent*> bots);
+	void Update(vector<botent*> bots);
 
 private:
 

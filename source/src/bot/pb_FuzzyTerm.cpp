@@ -1,16 +1,6 @@
 #include "cube.h"
 #include "pb_FuzzyTerm.h"
 
-
-pb_FuzzyTerm::pb_FuzzyTerm()
-{
-}
-
-
-pb_FuzzyTerm::~pb_FuzzyTerm()
-{
-}
-
 pb_FuzzyTermGroup::pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2)
 {
 	mTerms.clear();

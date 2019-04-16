@@ -14,6 +14,7 @@
 #include "bot.h"
 
 #include "pb_target_wander.h"
+#include "pb_botmanager.h"
 
 extern void respawnself();
 
@@ -72,15 +73,7 @@ void CBotManager::Think()
 		m_fReAddBotDelay = -1.0f;
 	}
 	// Let all bots 'think'
-	loopv(bots)
-	{
-		if (!bots[i]) continue;
-		if (bots[i]->pBot)
-		{
-			bots[i]->pBot->Think();
-		}
-		else condebug("Error: pBot == NULL in bot ent\n");
-	}	
+	pb_botmanager::Instance()->Update(bots);
 }
 
 void CBotManager::LoadBotNamesFile()

@@ -1,6 +1,6 @@
 #pragma once
 #include "pb_FuzzySet.h"
-#include "pb_FuzzyModule.h"
+#include "pb_FuzzyTerm.h"
 #include <assert.h>
 
 #include <map>
