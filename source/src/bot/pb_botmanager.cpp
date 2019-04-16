@@ -61,50 +61,62 @@ void pb_botmanager::Update(vector<botent*> bots)
 		if (bots[i]->pBot)
 		{
 			auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(thisBotEnt);
+			
+			if (thisBotEnt->state == CS_ALIVE) {
+				mFuzzyModule.Fuzzify("Health", max(0, thisBotEnt->health));
+				mFuzzyModule.Fuzzify("Armour", max(0, thisBotEnt->armour));
 
-			mFuzzyModule.Fuzzify("Health", thisBotEnt->health);
-			mFuzzyModule.Fuzzify("Armour", thisBotEnt->armour);
+				//Check the desirability of the current task
+				auto currentTarget = botMarpoI->GetCurrentTarget();
+				double currentBestScore = 0.0;
+				if (currentTarget != nullptr)
+				{
+					mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(currentTarget->GetTargetPos()));
+					currentBestScore = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
+				}
 
-			playerent* target = nullptr;
-			double targetBestScore = 0.0;
 
-			for (size_t j = 0; j < bots.length(); j++)
-			{
-				botent* enemyBot = bots[j];
-				if (enemyBot->state == CS_ALIVE) {
-					if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
+				playerent* target = nullptr;
+
+				double targetBestScore = 0.0;
+				for (size_t j = 0; j < bots.length(); j++)
+				{
+					botent* enemyBot = bots[j];
+					if (enemyBot->state == CS_ALIVE && enemyBot != thisBotEnt) {
+						if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
+						{
+							mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(enemyBot->o));
+
+							double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
+							if (desireToAttack > targetBestScore)
+							{
+								targetBestScore = desireToAttack;
+								target = enemyBot;
+							}
+						}
+					}
+				}
+				if (player1->state == CS_ALIVE) {
+					if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
 					{
-						mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(enemyBot->o));
-
+						mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(player1->o));
 						double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
 						if (desireToAttack > targetBestScore)
 						{
 							targetBestScore = desireToAttack;
-							target = enemyBot;
+							target = player1;
 						}
 					}
 				}
-			}
-			if (player1->state == CS_ALIVE) {
-				if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
+
+				//Check if we have a new target and the new target has a higher desirability
+				if (target != nullptr && (targetBestScore > currentBestScore || currentTarget == nullptr))
 				{
-					mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(player1->o));
-					double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
-					if (desireToAttack > targetBestScore)
-					{
-						targetBestScore = desireToAttack;
-						target = player1;
-					}
+					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
+					attackTask->Set(target);
+					botMarpoI->AddTarget(attackTask);
 				}
 			}
-
-			if (target != nullptr)
-			{
-				auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
-				attackTask->Set(target);
-				botMarpoI->AddTarget(attackTask);
-			}
-
 			bots[i]->pBot->Think();
 		}
 	}	

@@ -54,7 +54,9 @@ public:
 		mTargetBot = nullptr;
 	}
 
-	ETaskLevel GetTaskLevel()const { return mTaskLevel; }
+	ETaskLevel GetTaskLevel() const { return mTaskLevel; }
+
+	vec GetTargetPos() const { return mTargetVec; }
 
 protected:
 
@@ -94,6 +96,8 @@ public:
 
 	void ClearTasks();
 	void ClearTaskStack(ETaskLevel taskLevel);
+
+	pb_target* GetCurrentTarget() { return mCurrentTarget; }
 
 	pb_circularbuffer<vec, MAX_POSITIONAL_MEM>* GetPositionMemory() { return &mPreviousLocations; }
 
