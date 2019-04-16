@@ -404,6 +404,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\bot\botmanager.h" />
+    <ClInclude Include="..\src\bot\pb_botmanager.h" />
     <ClInclude Include="..\src\bot\pb_FuzzyModule.h" />
     <ClInclude Include="..\src\bot\pb_FuzzyRule.h" />
     <ClInclude Include="..\src\bot\pb_FuzzySet.h" />
@@ -521,8 +522,8 @@
     <None Include="..\..\config\sounds.cfg" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\bot\pb_botmanager.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyModule.cpp" />
-    <ClCompile Include="..\src\bot\pb_FuzzyRule.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzySet.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyTerm.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyVariable.cpp" />

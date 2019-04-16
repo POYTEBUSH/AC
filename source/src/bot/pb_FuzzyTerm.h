@@ -41,7 +41,7 @@ class pb_FuzzyTermGroup
 {
 public:
 
-	pb_FuzzyTermGroup(pb_FuzzyTerm* op1, pb_FuzzyTerm* op2 = nullptr, pb_FuzzyTerm* op3 = nullptr, pb_FuzzyTerm* op4 = nullptr);
+	pb_FuzzyTermGroup(pb_FuzzyTerm* op1, pb_FuzzyTerm* op2, pb_FuzzyTerm* op3 = nullptr, pb_FuzzyTerm* op4 = nullptr);
 
 	double GetDegreeOfMembership()const;
 	void ClearDegreeOfMemebership();

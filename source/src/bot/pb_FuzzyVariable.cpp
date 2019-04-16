@@ -6,7 +6,6 @@ pb_FzSet pb_FuzzyVariable::AddFuzzySet(FuzzySetType type, std::string name, doub
 	switch (type)
 	{
 	case RightShoulder:
-
 		mFuzzySets[name] = new pb_FuzzySet_RightShoulder(peak, peak - min, max - peak);
 	break;
 	case LeftShoulder:
@@ -20,7 +19,7 @@ pb_FzSet pb_FuzzyVariable::AddFuzzySet(FuzzySetType type, std::string name, doub
 	}
 
 	AdjustRangeToBounds(min, max);
-	return pb_FzSet(*  mFuzzySets[name]);
+	return pb_FzSet(*mFuzzySets[name]);
 }
 
 void pb_FuzzyVariable::Fuzzify(double val)

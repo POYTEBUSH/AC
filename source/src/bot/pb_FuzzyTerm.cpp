@@ -14,12 +14,9 @@ pb_FuzzyTerm::~pb_FuzzyTerm()
 pb_FuzzyTermGroup::pb_FuzzyTermGroup(pb_FuzzyTerm * op1, pb_FuzzyTerm * op2, pb_FuzzyTerm * op3, pb_FuzzyTerm * op4)
 {
 	mTerms.clear();
-	 
-	if (op1 != nullptr)
-		mTerms.push_back(op1);
 
-	if (op2 != nullptr)
-		mTerms.push_back(op2);
+	mTerms.push_back(op1);
+	mTerms.push_back(op2);
 
 	if (op3 != nullptr)
 		mTerms.push_back(op3);
