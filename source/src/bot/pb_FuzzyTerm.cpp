@@ -11,18 +11,30 @@ pb_FuzzyTerm::~pb_FuzzyTerm()
 {
 }
 
-pb_FuzzyTermGroup::pb_FuzzyTermGroup(pb_FuzzyTerm * op1, pb_FuzzyTerm * op2, pb_FuzzyTerm * op3, pb_FuzzyTerm * op4)
+pb_FuzzyTermGroup::pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2)
 {
 	mTerms.clear();
 
-	mTerms.push_back(op1);
-	mTerms.push_back(op2);
+	mTerms.push_back(op1.Clone());
+	mTerms.push_back(op2.Clone());
+}
+pb_FuzzyTermGroup::pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3)
+{
+	mTerms.clear();
 
-	if (op3 != nullptr)
-		mTerms.push_back(op3);
+	mTerms.push_back(op1.Clone());
+	mTerms.push_back(op2.Clone());
+	mTerms.push_back(op3.Clone());
+}
 
-	if (op4 != nullptr)
-		mTerms.push_back(op4);
+pb_FuzzyTermGroup::pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3, pb_FuzzyTerm& op4)
+{
+	mTerms.clear();
+
+	mTerms.push_back(op1.Clone());
+	mTerms.push_back(op2.Clone());
+	mTerms.push_back(op3.Clone());
+	mTerms.push_back(op4.Clone());
 }
 
 double pb_FuzzyTermGroup::GetDegreeOfMembership() const
