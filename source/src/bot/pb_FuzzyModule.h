@@ -19,7 +19,9 @@ public:
 	void AddRule(pb_FuzzyTerm& atecedent, pb_FuzzyTerm& concequence);
 
 	void Fuzzify(const std::string& name, double val);
-	double DeFuzzify(const std::string& name);
+
+	double DeFuzzifyCentroid(const std::string & name, int samples);
+	double DeFuzzifyMaxAv(const std::string& name);
 
 private:
 

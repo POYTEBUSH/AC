@@ -19,7 +19,7 @@ void pb_FuzzyModule::Fuzzify(const std::string & name, double val)
 	mVariables[name]->Fuzzify(val);
 }
 
-double pb_FuzzyModule::DeFuzzify(const std::string & name)
+double pb_FuzzyModule::DeFuzzifyCentroid(const std::string & name, int samples)
 {
 	assert(mVariables.find(name) != end(mVariables));
 
@@ -28,7 +28,19 @@ double pb_FuzzyModule::DeFuzzify(const std::string & name)
 		r->Calculate();
 	}
 
-	return mVariables[name]->DeFuzzify(10);
+	return mVariables[name]->DeFuzzifyCentroid(samples);
+}
+
+double pb_FuzzyModule::DeFuzzifyMaxAv(const std::string & name)
+{
+	assert(mVariables.find(name) != end(mVariables));
+
+	for (auto r : mFuzzyRules)
+	{
+		r->Calculate();
+	}
+
+	return mVariables[name]->DeFuzzifyMaxAv();
 }
 
 void pb_FuzzyModule::ZeroConsequence()

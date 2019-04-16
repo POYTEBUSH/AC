@@ -9,9 +9,9 @@ pb_botmanager* pb_botmanager::mInstance;
 void pb_botmanager::Init()
 {
 	pb_FuzzyVariable& targetDistance = mFuzzyModule.CreateFuzzyVariable("TargetDistance");
-	pb_FzSet targetClose = targetDistance.AddFuzzySet(FuzzySetType::LeftShoulder, "TargetClose", 0, 25, 150);
-	pb_FzSet targetNear = targetDistance.AddFuzzySet(FuzzySetType::Triangular, "TargetNear", 25, 50, 300);
-	pb_FzSet targetFar = targetDistance.AddFuzzySet(FuzzySetType::RightShoulder, "TargetFar", 150, 300, 500);
+	pb_FzSet targetClose = targetDistance.AddFuzzySet(FuzzySetType::LeftShoulder, "TargetClose", 0, 5, 15);
+	pb_FzSet targetNear = targetDistance.AddFuzzySet(FuzzySetType::Triangular, "TargetNear", 10, 50, 75);
+	pb_FzSet targetFar = targetDistance.AddFuzzySet(FuzzySetType::RightShoulder, "TargetFar", 60, 125, 500);
 
 	pb_FuzzyVariable& botHealth = mFuzzyModule.CreateFuzzyVariable("Health");
 	pb_FzSet healthLow = botHealth.AddFuzzySet(FuzzySetType::LeftShoulder, "Low", 0, 25, 40);
@@ -76,7 +76,7 @@ void pb_botmanager::Update(vector<botent*> bots)
 					{
 						mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(enemyBot->o));
 
-						double desireToAttack = mFuzzyModule.DeFuzzify("Desirability");
+						double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
 						if (desireToAttack > targetBestScore)
 						{
 							targetBestScore = desireToAttack;
@@ -89,7 +89,7 @@ void pb_botmanager::Update(vector<botent*> bots)
 				if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
 				{
 					mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(player1->o));
-					double desireToAttack = mFuzzyModule.DeFuzzify("Desirability");
+					double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
 					if (desireToAttack > targetBestScore)
 					{
 						targetBestScore = desireToAttack;

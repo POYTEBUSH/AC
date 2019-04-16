@@ -6,13 +6,13 @@ pb_FzSet pb_FuzzyVariable::AddFuzzySet(FuzzySetType type, std::string name, doub
 	switch (type)
 	{
 	case RightShoulder:
-		mFuzzySets[name] = new pb_FuzzySet_RightShoulder(peak, peak - min, max - peak);
+		mFuzzySets[name] = new pb_FuzzySet_RightShoulder(min, peak, max);
 	break;
 	case LeftShoulder:
-		mFuzzySets[name] = new pb_FuzzySet_LeftShoulder(peak, peak - min, max - peak);
+		mFuzzySets[name] = new pb_FuzzySet_LeftShoulder(min, peak, max);
 		break;
 	case Triangular:
-		mFuzzySets[name] = new pb_FuzzySet_Triange(peak, peak - min, max - peak);
+		mFuzzySets[name] = new pb_FuzzySet_Triange(min, peak, max);
 		break;
 	default:
 		break;
@@ -33,7 +33,7 @@ void pb_FuzzyVariable::Fuzzify(double val)
 	}
 }
 
-double pb_FuzzyVariable::DeFuzzify(int numSamples) const
+double pb_FuzzyVariable::DeFuzzifyCentroid(int numSamples) const
 {
 	double StepSize = (mRange.max - mRange.min) / (double)numSamples;
 
@@ -54,6 +54,21 @@ double pb_FuzzyVariable::DeFuzzify(int numSamples) const
 	}
 
 	return total == 0.0 ? 0.0 : sum / total;
+}
+
+double pb_FuzzyVariable::DeFuzzifyMaxAv() const
+{
+	double bottom = 0.0;
+	double top = 0.0;
+
+	for (auto fs : mFuzzySets)
+	{
+		auto fsDOM = fs.second->GetDegreeOfMembership();
+		bottom += fsDOM;
+		top += fs.second->GetRepresentativeValue() * fsDOM;
+	}
+
+	return bottom == 0.0 ? 0.0 : top / bottom;
 }
 
 

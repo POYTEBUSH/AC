@@ -34,8 +34,9 @@ public:
 	pb_FzSet AddFuzzySet(FuzzySetType type, std::string name, double min, double peak, double max);
 
 	void Fuzzify(double val);
-	double DeFuzzify(int numSamples) const;
 
+	double DeFuzzifyCentroid(int numSamples) const;
+	double DeFuzzifyMaxAv() const;
 
 private:
 
