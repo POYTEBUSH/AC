@@ -63,7 +63,7 @@ void pb_marpo::PerformNextTask()
 {
 	//Check code supplied by base code
 	mBot->pBot->CheckCrouch();
-	mBot->pBot->CheckJump();
+	//mBot->pBot->CheckJump();
 
 	//Start with the bot moving
 	mBot->move = 1;

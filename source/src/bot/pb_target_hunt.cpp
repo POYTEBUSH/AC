@@ -17,6 +17,7 @@ bool pb_target_hunt::CalculateSubTasks(CBot * bot)
 
 		return true;
 	}
+	mTaskFound = false;
 	return false;
 }
 
@@ -42,7 +43,7 @@ entity* pb_target_hunt::FindEntity(CBot * bot, EntityTypes type)
 	{
 		auto &e = ents[i];
 		//Check if the entity is one that is required and if it's in the bots view
-		if (e.type == type && bot->IsInFOV(vec(e.x,e.y,e.z)))
+		if (e.type == type && bot->IsInFOV(vec(e.x,e.y,e.z)) && bot->IsReachable(vec(e.x, e.y, e.z)))
 			return &ents[i];
 	}
 	return nullptr;

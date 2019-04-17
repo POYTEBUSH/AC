@@ -66,10 +66,10 @@ protected:
 	vec mTargetVec;
 
 	//Target entity if targeting a collectable
+	entity* mTargetEntity;
 
-	entity* mTargetEntity = nullptr;
 	//Target entity when targeting a bot or player
-	playerent* mTargetBot = nullptr;
+	playerent* mTargetBot;
 
 	//Type of target
 	ETargetType mTargetType;

@@ -63,6 +63,10 @@ bool pb_target_movement::IsCompleted(CBot * bot)
 		bot->ResetWaypointVars();
 		return true;
 	}
+	if(mTargetEntity != nullptr)
+	{
+		return bot->GetDistance(mTargetVec) <= 10.f && mTargetEntity->spawned == false;
+	}
 	return false;
 }
 
