@@ -71,7 +71,8 @@ void pb_botmanager::Update(vector<botent*> bots)
 				double currentBestScore = 0.0;
 				if (currentTarget != nullptr)
 				{
-					mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(currentTarget->GetTargetPos()));
+					double targetDist = thisBot->GetDistance(currentTarget->GetTargetPos());
+					mFuzzyModule.Fuzzify("TargetDistance", targetDist);
 					currentBestScore = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
 				}
 
@@ -109,8 +110,12 @@ void pb_botmanager::Update(vector<botent*> bots)
 					}
 				}
 
-				//Check if we have a new target and the new target has a higher desirability
-				if (target != nullptr && (targetBestScore > currentBestScore || currentTarget == nullptr))
+				//Check if we have a new target and the new target has a higher desirability,
+				//The new target must either be more desirable, no current target or a higher risk
+				if (target != nullptr && 
+					(targetBestScore > currentBestScore 
+						|| currentTarget == nullptr 
+						|| (currentTarget->GetTaskLevel() < TASK_LEVEL_REACTIVE)))
 				{
 					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 					attackTask->Set(target);

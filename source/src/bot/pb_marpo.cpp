@@ -100,7 +100,7 @@ void pb_marpo::PerformNextTask()
 	//Check if there are any subtasks to perform
 	if (mCurrentTarget->CalculateSubTasks(mBot->pBot)) {
 		//Set the current to nullptr so when it loops around again we use the new task
-		mCurrentTarget = nullptr;
+		CheckMorePertinentTasks();
 		return;
 	}
 
