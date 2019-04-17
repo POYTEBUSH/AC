@@ -70,38 +70,43 @@ void pb_marpo::PerformNextTask()
 
 	CheckMorePertinentTasks();
 
-	while (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
+	bool taskReady = false;
+	while (!taskReady)
 	{
-		DeleteCurrentTask();
-		if (!mImmediateTasks.empty())
+		while (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
 		{
-			mCurrentTarget = mImmediateTasks.top();
-			mImmediateTasks.pop();
+			DeleteCurrentTask();
+			if (!mImmediateTasks.empty())
+			{
+				mCurrentTarget = mImmediateTasks.top();
+				mImmediateTasks.pop();
+			}
+			else if (!mReactiveTasks.empty())
+			{
+				mCurrentTarget = mReactiveTasks.top();
+				mReactiveTasks.pop();
+			}
+			else if (!mLongTermTasks.empty())
+			{
+				mCurrentTarget = mLongTermTasks.top();
+				mLongTermTasks.pop();
+			}
+			else
+			{
+				//At this point the long term goal stack is empty, this shouldn't be the case. Re-apply the default.
+				//Set the default target to not completed, this way it can be worked on again.		
+				mDefaultTarget->Reset();
+				mCurrentTarget = mDefaultTarget;
+			}
 		}
-		else if (!mReactiveTasks.empty())
-		{
-			mCurrentTarget = mReactiveTasks.top();
-			mReactiveTasks.pop();
-		}
-		else if (!mLongTermTasks.empty())
-		{
-			mCurrentTarget = mLongTermTasks.top();
-			mLongTermTasks.pop();
-		}
-		else
-		{
-			//At this point the long term goal stack is empty, this shouldn't be the case. Re-apply the default.
-			//Set the default target to not completed, this way it can be worked on again.		
-			mDefaultTarget->Reset();
-			mCurrentTarget = mDefaultTarget;
-		}
-	}
 
-	//Check if there are any subtasks to perform
-	if (mCurrentTarget->CalculateSubTasks(mBot->pBot)) {
-		//Set the current to nullptr so when it loops around again we use the new task
-		CheckMorePertinentTasks();
-		return;
+		//Check if there are any subtasks to perform
+		if (mCurrentTarget->CalculateSubTasks(mBot->pBot)) {
+			//Set the current to nullptr so when it loops around again we use the new task
+			mCurrentTarget = nullptr;
+			continue;
+		}
+		taskReady = true;
 	}
 
 	//We either need to perform the current task or a new one is given.

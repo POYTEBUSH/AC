@@ -13,6 +13,11 @@ void pb_botmanager::Init()
 	pb_FzSet targetNear = targetDistance.AddFuzzySet(FuzzySetType::Triangular, "TargetNear", 10, 50, 75);
 	pb_FzSet targetFar = targetDistance.AddFuzzySet(FuzzySetType::RightShoulder, "TargetFar", 60, 125, 500);
 
+	pb_FuzzyVariable& enemyDistance = mFuzzyModule.CreateFuzzyVariable("EnemyDistance");
+	pb_FzSet enemyClose = targetDistance.AddFuzzySet(FuzzySetType::LeftShoulder, "EnemyClose", 0, 5, 15);
+	pb_FzSet enemyNear = targetDistance.AddFuzzySet(FuzzySetType::Triangular, "EnemyNear", 10, 50, 75);
+	pb_FzSet enemyFar = targetDistance.AddFuzzySet(FuzzySetType::RightShoulder, "EnemyFar", 60, 125, 500);
+
 	pb_FuzzyVariable& botHealth = mFuzzyModule.CreateFuzzyVariable("Health");
 	pb_FzSet healthLow = botHealth.AddFuzzySet(FuzzySetType::LeftShoulder, "Low", 0, 25, 40);
 	pb_FzSet healthMedium = botHealth.AddFuzzySet(FuzzySetType::Triangular, "Medium", 25, 50, 75);
@@ -30,23 +35,38 @@ void pb_botmanager::Init()
 	pb_FzSet desirabilityHigh = desirabilityScore.AddFuzzySet(FuzzySetType::Triangular, "HighDesirability", 50, 60, 70);
 	pb_FzSet desirabilityFull = desirabilityScore.AddFuzzySet(FuzzySetType::RightShoulder, "FullDesirability", 70, 75, 100);
 
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetClose, healthLow, armourLow), desirabilityFull);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetClose, healthLow), desirabilityFull);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetClose, armourLow), desirabilityFull);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetClose, healthMedium), desirabilityFull);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetClose, healthHigh), desirabilityFull);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, healthLow, armourLow), desirabilityFull);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, healthLow), desirabilityFull);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, armourLow), desirabilityFull);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, healthMedium), desirabilityFull);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, healthHigh), desirabilityFull);
 
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetNear, healthLow, armourLow), desirabilityLow);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetNear, healthLow), desirabilityNeutral);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetNear, armourLow), desirabilityNeutral);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetNear, healthMedium), desirabilityHigh);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetNear, healthHigh), desirabilityFull);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, healthLow, armourLow), desirabilityLow);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, healthLow), desirabilityNeutral);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, armourLow), desirabilityNeutral);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, healthMedium), desirabilityHigh);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, healthHigh), desirabilityFull);
 
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, healthLow, armourLow), desirabilityMinimal);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, healthLow), desirabilityLow);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, armourLow), desirabilityLow);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, healthMedium), desirabilityNeutral);
-	mFuzzyModule.AddRule(pb_FuzzyTermGroup(targetFar, healthHigh), desirabilityNeutral);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, healthLow, armourLow), desirabilityMinimal);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, healthLow), desirabilityLow);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, armourLow), desirabilityLow);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, healthMedium), desirabilityNeutral);
+	mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, healthHigh), desirabilityNeutral);
+
+	for (size_t i = 0; i < MAX_WEAPONS; i++)
+	{
+		pb_FuzzyVariable& ammoCount = mFuzzyModule.CreateFuzzyVariable("Weapon_" + i);
+		pb_FzSet ammoLow = ammoCount.AddFuzzySet(FuzzySetType::LeftShoulder, "Low", 0, WeaponInfoTable[i].sMinDesiredAmmo / 2, WeaponInfoTable[i].sMinDesiredAmmo);
+		pb_FzSet ammoSufficient = ammoCount.AddFuzzySet(FuzzySetType::RightShoulder, "Sufficient", WeaponInfoTable[i].sMinDesiredAmmo / 2, WeaponInfoTable[i].sMinDesiredAmmo, ammostats[i].max);
+
+		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, ammoLow), desirabilityMinimal);
+		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, ammoLow), desirabilityMinimal);
+		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, ammoLow), desirabilityMinimal);
+
+		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, ammoSufficient), desirabilityFull);
+		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, ammoSufficient), desirabilityNeutral);
+		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, ammoSufficient), desirabilityLow);
+	}
 }
 
 void pb_botmanager::Update(vector<botent*> bots)
@@ -80,13 +100,17 @@ void pb_botmanager::Update(vector<botent*> bots)
 				playerent* target = nullptr;
 
 				double targetBestScore = 0.0;
+
+				int weapon = thisBotEnt->weaponsel->type;
+				//Don't bother looking to attack a bot if you have no ammo for it
 				for (size_t j = 0; j < bots.length(); j++)
 				{
 					botent* enemyBot = bots[j];
-					if (enemyBot->state == CS_ALIVE && enemyBot != thisBotEnt) {
+					if (enemyBot->state == CS_ALIVE) {
 						if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
 						{
 							mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(enemyBot->o));
+							mFuzzyModule.Fuzzify("Weapon_"+ weapon, thisBotEnt->mag[weapon]);
 
 							double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
 							if (desireToAttack > targetBestScore)
@@ -101,6 +125,8 @@ void pb_botmanager::Update(vector<botent*> bots)
 					if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
 					{
 						mFuzzyModule.Fuzzify("TargetDistance", thisBot->GetDistance(player1->o));
+						mFuzzyModule.Fuzzify("Weapon_" + weapon, thisBotEnt->mag[weapon]);
+
 						double desireToAttack = mFuzzyModule.DeFuzzifyMaxAv("Desirability");
 						if (desireToAttack > targetBestScore)
 						{

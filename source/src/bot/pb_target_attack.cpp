@@ -8,17 +8,16 @@
 bool pb_target_attack::CalculateSubTasks(CBot * bot)
 {
 	//If we have the bot but they are unable to be detected, we should make sure they can be 
-	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == 0)//WeaponInfoTable[bot->m_pMyEnt->weaponsel->type].sMinDesiredAmmo)
+	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == 0)
 	{
 		//Re add this task back to queue
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
 
-		std::cout << "Reloading" << std::endl;
-
-		pb_target_reload* reloadTask= new pb_target_reload(TASK_LEVEL_IMMEDIATE);
+		pb_target_reload* reloadTask = new pb_target_reload(mTaskLevel);
 		//Set the tasks target to the current position
 		reloadTask->Set(bot->m_pMyEnt->o);
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(reloadTask);
+
 		return true;
 	}
 	if (mTargetBot != nullptr)
