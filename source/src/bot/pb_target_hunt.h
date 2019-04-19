@@ -29,5 +29,7 @@ private:
 
 	EntityTypes mHuntType;
 	bool mTaskFound = false;
+
+	bool mRotationPerformed = false;
 };
 

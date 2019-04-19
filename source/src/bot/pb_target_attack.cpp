@@ -77,3 +77,12 @@ bool pb_target_attack::IsCompleted(CBot * bot)
 {
 	return mTargetBot->state == CS_DEAD;
 }
+
+vec pb_target_attack::GetLookAtTarget(CBot * bot)
+{
+	if (mTargetBot->head == vec(-1, -1, -1))
+	{
+		return vec(mTargetBot->o.x, mTargetBot->o.y, mTargetBot->o.z);
+	}
+	return mTargetBot->head;
+}

@@ -12,7 +12,7 @@ public:
 	bool IsValid(CBot* bot);
 	bool IsCompleted(CBot* bot);
 
-	vec GetLookAtTarget(CBot* bot) { return mTargetBot->head; }
+	vec GetLookAtTarget(CBot* bot);
 
 private:
 

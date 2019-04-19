@@ -2,6 +2,7 @@
 #include "pb_target_hunt.h"
 
 #include "pb_target_movement.h"
+#include "pb_target_rotate.h"
 
 bool pb_target_hunt::CalculateSubTasks(CBot * bot)
 {
@@ -17,7 +18,17 @@ bool pb_target_hunt::CalculateSubTasks(CBot * bot)
 
 		return true;
 	}
-	mTaskFound = false;
+	mTaskFound = false; 
+
+	if (!mRotationPerformed) {
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
+
+		pb_target_rotate* rotateTarget = new pb_target_rotate(mTaskLevel);
+		rotateTarget->Set(foundEntity);
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(rotateTarget);
+		mRotationPerformed = true;
+		return true;
+	}
 	return false;
 }
 
@@ -34,7 +45,7 @@ bool pb_target_hunt::IsValid(CBot * bot)
 
 bool pb_target_hunt::IsCompleted(CBot * bot)
 {
-	return mTaskFound;
+	return true;//mTaskFound;
 }
 
 entity* pb_target_hunt::FindEntity(CBot * bot, EntityTypes type)
