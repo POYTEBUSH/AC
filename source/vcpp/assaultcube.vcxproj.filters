@@ -29,6 +29,18 @@
     <Filter Include="sound">
       <UniqueIdentifier>{f1b104ac-e944-435e-8b70-99868aa7c7e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bot\PeterBush-b013432f">
+      <UniqueIdentifier>{caa3b97e-040a-413a-9be3-f314b1e5804b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bot\PeterBush-b013432f\Custom Targets">
+      <UniqueIdentifier>{ef6fe472-196c-49f4-b61b-773c8123e233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="containers">
+      <UniqueIdentifier>{97bf46a3-2089-48a3-90cd-05da3a71d7ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bot\PeterBush-b013432f\Fuzzy Logic">
+      <UniqueIdentifier>{26dfc8b5-f108-45f8-a8e9-6c54ba602343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\command.h">
@@ -99,6 +111,51 @@
     </ClInclude>
     <ClInclude Include="..\src\world.h">
       <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_marpo.h">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\botmanager.h">
+      <Filter>bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_movement.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_wander.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\containers\pb_circularbuffer.h">
+      <Filter>containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_attack.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_reload.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_rotate.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_target_hunt.h">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyModule.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzySet.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyVariable.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyRule.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyTerm.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\bot\pb_botmanager.h">
+      <Filter>bot\PeterBush-b013432f</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +425,6 @@
     <ClCompile Include="..\src\bot\bot_util.cpp">
       <Filter>bot</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\bot\bot_waypoint.cpp">
-      <Filter>bot</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\bot\botmanager.cpp">
       <Filter>bot</Filter>
     </ClCompile>
@@ -388,6 +442,45 @@
     </ClCompile>
     <ClCompile Include="..\src\soundscheduler.cpp">
       <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\bot_waypoint.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_marpo.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_movement.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_wander.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_attack.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_reload.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_rotate.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_target_hunt.cpp">
+      <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyModule.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzySet.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyVariable.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyTerm.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_botmanager.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -416,7 +509,7 @@
       <Filter>bot</Filter>
     </CustomBuildStep>
     <CustomBuildStep Include="..\src\bot\bot_waypoint.h">
-      <Filter>bot</Filter>
+      <Filter>bot\PeterBush-b013432f</Filter>
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>

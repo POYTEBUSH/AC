@@ -24,6 +24,7 @@ void CACBot::Spawn()
     // Init all bot variabeles
     m_pMyEnt->nextprimary = 2 + rnd(5); // 2011jan18:ft: 2 == GUN_CARBINE, GUN_SHOTGUN, GUN_SUBGUN, GUN_SNIPER, GUN_ASSAULT - if CPISTOL is activated this needs a FIXME to rnd(6)
     m_pMyEnt->targetyaw = m_pMyEnt->targetpitch = 0.0f;
+	
     m_pMyEnt->pBot = this;
 
     spawnplayer(m_pMyEnt);

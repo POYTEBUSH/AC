@@ -92,8 +92,19 @@ void CBot::Think()
 {
     if (intermission) return;
     // Bot is dead?
+
+	ResetMoveSpeed();
+	m_pMyEnt->pitch = 1;
+	// Aim to ideal yaw and pitch
+	AimToIdeal();
+
+	auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(m_pMyEnt);
     if (m_pMyEnt->state == CS_DEAD)
     {
+		if (botMarpoI != nullptr)
+		{
+			botMarpoI->ClearTasks();
+		}
         if(lastmillis-m_pMyEnt->lastdeath<1200)
         {
             m_pMyEnt->move = 0;
@@ -103,6 +114,14 @@ void CBot::Think()
         SendBotInfo();
         return;
     }
+	else {
+		
+		if (botMarpoI != nullptr)
+		{
+			botMarpoI->PerformNextTask();
+		}
+	}
+
     CheckItemPickup();
     TLinkedList<unreachable_ent_s*>::node_s *p = m_UnreachableEnts.GetFirst(), *tmp;
     while(p)
@@ -117,18 +136,15 @@ void CBot::Think()
         }
         p = p->next;
     }
-    if (!BotManager.IdleBots()) { MainAI(); }
-    else { ResetMoveSpeed(); }
-    // Aim to ideal yaw and pitch
-    AimToIdeal();
     // Store current location, to see if the bot is stuck
     m_vPrevOrigin = m_pMyEnt->o;
     // Don't check for stuck if the bot doesn't want to move
     if (!m_pMyEnt->move && !m_pMyEnt->strafe) m_iStuckCheckDelay = max(m_iStuckCheckDelay, lastmillis+100.0f);
-    // Move the bot
+     //Move the bot
     moveplayer(m_pMyEnt, 1, true);
     // Update bot info on all clients
     SendBotInfo();
+	CheckWeaponSwitch();
 }
 
 void CBot::AimToVec(const vec &o)

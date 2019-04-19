@@ -1,4 +1,6 @@
-enum                            // static entity types
+#pragma once
+
+enum EntityTypes                // static entity types
 {
     NOTUSED = 0,                // entity slot not in use in map (usually seen at deleted entities)
     LIGHT,                      // lightsource, attr1 = radius, attr2 = intensity (or attr2..4 = r-g-b)

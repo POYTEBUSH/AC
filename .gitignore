@@ -39,3 +39,5 @@ packetlog.txt
 profile/*
 
 source/vcpp/.vs/
+source/vcpp/Debug/
+bin_win32/
