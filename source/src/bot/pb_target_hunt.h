@@ -21,6 +21,8 @@ public:
 	bool IsValid(CBot* bot);
 	bool IsCompleted(CBot* bot);
 
+	vec GetLookAtTarget(CBot* bot) { if (mTargetEntity) return vec(mTargetEntity->x, mTargetEntity->y, mTargetEntity->z); return vec(-1,-1,-1); }
+
 private:
 
 	entity* FindEntity(CBot * bot, EntityTypes type);

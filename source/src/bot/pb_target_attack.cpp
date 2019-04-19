@@ -11,7 +11,7 @@ bool pb_target_attack::CalculateSubTasks(CBot * bot)
 	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == 0)
 	{
 		//Re add this task back to queue
-		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
+		//\pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
 
 		pb_target_reload* reloadTask = new pb_target_reload(mTaskLevel);
 		//Set the tasks target to the current position

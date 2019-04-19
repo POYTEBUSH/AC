@@ -48,6 +48,8 @@ public:
 	///<summary>Is the task completed or not</summary>
 	virtual bool IsCompleted(CBot* bot) = 0;
 
+	virtual vec GetLookAtTarget(CBot* bot) = 0;
+
 	virtual void Reset()
 	{
 		mTargetEntity = nullptr;

@@ -148,7 +148,22 @@ void pb_botmanager::Update(vector<botent*> bots)
 					botMarpoI->AddTarget(attackTask);
 				}
 			}
-			bots[i]->pBot->Think();
+			thisBot->Think();
+
+			auto newCurrentTarget = botMarpoI->GetCurrentTarget();
+			if (newCurrentTarget != nullptr)
+			{
+				auto newAim = newCurrentTarget->GetLookAtTarget(thisBot);
+				if (newAim != vec(-1, -1, -1))
+				{
+					thisBot->AimToVec(newAim);
+				}
+				else
+				{
+					thisBotEnt->pitch = 1;
+					thisBot->AimToIdeal();
+				}
+			}
 		}
 	}	
 }
