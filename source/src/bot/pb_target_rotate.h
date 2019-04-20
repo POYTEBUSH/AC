@@ -14,5 +14,8 @@ public:
 	bool IsCompleted(CBot* bot);
 
 	vec GetLookAtTarget(CBot* bot) { return vec(-1, -1, -1); }
+
+private:
+	bool mCompleted = false;
 };
 

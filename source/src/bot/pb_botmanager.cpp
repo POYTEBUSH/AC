@@ -3,6 +3,7 @@
 
 //MARPO Tasks
 #include "pb_target_attack.h"
+#include "pb_target_rotate.h"
 
 pb_botmanager* pb_botmanager::mInstance;
 
@@ -146,6 +147,42 @@ void pb_botmanager::Update(vector<botent*> bots)
 					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
 					attackTask->Set(target);
 					botMarpoI->AddTarget(attackTask);
+				}
+				else
+				{
+					//Doesn't currently create sub tasks
+					if (thisBot->m_iStuckCheckDelay + (thisBot->CheckCrouch() ? 2000 : 0) >= lastmillis)
+						break;
+
+					bool IsStuck = false;
+					vec CurPos = thisBotEnt->o, PrevPos = thisBot->m_vPrevOrigin;
+					CurPos.z = PrevPos.z = 0;
+					// Did the bot hardly move the last frame?
+					if (GetDistance(CurPos, PrevPos) <= 0.1f)
+					{
+						if (thisBot->m_bStuck)
+						{
+							if (thisBot->m_iStuckTime < lastmillis)
+								IsStuck = true;
+						}
+						else
+						{
+							thisBot->m_bStuck = true;
+							thisBot->m_iStuckTime = lastmillis + 1000;
+						}
+					}
+					else
+					{
+						thisBot->m_bStuck = false;
+						thisBot->m_iStuckTime = 0;
+					}
+
+					if (IsStuck)
+					{
+						pb_target_rotate* rotationTask = new pb_target_rotate(TASK_LEVEL_IMMEDIATE);
+						pb_marpomanager::Instance().GetBotAttachment(thisBot->m_pMyEnt)->AddTarget(rotationTask);
+					}
+
 				}
 			}
 			thisBot->Think();

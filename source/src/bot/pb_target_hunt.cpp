@@ -6,29 +6,49 @@
 
 bool pb_target_hunt::CalculateSubTasks(CBot * bot)
 {
-	entity* foundEntity = FindEntity(bot, mHuntType);
+	mFoundEntity = FindEntity(bot, mHuntType);
 
-	if (foundEntity != nullptr)
+	if (mFoundEntity == nullptr)
+	{
+		//Use of memory on existing entity locations
+		auto locationMem = pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->GetPickupLocationMemory();
+		for (size_t i = 0; i < locationMem->Size(); i++)
+		{
+			double closestDist = 1e4;
+			auto thisLoc = locationMem->At(i);
+			if (bot->IsReachable(vec(thisLoc->x, thisLoc->y, thisLoc->z)) && thisLoc->type == mHuntType)
+			{
+				if (bot->GetDistance(vec(thisLoc->x, thisLoc->y, thisLoc->z)) < closestDist)
+				{
+					closestDist = bot->GetDistance(vec(thisLoc->x, thisLoc->y, thisLoc->z));
+					mFoundEntity = thisLoc;
+				}
+			}
+		}
+	}
+	//Now check if we have a location
+	if (mFoundEntity != nullptr)
 	{
 		mTaskFound = true;
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->GetPickupLocationMemory()->Add(mFoundEntity);
 
 		pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
-		newMovementTask->Set(foundEntity);
+		newMovementTask->Set(mFoundEntity);
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask);
 
 		return true;
 	}
-	mTaskFound = false; 
+	mTaskFound = false;
 
 	if (!mRotationPerformed) {
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
 
 		pb_target_rotate* rotateTarget = new pb_target_rotate(mTaskLevel);
-		rotateTarget->Set(foundEntity);
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(rotateTarget);
 		mRotationPerformed = true;
 		return true;
 	}
+
 	return false;
 }
 
@@ -45,7 +65,7 @@ bool pb_target_hunt::IsValid(CBot * bot)
 
 bool pb_target_hunt::IsCompleted(CBot * bot)
 {
-	return true;//mTaskFound;
+	return mTaskFound;
 }
 
 entity* pb_target_hunt::FindEntity(CBot * bot, EntityTypes type)

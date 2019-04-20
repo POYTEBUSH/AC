@@ -34,7 +34,7 @@ bool pb_target_movement::CalculateSubTasks(CBot * bot)
 
 	if (IsStuck)
 	{
-		pb_target_rotate* rotationTask = new pb_target_rotate(mTaskLevel);
+		pb_target_rotate* rotationTask = new pb_target_rotate(TASK_LEVEL_REACTIVE);
 		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(rotationTask);
 		return true;
 	}
@@ -43,8 +43,9 @@ bool pb_target_movement::CalculateSubTasks(CBot * bot)
 }
 
 void pb_target_movement::PerformTask(CBot * bot)
-{
-	//Set the goal waypoint to the one closest to the target vec
+{	//Set the goal waypoint to the one closest to the target vec
+	//Start with the bot moving
+	bot->m_pMyEnt->move = 1;
 	bot->SetCurrentWaypoint(bot->GetNearestWaypoint(mTargetVec, 10.f));
 	bot->HeadToWaypoint();
 }

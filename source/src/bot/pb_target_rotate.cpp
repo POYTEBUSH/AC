@@ -82,6 +82,7 @@ void pb_target_rotate::PerformTask(CBot * bot)
 			bot->m_iStuckCheckDelay = bot->m_iCheckEnvDelay = lastmillis + 500;
 		}
 	}
+	mCompleted = true;
 }
 
 bool pb_target_rotate::IsValid(CBot * bot)
@@ -91,5 +92,5 @@ bool pb_target_rotate::IsValid(CBot * bot)
 
 bool pb_target_rotate::IsCompleted(CBot * bot)
 {
-	return true;
+	return mCompleted;
 }

@@ -27,6 +27,8 @@ private:
 
 	entity* FindEntity(CBot * bot, EntityTypes type);
 
+	entity* mFoundEntity;
+
 	EntityTypes mHuntType;
 	bool mTaskFound = false;
 

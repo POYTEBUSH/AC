@@ -2,6 +2,7 @@
 #include "pb_target_wander.h"
 #include "pb_target_movement.h"
 #include "pb_target_hunt.h"
+#include "pb_target_reload.h"
 
 #include "pb_FuzzyModule.h"
 
@@ -49,12 +50,48 @@ bool pb_target_wander::CalculateSubTasks(CBot * bot)
 	mFuzzyModule2.Fuzzify("Armour", max(0, bot->m_pMyEnt->armour));
 	auto armourHuntDesire = mFuzzyModule2.DeFuzzifyMaxAv("Desirability");
 
+	//If we have the bot but they are unable to be detected, we should make sure they can be 
+	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == 0)
+	{
+		//Re add this task back to queue
+		//\pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
+
+		pb_target_reload* reloadTask = new pb_target_reload(TASK_LEVEL_REACTIVE);
+		//Set the tasks target to the current position
+		reloadTask->Set(bot->m_pMyEnt->o);
+		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(reloadTask);
+
+		return true;
+	}
+	if (targetvec != nullptr && (targetvec != bot->m_pCurrentWaypoint) && bot->m_iLookForWaypointTime <= lastmillis)
+	{
+		//Look for any entities to remember
+		auto botMarpo = pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt);
+		auto locationMem = botMarpo->GetPickupLocationMemory();
+		loopv(ents)
+		{
+			auto &e = ents[i];
+			//Check if the entity is one that is required and if it's in the bots view
+			if (bot->IsInFOV(vec(e.x, e.y, e.z)) && bot->IsReachable(vec(e.x, e.y, e.z)))
+				locationMem->Add(&e, true);
+		}
+
+		//Create a new sub-task to move the bot towards that location
+		pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
+		newMovementTask->Set(targetvec->pNode->v_origin);
+		botMarpo->AddTarget(newMovementTask);
+		mCompleted = true;
+		bot->m_iLookForWaypointTime = lastmillis + 250;
+		return true;
+	}
 	//if (healthHuntDesire > 50 && healthHuntDesire > armourHuntDesire)
 	//{
 	//	pb_target_hunt* huntTask = new pb_target_hunt(mTaskLevel);
 	//	//Set the tasks target to the current position
 	//	huntTask->SetTargetType(EntityTypes::I_HEALTH);
 	//	pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(huntTask);
+	//	mCompleted = true;
+	//	return true;
 	//}
 	//else if (armourHuntDesire > 50 && armourHuntDesire > healthHuntDesire)
 	//{
@@ -62,22 +99,11 @@ bool pb_target_wander::CalculateSubTasks(CBot * bot)
 	//	//Set the tasks target to the current position
 	//	huntTask->SetTargetType(EntityTypes::I_ARMOUR);
 	//	pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(huntTask);
+	//	mCompleted = true;
+	//	return true;
 	//}
-
-	if (targetvec != nullptr && (targetvec != bot->m_pCurrentWaypoint) && bot->m_iLookForWaypointTime <= lastmillis)
-	{
-		//Create a new sub-task to move the bot towards that location
-		pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
-		newMovementTask->Set(targetvec->pNode->v_origin);
-		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask);
-		mCompleted = true;
-		bot->m_iLookForWaypointTime = lastmillis + 250;
-		return true;
-	}
-	else {
-		mCompleted = false;
-		return false;
-	}
+	mCompleted = false;
+	return false;
 }
 
 void pb_target_wander::PerformTask(CBot * bot)

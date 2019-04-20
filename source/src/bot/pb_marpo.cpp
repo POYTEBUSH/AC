@@ -1,6 +1,8 @@
 #include "cube.h"
 #include "pb_marpo.h"
 
+#include "pb_target_rotate.h"
+
 pb_target::pb_target(ETaskLevel taskLevel)
 {
 	mTaskLevel = taskLevel;
@@ -63,11 +65,8 @@ void pb_marpo::PerformNextTask()
 {
 	//Check code supplied by base code
 	mBot->pBot->CheckCrouch();
-	mBot->pBot->CheckJump();
-
-	//Start with the bot moving
-	mBot->move = 1;
-
+	//mBot->pBot->CheckJump();
+	
 	CheckMorePertinentTasks();
 
 	bool taskReady = false;
@@ -164,17 +163,19 @@ void pb_marpo::CheckMorePertinentTasks()
 {
 	if (mCurrentTarget != nullptr)
 	{
+		if (mCurrentTarget->GetTaskLevel() == TASK_LEVEL_REACTIVE || mCurrentTarget->GetTaskLevel() == TASK_LEVEL_LONGTERM
+			&& !mImmediateTasks.empty())
+		{
+			mCurrentTarget = mImmediateTasks.top();
+			mImmediateTasks.pop();
+			return;
+		}
+
 		if (mCurrentTarget->GetTaskLevel() == TASK_LEVEL_LONGTERM
 			&& !mReactiveTasks.empty())
 		{
 			mCurrentTarget = mReactiveTasks.top();
 			mReactiveTasks.pop();
-		}
-		if (mCurrentTarget->GetTaskLevel() == TASK_LEVEL_REACTIVE
-			&& !mImmediateTasks.empty())
-		{
-			mCurrentTarget = mImmediateTasks.top();
-			mImmediateTasks.pop();
 		}
 	}
 }
