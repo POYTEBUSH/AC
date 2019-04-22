@@ -50,6 +50,8 @@ public:
 
 	virtual vec GetLookAtTarget(CBot* bot) = 0;
 
+
+
 	virtual void Reset()
 	{
 		mTargetEntity = nullptr;
@@ -57,6 +59,7 @@ public:
 	}
 
 	ETaskLevel GetTaskLevel() const { return mTaskLevel; }
+	ETargetType GetTargetType() const { return mTargetType; }
 
 	vec GetTargetPos() const { return mTargetVec; }
 

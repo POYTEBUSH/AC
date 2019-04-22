@@ -4,6 +4,8 @@
 #include "entity.h"
 #include "bot.h"
 
+#include "pb_FuzzyAttackCalc.h"
+
 #include "pb_FuzzyModule.h"
 #include "pb_FuzzyTerm.h"
 
