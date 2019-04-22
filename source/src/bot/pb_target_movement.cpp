@@ -46,8 +46,11 @@ void pb_target_movement::PerformTask(CBot * bot)
 {	//Set the goal waypoint to the one closest to the target vec
 	//Start with the bot moving
 	bot->m_pMyEnt->move = 1;
-	bot->SetCurrentWaypoint(bot->GetNearestWaypoint(mTargetVec, 10.f));
-	bot->HeadToWaypoint();
+	if (mTargetVec != vec(-1,-1,-1))
+	{
+		bot->SetCurrentWaypoint(bot->GetNearestWaypoint(mTargetVec, 10.f));
+		bot->HeadToWaypoint();
+	}
 }
 
 bool pb_target_movement::IsValid(CBot * bot)

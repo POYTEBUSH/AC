@@ -45,7 +45,7 @@ class pb_FuzzySet_RightShoulder : public pb_FuzzySet
 {
 public:
 
-	pb_FuzzySet_RightShoulder(double left, double mid, double right) : pb_FuzzySet(mid), mLeftOffset(left), mPeak(mid), mRightOffset(right) {};
+	pb_FuzzySet_RightShoulder(double left, double mid, double right) : pb_FuzzySet(mid)/*((mPeak + mRightOffset) + mPeak) / 2)*/, mLeftOffset(left), mPeak(mid), mRightOffset(right) {};
 
 	double CalculateDOM(double val) const;
 
@@ -62,7 +62,7 @@ class pb_FuzzySet_LeftShoulder : public pb_FuzzySet
 {
 public:
 
-	pb_FuzzySet_LeftShoulder(double left, double mid, double right) : pb_FuzzySet(mid), mLeftOffset(left), mPeak(mid), mRightOffset(right) {};
+	pb_FuzzySet_LeftShoulder(double left, double mid, double right) : pb_FuzzySet(mid)/*((mPeak - mLeftOffset) + mPeak) / 2)*/, mLeftOffset(left), mPeak(mid), mRightOffset(right) {};
 
 	double CalculateDOM(double val) const;
 

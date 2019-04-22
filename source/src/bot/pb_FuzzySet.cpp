@@ -10,8 +10,8 @@ void pb_FuzzySet::ORWithDOM(double val)
 
 double pb_FuzzySet_Triange::CalculateDOM(double val) const
 {
-	if (mLeftOffset == val && mRightOffset == 0.0 ||
-		mLeftOffset == 0.0 && mRightOffset == val)
+	if (mRightOffset == 0.0 && mPeak == val ||
+		mLeftOffset == 0.0 && mPeak == val)
 		return 1.0;
 
 	if ((val <= mPeak) && (val >= (mPeak - mLeftOffset)))
@@ -29,7 +29,7 @@ double pb_FuzzySet_Triange::CalculateDOM(double val) const
 
 double pb_FuzzySet_RightShoulder::CalculateDOM(double val) const
 {
-	if (mLeftOffset == 0.0 || mPeak == val)
+	if (mLeftOffset == 0.0 && mPeak == val)
 		return 1.0;
 
 	if ((val <= mPeak) && (val > (mPeak - mLeftOffset)))
@@ -46,7 +46,7 @@ double pb_FuzzySet_RightShoulder::CalculateDOM(double val) const
 
 double pb_FuzzySet_LeftShoulder::CalculateDOM(double val) const
 {
-	if (mLeftOffset == 0.0 || mPeak == val)
+	if (mRightOffset == 0.0 && mPeak == val)
 		return 1.0;
 
 	if ((val >= mPeak) && (val <= (mPeak + mRightOffset)))
@@ -54,7 +54,7 @@ double pb_FuzzySet_LeftShoulder::CalculateDOM(double val) const
 		double grad = 1.0 / -mRightOffset;
 		return grad * (val - mPeak) + 1.0;
 	}
-	else if (val > mPeak)
+	else if (val < mPeak)
 	{
 		return 1.0;
 	}

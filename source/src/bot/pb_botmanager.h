@@ -9,6 +9,8 @@
 
 #include "tools.h"
 
+#include <sstream>	
+
 class pb_botmanager
 {
 

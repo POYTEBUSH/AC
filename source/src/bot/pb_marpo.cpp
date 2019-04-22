@@ -163,7 +163,7 @@ void pb_marpo::CheckMorePertinentTasks()
 {
 	if (mCurrentTarget != nullptr)
 	{
-		if (mCurrentTarget->GetTaskLevel() == TASK_LEVEL_REACTIVE || mCurrentTarget->GetTaskLevel() == TASK_LEVEL_LONGTERM
+		if ((mCurrentTarget->GetTaskLevel() == TASK_LEVEL_REACTIVE || mCurrentTarget->GetTaskLevel() == TASK_LEVEL_LONGTERM)
 			&& !mImmediateTasks.empty())
 		{
 			mCurrentTarget = mImmediateTasks.top();

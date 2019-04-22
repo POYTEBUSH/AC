@@ -11,7 +11,7 @@ bool pb_target_attack::CalculateSubTasks(CBot * bot)
 	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == 0)
 	{
 		//Re add this task back to queue
-		//\pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
+		//pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
 
 		pb_target_reload* reloadTask = new pb_target_reload(mTaskLevel);
 		//Set the tasks target to the current position
@@ -22,17 +22,17 @@ bool pb_target_attack::CalculateSubTasks(CBot * bot)
 	}
 	if (mTargetBot != nullptr)
 	{
-		//If we are not in the range specified by the bots skill we need to try and move closer.
-		if ((bot->m_pBotSkill->flAlwaysDetectDistance < bot->m_pMyEnt->o.dist(mTargetBot->o)))
-		{
-			//Create a new sub-task to move the bot towards that location
-			pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
-			newMovementTask->Set(mTargetBot->o);
-			pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask);
+		////If we are not in the range specified by the bots skill we need to try and move closer.
+		//if ((bot->m_pBotSkill->flAlwaysDetectDistance < bot->m_pMyEnt->o.dist(mTargetBot->o)))
+		//{
+		//	//Create a new sub-task to move the bot towards that location
+		//	pb_target_movement* newMovementTask = new pb_target_movement(mTaskLevel);
+		//	newMovementTask->Set(mTargetBot->o);
+		//	pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(newMovementTask);
 
-			bot->m_iLookForWaypointTime = lastmillis + 250;
-			return true;
-		}
+		//	bot->m_iLookForWaypointTime = lastmillis + 250;
+		//	return true;
+		//}
 		if (!bot->IsInFOV(mTargetBot))
 		{
 			//For now we are just going to force the bot to look, maybe later add a subtask
@@ -66,11 +66,13 @@ bool pb_target_attack::IsValid(CBot * bot)
 
 	float flDist = GetDistance(bot->m_pMyEnt->o, mTargetBot->o);
 
-	// Check if bot is in fire range
-	bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
-		(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
+	//// Check if bot is in fire range
+	//bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
+	//	(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
 
-	return validenemy && inRange;
+	if (!validenemy/* || !inRange*/)
+		bot->m_pMyEnt->enemy = nullptr;
+	return validenemy /*&& inRange*/;
 }
 
 bool pb_target_attack::IsCompleted(CBot * bot)
