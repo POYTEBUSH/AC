@@ -160,6 +160,9 @@
     <ClInclude Include="..\src\bot\pb_FuzzyAttackCalc.h">
       <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\bot\pb_blackboard.h">
+      <Filter>bot\PeterBush-b013432f</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\config\admin.cfg">
@@ -487,6 +490,9 @@
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_FuzzyAttackCalc.cpp">
       <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_blackboard.cpp">
+      <Filter>bot\PeterBush-b013432f</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

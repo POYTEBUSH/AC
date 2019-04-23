@@ -3,6 +3,8 @@
 #include "pb_target_movement.h"
 #include "pb_target_reload.h"
 
+#include "pb_blackboard.h"
+
 #include <iostream>
 
 bool pb_target_attack::CalculateSubTasks(CBot * bot)
@@ -45,6 +47,11 @@ bool pb_target_attack::CalculateSubTasks(CBot * bot)
 void pb_target_attack::PerformTask(CBot * bot)
 {
 	if (mTargetBot) {
+		if (bot->IsInFOV(mTargetBot))
+		{
+			pb_blackboard_manager::Instance()->AddEnemyInfo(mTargetBot, bot->m_pMyEnt->team);
+		}
+
 		//Stop the bot moving when they are targeting an enemy, if they get too far away it will target them instead.
 		bot->m_pMyEnt->move = 0;
 

@@ -6,6 +6,8 @@
 
 #include "pb_FuzzyModule.h"
 
+#include "pb_blackboard.h"
+
 bool pb_target_wander::CalculateSubTasks(CBot * bot)
 {
 	auto targetvec = bot->GetNearestWaypoint(50.f); 
@@ -63,6 +65,9 @@ bool pb_target_wander::CalculateSubTasks(CBot * bot)
 
 		return true;
 	}
+	pb_blackboard_manager::Instance()->AddQuery(pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Enemy), bot->m_pMyEnt->team);
+
+
 	if (targetvec != nullptr && (targetvec != bot->m_pCurrentWaypoint) && bot->m_iLookForWaypointTime <= lastmillis)
 	{
 		//Look for any entities to remember
