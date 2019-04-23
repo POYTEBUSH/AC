@@ -1,9 +1,9 @@
 #include "cube.h"
-#include "pb_target_movement.h"
+#include "pb_target_getinrange.h"
 
 #include "pb_target_rotate.h"
 
-bool pb_target_movement::CalculateSubTasks(CBot * bot)
+bool pb_target_getinrange::CalculateSubTasks(CBot * bot)
 {
 	//Doesn't currently create sub tasks
 	if (bot->m_iStuckCheckDelay + (bot->CheckCrouch() ? 2000 : 0) >= lastmillis)
@@ -42,7 +42,7 @@ bool pb_target_movement::CalculateSubTasks(CBot * bot)
 	return false;
 }
 
-void pb_target_movement::PerformTask(CBot * bot)
+void pb_target_getinrange::PerformTask(CBot * bot)
 {	//Set the goal waypoint to the one closest to the target vec
 	//Start with the bot moving
 	if (mTargetVec != vec(-1,-1,-1))
@@ -52,20 +52,22 @@ void pb_target_movement::PerformTask(CBot * bot)
 	}
 }
 
-bool pb_target_movement::IsValid(CBot * bot)
+bool pb_target_getinrange::IsValid(CBot * bot)
 {
-	//As this is a simple movement task, it is always valid
 	return bot->IsReachable(mTargetVec);
 }
 
-bool pb_target_movement::IsCompleted(CBot * bot)
+bool pb_target_getinrange::IsCompleted(CBot * bot)
 {
-	//Utilised for hunt task
-	if(mTargetEntity != nullptr)
+	if (mTargetBot != nullptr)
 	{
-		return bot->GetDistance(mTargetVec) <= 10.f && mTargetEntity->spawned == false;
+		if (bot->GetDistance(mTargetBot->o) <= mRequiredRange)
+		{
+			bot->ResetWaypointVars();
+			return true;
+		}
 	}
-	else if (bot->GetDistance(mTargetVec) <= 5.f)
+	else if (bot->GetDistance(mTargetVec) <= mRequiredRange)
 	{
 		bot->ResetWaypointVars();
 		return true;
