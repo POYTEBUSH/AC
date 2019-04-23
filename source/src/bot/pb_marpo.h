@@ -48,6 +48,10 @@ public:
 	///<summary>Is the task completed or not</summary>
 	virtual bool IsCompleted(CBot* bot) = 0;
 
+	virtual vec GetLookAtTarget(CBot* bot) = 0;
+
+
+
 	virtual void Reset()
 	{
 		mTargetEntity = nullptr;
@@ -55,6 +59,7 @@ public:
 	}
 
 	ETaskLevel GetTaskLevel() const { return mTaskLevel; }
+	ETargetType GetTargetType() const { return mTargetType; }
 
 	vec GetTargetPos() const { return mTargetVec; }
 
@@ -93,13 +98,14 @@ public:
 	void AddTarget(pb_target* target);
 	void SetDefaultTarget(pb_target* target) { mDefaultTarget = target; };
 	void PerformNextTask();
-
+	
 	void ClearTasks();
 	void ClearTaskStack(ETaskLevel taskLevel);
 
 	pb_target* GetCurrentTarget() { return mCurrentTarget; }
 
 	pb_circularbuffer<vec, MAX_POSITIONAL_MEM>* GetPositionMemory() { return &mPreviousLocations; }
+	pb_circularbuffer<entity*, MAX_POSITIONAL_MEM>* GetPickupLocationMemory() { return &mPreviousPickupLocations; }
 
 private:
 	friend class pb_marpomanager;
@@ -124,6 +130,7 @@ private:
 
 	//Recently traveled locations
 	pb_circularbuffer<vec, MAX_POSITIONAL_MEM> mPreviousLocations;
+	pb_circularbuffer<entity*, MAX_POSITIONAL_MEM> mPreviousPickupLocations;
 };
 
 class pb_marpomanager

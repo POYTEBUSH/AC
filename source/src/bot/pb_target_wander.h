@@ -15,6 +15,8 @@ public:
 
 	void Reset() { mCompleted = false; }
 
+	vec GetLookAtTarget(CBot* bot) { return vec(-1, -1, -1); }
+
 private:
 	bool mCompleted;
 };

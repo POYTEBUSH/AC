@@ -11,7 +11,7 @@ bool pb_target_attack::CalculateSubTasks(CBot * bot)
 	if (bot->m_pMyEnt->mag[bot->m_pMyEnt->weaponsel->type] == 0)
 	{
 		//Re add this task back to queue
-		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
+		//pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(this);
 
 		pb_target_reload* reloadTask = new pb_target_reload(mTaskLevel);
 		//Set the tasks target to the current position
@@ -66,14 +66,25 @@ bool pb_target_attack::IsValid(CBot * bot)
 
 	float flDist = GetDistance(bot->m_pMyEnt->o, mTargetBot->o);
 
-	// Check if bot is in fire range
-	bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
-		(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
+	//// Check if bot is in fire range
+	//bool inRange = (flDist > WeaponInfoTable[bot->m_pMyEnt->gunselect].flMinFireDistance) ||
+	//	(flDist < WeaponInfoTable[bot->m_pMyEnt->gunselect].flMaxFireDistance);
 
-	return validenemy && inRange;
+	if (!validenemy/* || !inRange*/)
+		bot->m_pMyEnt->enemy = nullptr;
+	return validenemy /*&& inRange*/;
 }
 
 bool pb_target_attack::IsCompleted(CBot * bot)
 {
 	return mTargetBot->state == CS_DEAD;
+}
+
+vec pb_target_attack::GetLookAtTarget(CBot * bot)
+{
+	if (mTargetBot->head == vec(-1, -1, -1))
+	{
+		return vec(mTargetBot->o.x, mTargetBot->o.y, mTargetBot->o.z);
+	}
+	return mTargetBot->head;
 }

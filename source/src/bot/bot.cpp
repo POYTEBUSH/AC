@@ -94,7 +94,7 @@ void CBot::Think()
     // Bot is dead?
 
 	ResetMoveSpeed();
-	m_pMyEnt->pitch = 1;
+	//m_pMyEnt->pitch = 1;
 	// Aim to ideal yaw and pitch
 	AimToIdeal();
 
@@ -141,7 +141,7 @@ void CBot::Think()
     // Don't check for stuck if the bot doesn't want to move
     if (!m_pMyEnt->move && !m_pMyEnt->strafe) m_iStuckCheckDelay = max(m_iStuckCheckDelay, lastmillis+100.0f);
      //Move the bot
-    moveplayer(m_pMyEnt, 1, true);
+	moveplayer(m_pMyEnt, 1, true);
     // Update bot info on all clients
     SendBotInfo();
 	CheckWeaponSwitch();

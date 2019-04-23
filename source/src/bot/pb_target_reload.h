@@ -13,6 +13,8 @@ public:
 	bool IsValid(CBot* bot);
 	bool IsCompleted(CBot* bot);
 
+	vec GetLookAtTarget(CBot* bot) { return vec(-1, -1, -1); }
+
 private:
 	//Copy of the weapons info table, not ideal but is due to complicated setup of starting project
 	weaponinfo_s WeaponInfoTable[MAX_WEAPONS] =

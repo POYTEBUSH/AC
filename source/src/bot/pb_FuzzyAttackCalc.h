@@ -1,20 +1,43 @@
 #pragma once
+
 #include "pb_marpo.h"
+#include "entity.h"
+#include "bot.h"
 
-class pb_target_attack : public pb_target
+#include "pb_FuzzyModule.h"
+#include "pb_FuzzyTerm.h"
+
+#include "tools.h"
+
+#include <sstream>	
+
+class pb_FuzzyAttackCalc
 {
+
 public:
-	pb_target_attack(ETaskLevel taskLevel) : pb_target(taskLevel) { mTargetType = ETargetType::TARGET_TYPE_BOT; };
-	~pb_target_attack() {};
 
-	bool CalculateSubTasks(CBot* bot);
-	void PerformTask(CBot* bot);
-	bool IsValid(CBot* bot);
-	bool IsCompleted(CBot* bot);
+	static pb_FuzzyAttackCalc* Instance()
+	{
+		if (mInstance == nullptr)
+		{
+			mInstance = new pb_FuzzyAttackCalc();
+			mInstance->Init();
+		}
+		return mInstance;
+	}
 
-	vec GetLookAtTarget(CBot* bot);
+	void Init();
+	double CalculateDesirability(playerent* a, playerent* target);
+	double CalculateDesirability(playerent* a, vec target);
 
 private:
+
+	pb_FuzzyAttackCalc() {};
+	~pb_FuzzyAttackCalc() {};
+
+	pb_FuzzyModule mFuzzyModule;
+
+	static pb_FuzzyAttackCalc* mInstance;
 
 	//Copy of the weapons info table, not ideal but is due to complicated setup of starting project
 	weaponinfo_s WeaponInfoTable[MAX_WEAPONS] =
@@ -33,6 +56,20 @@ private:
 		{ TYPE_AUTO,       0.0f,    0.0f,   3.0f,    0.0f,   6 }, // CPISTOL
 		{ TYPE_GRENADE,    5.0f,   30.0f,   3.0f,   50.0f,   1 }, // GRENADE
 		{ TYPE_AUTO,       0.0f,   50.0f,   3.0f,   50.0f,   0 }  // AKIMBO
+	};
+
+	itemstat ammostats[NUMGUNS] =
+	{
+		{ 1,  1,   1,  S_ITEMAMMO },   // knife dummy
+	{ 20, 60, 100,  S_ITEMAMMO },   // pistol
+	{ 15, 30,  30,  S_ITEMAMMO },   // carbine
+	{ 14, 28,  21,  S_ITEMAMMO },   // shotgun
+	{ 60, 90,  90,  S_ITEMAMMO },   // subgun
+	{ 10, 20,  15,  S_ITEMAMMO },   // sniper
+	{ 40, 60,  60,  S_ITEMAMMO },   // assault
+	{ 30, 45,  75,  S_ITEMAMMO },   // cpistol
+	{ 1,  0,   3,  S_ITEMAMMO },   // grenade
+	{ 100,  0, 100,  S_ITEMAKIMBO }    // akimbo
 	};
 };
 

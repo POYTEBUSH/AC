@@ -4,10 +4,14 @@
 #include "entity.h"
 #include "bot.h"
 
+#include "pb_FuzzyAttackCalc.h"
+
 #include "pb_FuzzyModule.h"
 #include "pb_FuzzyTerm.h"
 
 #include "tools.h"
+
+#include <sstream>	
 
 class pb_botmanager
 {

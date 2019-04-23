@@ -13,5 +13,7 @@ public:
 	void PerformTask(CBot* bot);
 	bool IsValid(CBot* bot);
 	bool IsCompleted(CBot* bot);
+
+	vec GetLookAtTarget(CBot* bot) { return vec(mTargetVec.x, mTargetVec.y+4, mTargetVec.z); }
 };
 

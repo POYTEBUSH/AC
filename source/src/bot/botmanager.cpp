@@ -50,6 +50,7 @@ void CBotManager::Think()
 		Init();
 		m_bInit = false;
 	}
+
 	if (m_pBotToView) ViewBot();
 	AddDebugText("m_sMaxAStarBots: %d", m_sMaxAStarBots);
 	AddDebugText("m_sCurrentTriggerNr: %d", m_sCurrentTriggerNr);
@@ -881,6 +882,8 @@ botent *CBotManager::CreateBot(const char *team, const char *skill, const char *
 	m->pBot->m_pMyEnt = m;
 	m->pBot->m_iLastBotUpdate = 0;
 	m->pBot->m_bSendC2SInit = false;
+
+	m->pBot->SelectGun(6);
 
 	//Attach bot to MARPO System
 	m->pBot->m_iLookForWaypointTime = lastmillis + 1000;

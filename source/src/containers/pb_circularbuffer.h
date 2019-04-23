@@ -34,37 +34,55 @@ public:
 	size_t Size() const { return mMaxSize; }
 
 	///<summary>Add a new item to the collection. If the max size has already been met, the oldest item is removed.</summary>
-	void Add(T data)
+	void Add(T data, bool checkcontains = false)
 	{
-		mCurrentSize++;
-
-		Node<T>* newNode = new Node<T>(data);
-		if (mHeadNode == nullptr)
+		if (!checkcontains || (checkcontains && !Contains(data)))
 		{
-			mHeadNode = newNode;
-		}		
-		else {
-			//Get the last item
-			Node<T>* currentNode = mHeadNode;
-			while (currentNode->RightNode != nullptr)
+			mCurrentSize++;
+
+			Node<T>* newNode = new Node<T>(data);
+			if (mHeadNode == nullptr)
 			{
-				currentNode = currentNode->RightNode;
+				mHeadNode = newNode;
 			}
-			currentNode->RightNode = newNode;
-			newNode->LeftNode = currentNode;
-			newNode->RightNode = nullptr;
-		}
+			else {
+				//Get the last item
+				Node<T>* currentNode = mHeadNode;
+				while (currentNode->RightNode != nullptr)
+				{
+					currentNode = currentNode->RightNode;
+				}
+				currentNode->RightNode = newNode;
+				newNode->LeftNode = currentNode;
+				newNode->RightNode = nullptr;
+			}
 
-		//If the current size is now bigger than the max, delete the head node and reassign it the value of its child...
-		//e.g. shifting all items left one.
-		if (mCurrentSize > mMaxSize)
-		{
-			Node<T>* nextNode = mHeadNode->RightNode;
-			delete mHeadNode;
-			mHeadNode = nextNode;
-			mHeadNode->LeftNode = nullptr;
-			mCurrentSize--;
+			//If the current size is now bigger than the max, delete the head node and reassign it the value of its child...
+			//e.g. shifting all items left one.
+			if (mCurrentSize > mMaxSize)
+			{
+				Node<T>* nextNode = mHeadNode->RightNode;
+				delete mHeadNode;
+				mHeadNode = nextNode;
+				mHeadNode->LeftNode = nullptr;
+				mCurrentSize--;
+			}
 		}
+	}
+		
+	T At(int index)
+	{
+		Node<T>* currentNode = mHeadNode;
+		int count = 0;
+		while (count < index)
+		{
+			if (currentNode == nullptr)
+				return nullptr;
+
+			currentNode = currentNode->RightNode;
+			count++;
+		}
+		return currentNode->ThisNode;
 	}
 
 	void Clear()
