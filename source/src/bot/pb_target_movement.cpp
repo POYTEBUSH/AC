@@ -45,9 +45,31 @@ bool pb_target_movement::CalculateSubTasks(CBot * bot)
 void pb_target_movement::PerformTask(CBot * bot)
 {	//Set the goal waypoint to the one closest to the target vec
 	//Start with the bot moving
-	if (mTargetVec != vec(-1,-1,-1))
+	if (mTargetVec != vec(-1, -1, -1))
 	{
-		bot->SetCurrentWaypoint(bot->GetNearestWaypoint(mTargetVec, 10.f));
+		if (bot->m_AStarNodeList.Empty())
+		{
+			if (!bot->AStar())
+			{
+				// Bot is calculating a new path, just stand still for now
+				bot->ResetMoveSpeed();
+				bot->m_iWaypointTime += 200;
+				return;
+			}
+			else
+			{
+				if (bot->m_AStarNodeList.Empty())
+				{
+					return; // Couldn't get a new wp to go to
+				}
+			}
+		}
+
+		bot->m_pCurrentWaypoint = bot->m_AStarNodeList.Pop();
+
+		bot->SetCurrentWaypoint(bot->m_pCurrentWaypoint);
+
+		//bot->SetCurrentWaypoint(bot->GetNearestWaypoint(mTargetVec, 10.f));
 		bot->HeadToWaypoint();
 	}
 }
@@ -61,7 +83,7 @@ bool pb_target_movement::IsValid(CBot * bot)
 bool pb_target_movement::IsCompleted(CBot * bot)
 {
 	//Utilised for hunt task
-	if(mTargetEntity != nullptr)
+	if (mTargetEntity != nullptr)
 	{
 		return bot->GetDistance(mTargetVec) <= 10.f && mTargetEntity->spawned == false;
 	}

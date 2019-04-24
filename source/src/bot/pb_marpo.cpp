@@ -70,7 +70,8 @@ void pb_marpo::PerformNextTask()
 	CheckMorePertinentTasks();
 
 	bool taskReady = false;
-	while (!taskReady)
+	int count = 0;
+	while (!taskReady && count < 5)
 	{
 		while (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
 		{
@@ -97,20 +98,56 @@ void pb_marpo::PerformNextTask()
 				mDefaultTarget->Reset();
 				mCurrentTarget = mDefaultTarget;
 			}
+			count++;
 		}
 
 		//Check if there are any subtasks to perform
 		if (mCurrentTarget->CalculateSubTasks(mBot->pBot)) {
 			//Set the current to nullptr so when it loops around again we use the new task
 			mCurrentTarget = nullptr;
-			continue;
+			//continue;
 		}
 		taskReady = true;
 	}
 
-	//We either need to perform the current task or a new one is given.
-	debugbeam(mBot->o, mCurrentTarget->mTargetVec);
-	mCurrentTarget->PerformTask(mBot->pBot);
+	//if (mCurrentTarget == nullptr || !mCurrentTarget->IsValid(mBot->pBot) || mCurrentTarget->IsCompleted(mBot->pBot))
+	//{
+	//	DeleteCurrentTask();
+	//	if (!mImmediateTasks.empty())
+	//	{
+	//		mCurrentTarget = mImmediateTasks.top();
+	//		mImmediateTasks.pop();
+	//	}
+	//	else if (!mReactiveTasks.empty())
+	//	{
+	//		mCurrentTarget = mReactiveTasks.top();
+	//		mReactiveTasks.pop();
+	//	}
+	//	else if (!mLongTermTasks.empty())
+	//	{
+	//		mCurrentTarget = mLongTermTasks.top();
+	//		mLongTermTasks.pop();
+	//	}
+	//	else
+	//	{
+	//		//At this point the long term goal stack is empty, this shouldn't be the case. Re-apply the default.
+	//		//Set the default target to not completed, this way it can be worked on again.		
+	//		mDefaultTarget->Reset();
+	//		mCurrentTarget = mDefaultTarget;
+	//	}
+	//}
+
+	//Check if there are any subtasks to perform
+	//if (mCurrentTarget->CalculateSubTasks(mBot->pBot)) {
+	//	//Set the current to nullptr so when it loops around again we use the new task
+	//	mCurrentTarget = nullptr;
+	//}
+	//taskReady = true;
+
+	if (mCurrentTarget != nullptr)
+		mCurrentTarget->PerformTask(mBot->pBot);
+	else
+		mBot->move = 1;
 }
 
 void pb_marpo::ClearTasks()

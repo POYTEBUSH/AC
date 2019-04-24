@@ -17,7 +17,7 @@ public:
 
 	void SetRange(double range) { mRequiredRange = range; }
 
-	vec GetLookAtTarget(CBot* bot) { return vec(mTargetVec.x, mTargetVec.y+4, mTargetVec.z); }
+	vec GetLookAtTarget(CBot* bot) { return vec(-1, -1, -1); }// return vec(mTargetVec.x, mTargetVec.y + 4, mTargetVec.z); }
 
 private:
 

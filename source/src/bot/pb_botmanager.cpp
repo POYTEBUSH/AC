@@ -43,14 +43,14 @@ void pb_botmanager::Update(vector<botent*> bots)
 		if (bots[i]->pBot)
 		{
 			auto botMarpoI = pb_marpomanager::Instance().GetBotAttachment(thisBotEnt);
-			
+
 			if (thisBotEnt->state == CS_ALIVE) {
 
 				//Check the desirability of the current task
 				auto currentTarget = botMarpoI->GetCurrentTarget();
 				double currentBestScore = 0.0;
 				if (currentTarget != nullptr)
-				{					
+				{
 					//If bot target, get that score... else use target distance scoring
 					if (currentTarget->GetTargetType() == ETargetType::TARGET_TYPE_BOT)
 					{
@@ -75,44 +75,41 @@ void pb_botmanager::Update(vector<botent*> bots)
 				ss << "Weapon_";
 				ss << weapon;
 
-				////Don't bother looking to attack a bot if you have no ammo for it
-				//if (thisBot->m_pMyEnt->mag[thisBot->m_pMyEnt->weaponsel->type] > 0)
-				//{
-					for (size_t j = 0; j < bots.length(); j++)
-					{
-						botent* enemyBot = bots[j];
-						if (enemyBot->state == CS_ALIVE) {
-							if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
-							{
-								double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, enemyBot);
-
-								if (desireToAttack > targetBestScore)
-								{
-									targetBestScore = desireToAttack;
-									target = enemyBot;
-								}
-							}
-						}
-					}
-					if (player1->state == CS_ALIVE) {
-						if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
+				for (size_t j = 0; j < bots.length(); j++)
+				{
+					botent* enemyBot = bots[j];
+					if (enemyBot->state == CS_ALIVE) {
+						if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
 						{
-							double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, player1);
+							double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, enemyBot);
 
 							if (desireToAttack > targetBestScore)
 							{
 								targetBestScore = desireToAttack;
-								target = player1;
+								target = enemyBot;
 							}
 						}
 					}
-				
+				}
+				if (player1->state == CS_ALIVE) {
+					if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
+					{
+						double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, player1);
+
+						if (desireToAttack > targetBestScore)
+						{
+							targetBestScore = desireToAttack;
+							target = player1;
+						}
+					}
+				}
+
 
 				//Check if we have a new target and the new target has a higher desirability,
 				//The new target must either be more desirable, no current target or a higher risk
-				if (target != nullptr && 
-					(targetBestScore > currentBestScore 
-						|| currentTarget == nullptr 
+				if (target != nullptr &&
+					(targetBestScore > currentBestScore
+						|| currentTarget == nullptr
 						|| (currentTarget->GetTaskLevel() < TASK_LEVEL_REACTIVE)))
 				{
 					auto attackTask = new pb_target_attack(TASK_LEVEL_REACTIVE);
@@ -175,5 +172,5 @@ void pb_botmanager::Update(vector<botent*> bots)
 				}
 			}
 		}
-	}	
+	}
 }
