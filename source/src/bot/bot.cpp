@@ -94,6 +94,7 @@ void CBot::Think()
     // Bot is dead?
 
 	ResetMoveSpeed();
+	m_pMyEnt->move = 1;
 	//m_pMyEnt->pitch = 1;
 	// Aim to ideal yaw and pitch
 	AimToIdeal();

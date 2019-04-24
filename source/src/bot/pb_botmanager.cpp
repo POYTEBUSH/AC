@@ -5,6 +5,8 @@
 #include "pb_target_attack.h"
 #include "pb_target_rotate.h"
 
+#include "pb_blackboard.h"
+
 pb_botmanager* pb_botmanager::mInstance;
 
 void pb_botmanager::Init()
@@ -24,10 +26,13 @@ void pb_botmanager::Init()
 	mFuzzyModule.AddRule(targetFar, desirabilityMinimal);
 
 	pb_FuzzyAttackCalc::Instance()->Init();
+	pb_blackboard_manager::Instance()->Init();
 }
 
 void pb_botmanager::Update(vector<botent*> bots)
 {
+	pb_blackboard_manager::Instance()->PerformArbitrations();
+
 	for (size_t i = 0; i < bots.length(); i++)
 	{
 		auto thisBotEnt = bots[i];
