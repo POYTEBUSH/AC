@@ -75,35 +75,38 @@ void pb_botmanager::Update(vector<botent*> bots)
 				ss << "Weapon_";
 				ss << weapon;
 
-				//Don't bother looking to attack a bot if you have no ammo for it
-				for (size_t j = 0; j < bots.length(); j++)
-				{
-					botent* enemyBot = bots[j];
-					if (enemyBot->state == CS_ALIVE) {
-						if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
+				////Don't bother looking to attack a bot if you have no ammo for it
+				//if (thisBot->m_pMyEnt->mag[thisBot->m_pMyEnt->weaponsel->type] > 0)
+				//{
+					for (size_t j = 0; j < bots.length(); j++)
+					{
+						botent* enemyBot = bots[j];
+						if (enemyBot->state == CS_ALIVE) {
+							if (thisBot->IsInFOV(enemyBot) && (enemyBot->team != thisBotEnt->team || m_arena))
+							{
+								double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, enemyBot);
+
+								if (desireToAttack > targetBestScore)
+								{
+									targetBestScore = desireToAttack;
+									target = enemyBot;
+								}
+							}
+						}
+					}
+					if (player1->state == CS_ALIVE) {
+						if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
 						{
-							double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, enemyBot);
+							double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, player1);
 
 							if (desireToAttack > targetBestScore)
 							{
 								targetBestScore = desireToAttack;
-								target = enemyBot;
+								target = player1;
 							}
 						}
 					}
-				}
-				if (player1->state == CS_ALIVE) {
-					if (thisBot->IsInFOV(player1) && (player1->team != thisBotEnt->team || m_arena))
-					{
-						double desireToAttack = pb_FuzzyAttackCalc::Instance()->CalculateDesirability(thisBotEnt, player1);
-
-						if (desireToAttack > targetBestScore)
-						{
-							targetBestScore = desireToAttack;
-							target = player1;
-						}
-					}
-				}
+				
 
 				//Check if we have a new target and the new target has a higher desirability,
 				//The new target must either be more desirable, no current target or a higher risk

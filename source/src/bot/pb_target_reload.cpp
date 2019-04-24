@@ -6,14 +6,14 @@
 bool pb_target_reload::CalculateSubTasks(CBot * bot)
 {
 	//If you have less than the required ammo that the bot requires to reload, find some
-	if (bot->m_pMyEnt->ammo[bot->m_pMyEnt->weaponsel->type] < WeaponInfoTable[bot->m_pMyEnt->weaponsel->type].sMinDesiredAmmo)
-	{
-		pb_target_hunt* huntTask = new pb_target_hunt(mTaskLevel);
-		//Set the tasks target to the current position
-		huntTask->SetTargetType(EntityTypes::I_AMMO);
-		pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(huntTask);
-		return true;
-	}
+	//if (bot->m_pMyEnt->ammo[bot->m_pMyEnt->weaponsel->type] < WeaponInfoTable[bot->m_pMyEnt->weaponsel->type].sMinDesiredAmmo)
+	//{
+	//	pb_target_hunt* huntTask = new pb_target_hunt(mTaskLevel);
+	//	//Set the tasks target to the current position
+	//	huntTask->SetTargetType(EntityTypes::I_AMMO);
+	//	pb_marpomanager::Instance().GetBotAttachment(bot->m_pMyEnt)->AddTarget(huntTask);
+	//	return true;
+	//}
 
 	return false;
 }

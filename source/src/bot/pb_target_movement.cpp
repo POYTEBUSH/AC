@@ -55,7 +55,7 @@ void pb_target_movement::PerformTask(CBot * bot)
 bool pb_target_movement::IsValid(CBot * bot)
 {
 	//As this is a simple movement task, it is always valid
-	return bot->IsReachable(mTargetVec);
+	return true;// bot->IsReachable(mTargetVec);
 }
 
 bool pb_target_movement::IsCompleted(CBot * bot)
