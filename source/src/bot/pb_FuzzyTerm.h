@@ -37,26 +37,53 @@ private:
 	pb_FuzzySet & m_Set;
 };
 
-class pb_FuzzyTermGroup : public pb_FuzzyTerm
+class pb_FuzzyTermAND : public pb_FuzzyTerm
 {
 public:
 
-	pb_FuzzyTermGroup(const pb_FuzzyTermGroup& fa)
+	pb_FuzzyTermAND(const pb_FuzzyTermAND& fa)
 	{
 		for (auto fs : fa.mTerms)
 		{
 			mTerms.push_back(fs->Clone());
 		}
 	}
-	pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2);
-	pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3);
-	pb_FuzzyTermGroup(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3, pb_FuzzyTerm& op4);
+	pb_FuzzyTermAND(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2);
+	pb_FuzzyTermAND(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3);
+	pb_FuzzyTermAND(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3, pb_FuzzyTerm& op4);
 
 	double GetDegreeOfMembership()const;
 	void ClearDegreeOfMemebership();
 	void ORWithDegreeOfMemebership(double val); 
 	
-	pb_FuzzyTerm* Clone() const { return new pb_FuzzyTermGroup(*this); }
+	pb_FuzzyTerm* Clone() const { return new pb_FuzzyTermAND(*this); }
+
+private:
+
+	std::vector<pb_FuzzyTerm*> mTerms;
+
+};
+
+class pb_FuzzyTermOR : public pb_FuzzyTerm
+{
+public:
+
+	pb_FuzzyTermOR(const pb_FuzzyTermOR& fa)
+	{
+		for (auto fs : fa.mTerms)
+		{
+			mTerms.push_back(fs->Clone());
+		}
+	}
+	pb_FuzzyTermOR(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2);
+	pb_FuzzyTermOR(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3);
+	pb_FuzzyTermOR(pb_FuzzyTerm& op1, pb_FuzzyTerm& op2, pb_FuzzyTerm& op3, pb_FuzzyTerm& op4);
+
+	double GetDegreeOfMembership()const;
+	void ClearDegreeOfMemebership();
+	void ORWithDegreeOfMemebership(double val);
+
+	pb_FuzzyTerm* Clone() const { return new pb_FuzzyTermOR(*this); }
 
 private:
 

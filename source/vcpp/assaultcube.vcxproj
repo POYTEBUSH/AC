@@ -408,6 +408,7 @@
     <ClInclude Include="..\src\bot\pb_botmanager.h" />
     <ClInclude Include="..\src\bot\pb_FuzzyAttackCalc.h" />
     <ClInclude Include="..\src\bot\pb_FuzzyModule.h" />
+    <ClInclude Include="..\src\bot\pb_FuzzyPickupCalc.h" />
     <ClInclude Include="..\src\bot\pb_FuzzyRule.h" />
     <ClInclude Include="..\src\bot\pb_FuzzySet.h" />
     <ClInclude Include="..\src\bot\pb_FuzzyTerm.h" />
@@ -529,6 +530,7 @@
     <ClCompile Include="..\src\bot\pb_botmanager.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyAttackCalc.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyModule.cpp" />
+    <ClCompile Include="..\src\bot\pb_FuzzyPickupCalc.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzySet.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyTerm.cpp" />
     <ClCompile Include="..\src\bot\pb_FuzzyVariable.cpp" />

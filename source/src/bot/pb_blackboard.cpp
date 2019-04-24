@@ -31,6 +31,9 @@ void pb_blackboard_manager::AddPickupInfo(entity * ent, int team)
 
 	if (ent->type == EntityTypes::I_AMMO)
 		mBlackboards[team]->AddPickupInfo(ent, pb_blackboard_query_type::Ammo);
+
+	if (ent->type == EntityTypes::I_ARMOUR)
+		mBlackboards[team]->AddPickupInfo(ent, pb_blackboard_query_type::Armour);
 }
 
 void pb_blackboard_manager::AddEnemyInfo(playerent * ent, int team)
@@ -69,6 +72,10 @@ void pb_blackboard::AddPickupInfo(entity * ent, pb_blackboard_query_type type)
 		mAmmoPickups[ent] = vec(ent->x, ent->y, ent->z);
 	}
 	break;
+	case Armour:
+	{
+		mArmourPickups[ent] = vec(ent->x, ent->y, ent->z);
+	}
 	case Enemy:
 		break;
 	default:
@@ -132,6 +139,25 @@ void pb_blackboard::PerformArbitration()
 			}
 		}
 		break;
+		case Armour:
+		{
+			for (auto hp : mArmourPickups)
+			{
+				double dist = q.Sender->o.dist(hp.second);
+				if (dist < closestDist)
+				{
+					closestDist = dist;
+					targetPos = hp.second;
+					foundEnt = hp.first;
+					found = true;
+				}
+			}
+			if (found)
+			{
+				pb_marpomanager::Instance().GetBotAttachment(q.Sender)->GetPickupLocationMemory()->Add(foundEnt);
+				mArmourPickups.erase(foundEnt);
+			}
+		}
 		case Enemy:
 		{
 			playerent* foundEnt;

@@ -8,7 +8,8 @@ enum pb_blackboard_query_type
 {
 	Health,
 	Ammo,
-	Enemy
+	Enemy,
+	Armour
 };
 
 struct pb_blackboard_query
@@ -48,6 +49,7 @@ private:
 	//Map is used to ensure data is not spammed
 	std::map<entity*, vec> mHealthPickups;
 	std::map<entity*, vec> mAmmoPickups;
+	std::map<entity*, vec> mArmourPickups;
 	std::map<playerent*, vec> mEnemies;
 };
 

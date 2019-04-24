@@ -166,6 +166,9 @@
     <ClInclude Include="..\src\bot\pb_target_getinrange.h">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\bot\pb_FuzzyPickupCalc.h">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\config\admin.cfg">
@@ -499,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="..\src\bot\pb_target_getinrange.cpp">
       <Filter>bot\PeterBush-b013432f\Custom Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bot\pb_FuzzyPickupCalc.cpp">
+      <Filter>bot\PeterBush-b013432f\Fuzzy Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

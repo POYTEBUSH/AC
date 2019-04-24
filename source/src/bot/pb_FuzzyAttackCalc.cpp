@@ -25,13 +25,13 @@ void pb_FuzzyAttackCalc::Init()
 		pb_FzSet enemyNear = enemyDistance.AddFuzzySet(FuzzySetType::Triangular, "EnemyNear", WeaponInfoTable[i].flMinDesiredDistance, WeaponInfoTable[i].flMaxDesiredDistance, WeaponInfoTable[i].flMaxFireDistance);
 		pb_FzSet enemyFar = enemyDistance.AddFuzzySet(FuzzySetType::RightShoulder, "EnemyFar", WeaponInfoTable[i].flMaxDesiredDistance, WeaponInfoTable[i].flMaxFireDistance, 1e4);
 
-		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, ammoLow), desirabilityMinimal);
-		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, ammoLow), desirabilityMinimal);
-		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, ammoLow), desirabilityMinimal);
+		mFuzzyModule.AddRule(pb_FuzzyTermAND(enemyClose, ammoLow), desirabilityMinimal);
+		mFuzzyModule.AddRule(pb_FuzzyTermAND(enemyNear, ammoLow), desirabilityMinimal);
+		mFuzzyModule.AddRule(pb_FuzzyTermAND(enemyFar, ammoLow), desirabilityMinimal);
 
-		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyClose, ammoSufficient), desirabilityNeutral);
-		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyNear, ammoSufficient), desirabilityFull);
-		mFuzzyModule.AddRule(pb_FuzzyTermGroup(enemyFar, ammoSufficient), desirabilityMinimal);
+		mFuzzyModule.AddRule(pb_FuzzyTermAND(enemyClose, ammoSufficient), desirabilityNeutral);
+		mFuzzyModule.AddRule(pb_FuzzyTermAND(enemyNear, ammoSufficient), desirabilityFull);
+		mFuzzyModule.AddRule(pb_FuzzyTermAND(enemyFar, ammoSufficient), desirabilityMinimal);
 	}
 }
 
