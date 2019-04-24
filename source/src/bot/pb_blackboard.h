@@ -16,9 +16,6 @@ struct pb_blackboard_query
 {
 	botent* Sender;
 	pb_blackboard_query_type QueryType;
-
-	double SendTime;
-
 	bool Completed;
 	
 	pb_blackboard_query(botent* s, pb_blackboard_query_type type)
@@ -27,13 +24,14 @@ struct pb_blackboard_query
 		QueryType = type;
 		Completed = false;
 	}
+	pb_blackboard_query() {}
 };
 
 class pb_blackboard
 {
 public:
 
-	void AddQuery(pb_blackboard_query query);
+	void AddQuery(playerent* a, pb_blackboard_query query);
 
 	void AddPickupInfo(entity* ent, pb_blackboard_query_type type);
 	void AddEnemyInfo(playerent* ent);
@@ -42,7 +40,7 @@ public:
 
 private:
 	
-	std::vector<pb_blackboard_query> mQueries;
+	std::map<playerent*, pb_blackboard_query> mQueries;
 
 	//Used to store the last known location, rather than the actual.
 	//When sent to a player their information is removed
@@ -71,7 +69,7 @@ public:
 
 	void Init();
 
-	void AddQuery(pb_blackboard_query query, int team);
+	void AddQuery(playerent* a, pb_blackboard_query query, int team);
 
 	void AddPickupInfo(entity* ent, int team);
 	void AddEnemyInfo(playerent* ent, int team);

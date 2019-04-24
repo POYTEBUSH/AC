@@ -15,11 +15,11 @@ void pb_blackboard_manager::Init()
 	}
 }
 
-void pb_blackboard_manager::AddQuery(pb_blackboard_query query, int team)
+void pb_blackboard_manager::AddQuery(playerent* a, pb_blackboard_query query, int team)
 {
 	assert(mBlackboards[team] != nullptr || m_arena);
 
-	mBlackboards[team]->AddQuery(query);
+	mBlackboards[team]->AddQuery(a, query);
 }
 
 void pb_blackboard_manager::AddPickupInfo(entity * ent, int team)
@@ -51,9 +51,9 @@ void pb_blackboard_manager::PerformArbitrations()
 	}
 }
 
-void pb_blackboard::AddQuery(pb_blackboard_query query)
+void pb_blackboard::AddQuery(playerent* a, pb_blackboard_query query)
 {
-	mQueries.push_back(query);
+	mQueries[a] = query;
 }
 
 void pb_blackboard::AddPickupInfo(entity * ent, pb_blackboard_query_type type)
@@ -97,13 +97,13 @@ void pb_blackboard::PerformArbitration()
 		vec targetPos;
 		entity* foundEnt = nullptr;
 
-		switch (q.QueryType)
+		switch (q.second.QueryType)
 		{
 		case Health:
 		{
 			for (auto hp : mHealthPickups)
 			{
-				double dist = q.Sender->o.dist(hp.second);
+				double dist = q.second.Sender->o.dist(hp.second);
 				if (dist < closestDist)
 				{
 					closestDist = dist;
@@ -114,7 +114,7 @@ void pb_blackboard::PerformArbitration()
 			}
 			if (found)
 			{
-				pb_marpomanager::Instance().GetBotAttachment(q.Sender)->GetPickupLocationMemory()->Add(foundEnt);
+				pb_marpomanager::Instance().GetBotAttachment(q.second.Sender)->GetPickupLocationMemory()->Add(foundEnt);
 				mHealthPickups.erase(foundEnt);
 			}
 		}
@@ -123,7 +123,7 @@ void pb_blackboard::PerformArbitration()
 		{
 			for (auto hp : mAmmoPickups)
 			{
-				double dist = q.Sender->o.dist(hp.second);
+				double dist = q.second.Sender->o.dist(hp.second);
 				if (dist < closestDist)
 				{
 					closestDist = dist;
@@ -134,7 +134,7 @@ void pb_blackboard::PerformArbitration()
 			}
 			if (found)
 			{
-				pb_marpomanager::Instance().GetBotAttachment(q.Sender)->GetPickupLocationMemory()->Add(foundEnt);
+				pb_marpomanager::Instance().GetBotAttachment(q.second.Sender)->GetPickupLocationMemory()->Add(foundEnt);
 				mAmmoPickups.erase(foundEnt);
 			}
 		}
@@ -143,7 +143,7 @@ void pb_blackboard::PerformArbitration()
 		{
 			for (auto hp : mArmourPickups)
 			{
-				double dist = q.Sender->o.dist(hp.second);
+				double dist = q.second.Sender->o.dist(hp.second);
 				if (dist < closestDist)
 				{
 					closestDist = dist;
@@ -154,7 +154,7 @@ void pb_blackboard::PerformArbitration()
 			}
 			if (found)
 			{
-				pb_marpomanager::Instance().GetBotAttachment(q.Sender)->GetPickupLocationMemory()->Add(foundEnt);
+				pb_marpomanager::Instance().GetBotAttachment(q.second.Sender)->GetPickupLocationMemory()->Add(foundEnt);
 				mArmourPickups.erase(foundEnt);
 			}
 		}
@@ -163,7 +163,7 @@ void pb_blackboard::PerformArbitration()
 			playerent* foundEnt;
 			for (auto hp : mEnemies)
 			{
-				double dist = q.Sender->o.dist(hp.second);
+				double dist = q.second.Sender->o.dist(hp.second);
 				if (dist < closestDist)
 				{
 					closestDist = dist;
@@ -192,15 +192,15 @@ void pb_blackboard::PerformArbitration()
 				newMovementTask->Set(targetPos);
 
 
-			pb_marpomanager::Instance().GetBotAttachment(q.Sender)->AddTarget(newMovementTask);
-			q.Completed = true;
+			pb_marpomanager::Instance().GetBotAttachment(q.second.Sender)->AddTarget(newMovementTask);
+			q.second.Completed = true;
 		}
 	}
 
 	auto i = begin(mQueries);
 
 	while (i != end(mQueries)) {
-		if (i->Completed)
+		if (i->second.Completed)
 			mQueries.erase(i);
 		else
 			++i;

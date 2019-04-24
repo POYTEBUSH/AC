@@ -29,15 +29,15 @@ bool pb_target_wander::CalculateSubTasks(CBot * bot)
 	if (healthDesire > 50 && healthDesire > armourDesire)
 	{
 
-		pb_blackboard_manager::Instance()->AddQuery(pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Health), bot->m_pMyEnt->team);
+		pb_blackboard_manager::Instance()->AddQuery(bot->m_pMyEnt, pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Health), bot->m_pMyEnt->team);
 	}
 	else if (armourDesire > 50)
 	{
-		pb_blackboard_manager::Instance()->AddQuery(pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Armour), bot->m_pMyEnt->team);
+		pb_blackboard_manager::Instance()->AddQuery(bot->m_pMyEnt, pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Armour), bot->m_pMyEnt->team);
 	}
 	else
 	{
-		pb_blackboard_manager::Instance()->AddQuery(pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Enemy), bot->m_pMyEnt->team);
+		pb_blackboard_manager::Instance()->AddQuery(bot->m_pMyEnt, pb_blackboard_query(bot->m_pMyEnt, pb_blackboard_query_type::Enemy), bot->m_pMyEnt->team);
 	}
 
 
