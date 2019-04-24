@@ -17,5 +17,7 @@ public:
 
 private:
 	bool mCompleted = false;
+
+	void FixStuck(CBot * bot);
 };
 
